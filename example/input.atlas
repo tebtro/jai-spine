@@ -1,0 +1,37 @@
+
+	header: multiple, values
+
+empty_page.png
+
+page-1.png
+	size: 1024, 256
+	format: RGBA8888
+	filter: Linear, Linear
+	repeat: none
+	scale: 0.5
+	pma: true
+empty-region
+
+page-clampy.png
+	repeat: clamp y
+
+page-2.png
+	size: 1024, 256
+	filter: Linear, Linear
+	repeat: clamp x y
+region1
+	bounds: 813, 160, 45, 45
+	index: 0
+	rotate: 90
+region_xy
+	xy: 569, 2
+region_size
+	size: 47, 45
+region_offset
+	offset: 1, 2
+region_orig
+	orig: 3, 4
+region_offsets
+	offsets: 1, 2, 3, 4
+region_rotate
+	rotate: true

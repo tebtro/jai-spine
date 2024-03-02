@@ -1,0 +1,36 @@
+	header: multiple, values
+
+empty_page.png
+
+page-1.png
+	size: 1024, 256
+	format: RGBA8888
+	filter: Linear, Linear
+	repeat: clamp
+	scale: 0.5
+	pma: true
+path/empty-region
+
+page-clampy.png
+	repeat: clampx
+
+page-2.png
+	size: 1024, 256
+	filter: Linear, Linear
+	repeat: clampx
+path/region1
+	index: 0
+	bounds: 813, 160, 45, 45
+	rotation: 90
+path/region_xy
+	bounds: 569, 2, 0, 0
+path/region_size
+	bounds: 0, 0, 47, 45
+path/region_offset
+	offsets: 1, 2, 0, 0
+path/region_orig
+	offsets: 0, 0, 3, 4
+path/region_offsets
+	offsets: 1, 2, 3, 4
+path/region_rotate
+	rotation: 90
