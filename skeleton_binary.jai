@@ -297,6 +297,40 @@ load_skeleton_binary_41 :: (using skeleton: * Skeleton_Data, data: string, scale
         constraint.mix_shear_y = read_f32(s);
     }
 
+    // Path constraints
+    path_constraints_count := read_var_s32(s, true);
+    array_reserve(*path_constraints, path_constraints_count);
+    for 0..path_constraints_count-1 {
+        constraint := array_add(*path_constraints);
+        constraint.name = read_string(s);
+        if !constraint.name.data {
+            log("Path constraint name must not be null!");
+            return false;
+        }
+        constraint.order = read_var_s32(s, true);
+        constraint.skin_required = read_bool(s);
+        bones_count := read_var_s32(s, true);
+        array_reserve(*constraint.bones, bones_count);
+        for 0..bones_count-1 {
+            array_add(*constraint.bones, read_var_s32(s, true));
+        }
+        constraint.target = read_var_s32(s, true);
+        constraint.position_mode = xx read_var_s32(s, true);
+        constraint.spacing\_mode = xx read_var_s32(s, true);
+        constraint.rotate\ _mode = xx read_var_s32(s, true);
+        constraint.position = read_f32(s);
+        if constraint.position_mode == .FIXED  constraint.position *= scale;
+        constraint.spacing = read_f32(s);
+        if constraint.spacing_mode == .LENGTH || constraint.spacing_mode == .FIXED  constraint.spacing *= scale;
+        constraint.mix_rotate = read_f32(s);
+        constraint.mix_x = read_f32(s);
+        constraint.mix_y = read_f32(s);
+    }
+
+    // Default skin
+
+    // Skins
+
     print("TODO: 41\n");
     return true;
 }
