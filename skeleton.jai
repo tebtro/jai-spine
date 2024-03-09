@@ -18,9 +18,18 @@ Skeleton_Data :: struct {
     ik_constraints: [..] Ik_Constraint;
     transform_constraints: [..] Transform_Constraint;
     path_constraints: [..] Path_Constraint;
+
+    default_skin: * Skin;
+    skins: [..] Skin;
 }
 
 Bone_Index :: s32;
+Slot_Index :: s32;
+
+Ik_Constraint_Index        :: s32;
+Transform_Constraint_Index :: s32;
+Path_Constraint_Index      :: s32;
+
 Color :: [4] float32;
 
 Bone_Data :: struct {
@@ -101,6 +110,24 @@ Path_Constraint :: struct {
     mix_y: float32;
 }
 
+Skin :: struct {
+    name: string;
+    bones: [..] Bone_Index;
+    ik\      _constraints: [..] Ik\      _Constraint_Index;
+    transform_constraints: [..] Transform_Constraint_Index;
+    path\    _constraints: [..] Path\    _Constraint_Index;
+    slots: [..] Slot;
+}
+
+Slot :: struct {
+    index: Slot_Index;
+    attachments: [..] * Attachment;
+}
+
+Attachment :: struct {
+    name: string;
+    type: Attachment_Type;
+}
 
 Attachment_Type :: enum {
     REGION       :: 0;
@@ -110,6 +137,79 @@ Attachment_Type :: enum {
     PATH         :: 4;
     POINT        :: 5;
     CLIPPING     :: 6;
+}
+
+Attachment_Region :: struct {
+    #as using _: Attachment = .{ type = .REGION };
+    path: string;
+    rotation: float32;
+    x: float32;
+    y: float32;
+    scale_x: float32;
+    scale_y: float32;
+    width: float32;
+    height: float32;
+    color: Color;
+    sequence: Sequence;
+}
+
+Attachment_Bounding_Box :: struct {
+    #as using _: Attachment = .{ type = .BOUNDING_BOX };
+    vertices: Vertices;
+    color: Color;
+}
+
+Attachment_Mesh :: struct {
+    #as using _: Attachment = .{ type = .MESH };
+    path: string;
+    color: Color;
+    vertices: Vertices;
+    triangles: [..] s16;
+    region_uvs: [..] float32;
+    hull_length: s32;
+    edges: [..] s16;
+    width: float32;
+    height: float32;
+}
+
+Attachment_Linked_Mesh :: struct {
+    #as using _: Attachment = .{ type = .LINKED_MESH };
+    path: string;
+    color: Color;
+    sequence: Sequence;
+    width: float32;
+    height: float32;
+    inherit_timelines: bool;
+}
+
+Attachment_Path :: struct {
+    #as using _: Attachment = .{ type = .PATH };
+    path: string;
+    closed: bool;
+    constant_speed: bool;
+    vertices: Vertices;
+    lengths: [..] float32;
+}
+
+Attachment_Point :: struct {
+    #as using _: Attachment = .{ type = .POINT };
+    rotation: float32;
+    x: float32;
+    y: float32;
+    color: Color;
+}
+
+Attachment_Clipping :: struct {
+    #as using _: Attachment = .{ type = .CLIPPING };
+    end_slot_index: Slot_Index;
+    vertices: Vertices;
+    color: Color;
+}
+
+Sequence :: struct {
+}
+
+Vertices :: struct {
 }
 
 Blend_Mode :: enum {

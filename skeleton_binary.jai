@@ -126,213 +126,304 @@ load_skeleton_binary :: (using skeleton: * Skeleton_Data, data: string, scale: f
     spine_version := detect_spine_version(version_string);
 
     if spine_version == .Version38 {
-        return load_skeleton_binary_38(skeleton, data, scale);
+        return Skeleton_Binary_38.load(skeleton, data, scale);
     }
 
     version_string = read_version_new(data);
     spine_version = detect_spine_version(version_string);
 
     if spine_version == .Version40 || spine_version == .Version41 {
-        return load_skeleton_binary_41(skeleton, data, scale);
+        return Skeleton_Binary_41.load(skeleton, data, scale);
     }
 
     log("Unsupported spine version: %\n", version_string);
     return false;
 }
 
-load_skeleton_binary_38 :: (using skeleton: * Skeleton_Data, data: string, scale: float32) -> bool {
-    s := * data;
+Skeleton_Binary_38 :: struct {
+    load :: (using skeleton: * Skeleton_Data, data: string, scale: float32) -> bool {
+        s := * data;
 
-    hash    = read_string(s);
-    version = read_string(s);
+        hash    = read_string(s);
+        version = read_string(s);
 
-    x = read_f32(s);
-    y = read_f32(s);
-    width  = read_f32(s);
-    height = read_f32(s);
+        x = read_f32(s);
+        y = read_f32(s);
+        width  = read_f32(s);
+        height = read_f32(s);
 
-    if read_bool(s) {
-        fps = read_f32(s);
-        image_path = read_string(s);
-        audio_path = read_string(s);
+        if read_bool(s) {
+            fps = read_f32(s);
+            image_path = read_string(s);
+            audio_path = read_string(s);
+        }
+
+        print("TODO: 38\n");
+        return true;
     }
-
-    print("TODO: 38\n");
-    return true;
 }
 
-load_skeleton_binary_41 :: (using skeleton: * Skeleton_Data, data: string, scale: float32) -> bool {
-    s := * data;
+Skeleton_Binary_41 :: struct {
+    load :: (using skeleton: * Skeleton_Data, data: string, scale: float32) -> bool {
+        s := * data;
 
-    hash_low  := read_u32(s);
-    hash_high := read_u32(s);
-    hash = sprint("%0%", FormatInt.{ value = hash_high, base = 16 }, FormatInt.{ value = hash_low, base = 16 });
+        hash_low  := read_u32(s);
+        hash_high := read_u32(s);
+        hash = sprint("%0%", FormatInt.{ value = hash_high, base = 16 }, FormatInt.{ value = hash_low, base = 16 });
 
-    version = read_string(s);
-    if slice(version, 0, 3) == {
-        case "4.0";
-        case "4.1";
-        case;
-            log("Skeleton binary 4.1 loader does not support loading version: %!", version);
-            return false;
-    }
-
-    x = read_f32(s);
-    y = read_f32(s);
-    width  = read_f32(s);
-    height = read_f32(s);
-
-    non_essential := read_bool(s);
-    if non_essential {
-        fps = read_f32(s);
-        image_path = read_string(s);
-        audio_path = read_string(s);
-    }
-
-    // Shared strings
-    shared_strings_count := read_var_s32(s, true);
-    array_reserve(*shared_strings, shared_strings_count);
-    for 0..shared_strings_count-1 {
-        array_add(*shared_strings, read_string(s));
-    }
-
-    // Bones
-    bones_count := read_var_s32(s, true);
-    array_reserve(*bones, bones_count);
-    for 0..bones_count-1 {
-        bone := array_add(*bones);
-        bone.name = read_string(s);
-        if !bone.name.data {
-            log("Bone name must not be null!");
-            return false;
+        version = read_string(s);
+        if slice(version, 0, 3) == {
+            case "4.0";
+            case "4.1";
+            case;
+                log("Skeleton binary 4.1 loader does not support loading version: %!", version);
+                return false;
         }
-        bone.parent = ifx (it > 0) then read_var_s32(s, true) else -1;
-        bone.rotation = read_f32(s);
-        bone.x = read_f32(s) * scale;
-        bone.y = read_f32(s) * scale;
-        bone.scale_x = read_f32(s);
-        bone.scale_y = read_f32(s);
-        bone.shear_x = read_f32(s);
-        bone.shear_y = read_f32(s);
-        bone.length = read_f32(s);
-        bone.transform_mode = xx read_var_s32(s, true);
-        bone.skin_required = read_bool(s);
-        if non_essential  bone.color = read_color(s);
-    }
 
-    // Slots
-    slots_count := read_var_s32(s, true);
-    array_reserve(*slots, slots_count);
-    for 0..slots_count-1 {
-        slot := array_add(*slots);
-        slot.name = read_string(s);
-        if !slot.name.data {
-            log("Slot name must not be null!");
-            return false;
-        }
-        slot.bone = read_var_s32(s, true);
-        slot.color = read_color(s);
-        slot.dark_color = read_color(s);
-        slot.attachment_name = read_string_reference(s, shared_strings);
-        slot.blend_mode = xx read_var_s32(s, true);
-    }
+        x = read_f32(s);
+        y = read_f32(s);
+        width  = read_f32(s);
+        height = read_f32(s);
 
-    // Ik constraints
-    ik_constraints_count := read_var_s32(s, true);
-    array_reserve(*ik_constraints, ik_constraints_count);
-    for 0..ik_constraints_count-1 {
-        ik := array_add(*ik_constraints);
-        ik.name = read_string(s);
-        if !ik.name.data {
-            log("Ik constraint name must not be null!");
-            return false;
+        non_essential := read_bool(s);
+        if non_essential {
+            fps = read_f32(s);
+            image_path = read_string(s);
+            audio_path = read_string(s);
         }
-        ik.order = read_var_s32(s, true);
-        ik.skin_required = read_bool(s);
+
+        // Shared strings
+        shared_strings_count := read_var_s32(s, true);
+        array_reserve(*shared_strings, shared_strings_count);
+        for 0..shared_strings_count-1 {
+            array_add(*shared_strings, read_string(s));
+        }
+
+        // Bones
         bones_count := read_var_s32(s, true);
-        array_reserve(*ik.bones, bones_count);
+        array_reserve(*bones, bones_count);
         for 0..bones_count-1 {
-            array_add(*ik.bones, read_var_s32(s, true));
+            bone := array_add(*bones);
+            bone.name = read_string(s);
+            if !bone.name.data {
+                log("Bone name must not be null!");
+                return false;
+            }
+            bone.parent = ifx (it > 0) then read_var_s32(s, true) else -1;
+            bone.rotation = read_f32(s);
+            bone.x = read_f32(s) * scale;
+            bone.y = read_f32(s) * scale;
+            bone.scale_x = read_f32(s);
+            bone.scale_y = read_f32(s);
+            bone.shear_x = read_f32(s);
+            bone.shear_y = read_f32(s);
+            bone.length = read_f32(s);
+            bone.transform_mode = xx read_var_s32(s, true);
+            bone.skin_required = read_bool(s);
+            if non_essential  bone.color = read_color(s);
         }
-        ik.target = read_var_s32(s, true);
-        ik.mix = read_f32(s);
-        ik.softness = read_f32(s) * scale;
-        ik.bend_direction = read_s8(s);
-        ik.compress = read_bool(s);
-        ik.stretch = read_bool(s);
-        ik.uniform = read_bool(s);
+
+        // Slots
+        slots_count := read_var_s32(s, true);
+        array_reserve(*slots, slots_count);
+        for 0..slots_count-1 {
+            slot := array_add(*slots);
+            slot.name = read_string(s);
+            if !slot.name.data {
+                log("Slot name must not be null!");
+                return false;
+            }
+            slot.bone = read_var_s32(s, true);
+            slot.color = read_color(s);
+            slot.dark_color = read_color(s);
+            slot.attachment_name = read_string_reference(s, shared_strings);
+            slot.blend_mode = xx read_var_s32(s, true);
+        }
+
+        // Ik constraints
+        ik_constraints_count := read_var_s32(s, true);
+        array_reserve(*ik_constraints, ik_constraints_count);
+        for 0..ik_constraints_count-1 {
+            ik := array_add(*ik_constraints);
+            ik.name = read_string(s);
+            if !ik.name.data {
+                log("Ik constraint name must not be null!");
+                return false;
+            }
+            ik.order = read_var_s32(s, true);
+            ik.skin_required = read_bool(s);
+            bones_count := read_var_s32(s, true);
+            array_reserve(*ik.bones, bones_count);
+            for 0..bones_count-1 {
+                array_add(*ik.bones, read_var_s32(s, true));
+            }
+            ik.target = read_var_s32(s, true);
+            ik.mix = read_f32(s);
+            ik.softness = read_f32(s) * scale;
+            ik.bend_direction = read_s8(s);
+            ik.compress = read_bool(s);
+            ik.stretch = read_bool(s);
+            ik.uniform = read_bool(s);
+        }
+
+        // Transform constraints
+        transform_constraints_count := read_var_s32(s, true);
+        array_reserve(*transform_constraints, transform_constraints_count);
+        for 0..transform_constraints_count-1 {
+            constraint := array_add(*transform_constraints);
+            constraint.name = read_string(s);
+            if !constraint.name.data {
+                log("Ik constraint name must not be null!");
+                return false;
+            }
+            constraint.order = read_var_s32(s, true);
+            constraint.skin_required = read_bool(s);
+            bones_count := read_var_s32(s, true);
+            array_reserve(*constraint.bones, bones_count);
+            for 0..bones_count-1 {
+                array_add(*constraint.bones, read_var_s32(s, true));
+            }
+            constraint.target = read_var_s32(s, true);
+            constraint.local = read_bool(s);
+            constraint.relative = read_bool(s);
+            constraint.offset_rotation = read_f32(s);
+            constraint.offset_x = read_f32(s) * scale;
+            constraint.offset_y = read_f32(s) * scale;
+            constraint.offset_scale_x = read_f32(s);
+            constraint.offset_scale_y = read_f32(s);
+            constraint.offset_shear_y = read_f32(s);
+            constraint.mix_rotate = read_f32(s);
+            constraint.mix_x = read_f32(s);
+            constraint.mix_y = read_f32(s);
+            constraint.mix_scale_x = read_f32(s);
+            constraint.mix_scale_y = read_f32(s);
+            constraint.mix_shear_y = read_f32(s);
+        }
+
+        // Path constraints
+        path_constraints_count := read_var_s32(s, true);
+        array_reserve(*path_constraints, path_constraints_count);
+        for 0..path_constraints_count-1 {
+            constraint := array_add(*path_constraints);
+            constraint.name = read_string(s);
+            if !constraint.name.data {
+                log("Path constraint name must not be null!");
+                return false;
+            }
+            constraint.order = read_var_s32(s, true);
+            constraint.skin_required = read_bool(s);
+            bones_count := read_var_s32(s, true);
+            array_reserve(*constraint.bones, bones_count);
+            for 0..bones_count-1 {
+                array_add(*constraint.bones, read_var_s32(s, true));
+            }
+            constraint.target = read_var_s32(s, true);
+            constraint.position_mode = xx read_var_s32(s, true);
+            constraint.spacing\_mode = xx read_var_s32(s, true);
+            constraint.rotate\ _mode = xx read_var_s32(s, true);
+            constraint.position = read_f32(s);
+            if constraint.position_mode == .FIXED  constraint.position *= scale;
+            constraint.spacing = read_f32(s);
+            if constraint.spacing_mode == .LENGTH || constraint.spacing_mode == .FIXED  constraint.spacing *= scale;
+            constraint.mix_rotate = read_f32(s);
+            constraint.mix_x = read_f32(s);
+            constraint.mix_y = read_f32(s);
+        }
+
+        // Default skin
+        default_skin = read_skin(skeleton, s, scale, non_essential, is_default_skin = true);
+
+        // Skins
+        skins_count := read_var_s32(s, true);
+        array_reserve(*skins, skins.count + skins_count);
+        for 0..skins_count-1 {
+            skin := read_skin(skeleton, s, scale, non_essential, is_default_skin = false);
+            if !skin {
+                return false;
+            }
+        }
+
+        print("TODO: 41\n");
+        return true;
     }
 
-    // Transform constraints
-    transform_constraints_count := read_var_s32(s, true);
-    array_reserve(*transform_constraints, transform_constraints_count);
-    for 0..transform_constraints_count-1 {
-        constraint := array_add(*transform_constraints);
-        constraint.name = read_string(s);
-        if !constraint.name.data {
-            log("Ik constraint name must not be null!");
-            return false;
+    read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, non_essential: bool, is_default_skin: bool) -> * Skin {
+        skin: * Skin;
+        slots_count: s32;
+
+        if is_default_skin {
+            slots_count = read_var_s32(s, true);
+            if slots_count <= 0  return null;
+
+            skin = array_add(*skins);
+            skin.name = "default";
+        } else {
+            skin = array_add(*skins);
+            skin.name = read_string_reference(s, shared_strings);
+            if !skin.name.data {
+                log("Skin name must not be null!");
+                return null;
+            }
+
+            read_var_s32_array(s, *skin.bones);
+            read_var_s32_array(s, *skin.ik\      _constraints);
+            read_var_s32_array(s, *skin.transform_constraints);
+            read_var_s32_array(s, *skin.path\    _constraints);
+
+            slots_count = read_var_s32(s, true);
         }
-        constraint.order = read_var_s32(s, true);
-        constraint.skin_required = read_bool(s);
-        bones_count := read_var_s32(s, true);
-        array_reserve(*constraint.bones, bones_count);
-        for 0..bones_count-1 {
-            array_add(*constraint.bones, read_var_s32(s, true));
+
+        array_reserve(*skin.slots, slots_count);
+        for 0..slots_count-1 {
+            slot := array_add(*skin.slots);
+            slot.index = read_var_s32(s, true);
+
+            attachments_count := read_var_s32(s, true);
+            array_reserve(*slot.attachments, attachments_count);
+            for 0..attachments_count-1 {
+                attachment_name := read_string_reference(s, shared_strings);
+                if attachment_name.data {
+                    log("Attachment name must not be null!");
+                    return null;
+                }
+
+                attachment := read_attachment(skeleton, s, skin, slot.index, attachment_name, non_essential);
+                if !attachment {
+                    return null;
+                }
+
+                array_add(*slot.attachments, attachment);
+            }
         }
-        constraint.target = read_var_s32(s, true);
-        constraint.local = read_bool(s);
-        constraint.relative = read_bool(s);
-        constraint.offset_rotation = read_f32(s);
-        constraint.offset_x = read_f32(s) * scale;
-        constraint.offset_y = read_f32(s) * scale;
-        constraint.offset_scale_x = read_f32(s);
-        constraint.offset_scale_y = read_f32(s);
-        constraint.offset_shear_y = read_f32(s);
-        constraint.mix_rotate = read_f32(s);
-        constraint.mix_x = read_f32(s);
-        constraint.mix_y = read_f32(s);
-        constraint.mix_scale_x = read_f32(s);
-        constraint.mix_scale_y = read_f32(s);
-        constraint.mix_shear_y = read_f32(s);
+
+        return null;
     }
 
-    // Path constraints
-    path_constraints_count := read_var_s32(s, true);
-    array_reserve(*path_constraints, path_constraints_count);
-    for 0..path_constraints_count-1 {
-        constraint := array_add(*path_constraints);
-        constraint.name = read_string(s);
-        if !constraint.name.data {
-            log("Path constraint name must not be null!");
-            return false;
+    read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, attachment_name: string, non_essential: bool) -> * Attachment {
+        name := read_string_reference(s, shared_strings);
+        if !name.data  name = attachment_name;
+
+        attachment_type := cast(Attachment_Type) read_u8(s);
+        if attachment_type == {
+            case .REGION;
+            case .BOUNDING_BOX;
+            case .MESH;
+            case .LINKED_MESH;
+            case .PATH;
+            case .POINT;
+            case .CLIPPING;
         }
-        constraint.order = read_var_s32(s, true);
-        constraint.skin_required = read_bool(s);
-        bones_count := read_var_s32(s, true);
-        array_reserve(*constraint.bones, bones_count);
-        for 0..bones_count-1 {
-            array_add(*constraint.bones, read_var_s32(s, true));
-        }
-        constraint.target = read_var_s32(s, true);
-        constraint.position_mode = xx read_var_s32(s, true);
-        constraint.spacing\_mode = xx read_var_s32(s, true);
-        constraint.rotate\ _mode = xx read_var_s32(s, true);
-        constraint.position = read_f32(s);
-        if constraint.position_mode == .FIXED  constraint.position *= scale;
-        constraint.spacing = read_f32(s);
-        if constraint.spacing_mode == .LENGTH || constraint.spacing_mode == .FIXED  constraint.spacing *= scale;
-        constraint.mix_rotate = read_f32(s);
-        constraint.mix_x = read_f32(s);
-        constraint.mix_y = read_f32(s);
+
+        return null;
     }
 
-    // Default skin
-
-    // Skins
-
-    print("TODO: 41\n");
-    return true;
+    read_var_s32_array :: (s: * string, array: * [..] $T) {
+        count := read_var_s32(s, true);
+        array_reserve(array, count);
+        for 0..count-1 {
+            array_add(array, read_var_s32(s, true));
+        }
+    }
 }
 
 write_skeleton_binary :: (using skeleton: * Skeleton_Data) -> string {

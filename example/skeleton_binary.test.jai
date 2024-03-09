@@ -12,7 +12,7 @@ main :: () {
         return;
     }
 
-    print("Skeleton: %\n", skeleton.path_constraints);
+    print("Skeleton: %\n", skeleton.skins);
 
     /*
     for atlas.pages {
