@@ -150,7 +150,7 @@ Attachment_Region :: struct {
     width: float32;
     height: float32;
     color: Color;
-    sequence: Sequence;
+    sequence: * Sequence;
 }
 
 Attachment_Bounding_Box :: struct {
@@ -167,6 +167,7 @@ Attachment_Mesh :: struct {
     triangles: [..] s16;
     region_uvs: [..] float32;
     hull_length: s32;
+    sequence: * Sequence;
     edges: [..] s16;
     width: float32;
     height: float32;
@@ -176,7 +177,7 @@ Attachment_Linked_Mesh :: struct {
     #as using _: Attachment = .{ type = .LINKED_MESH };
     path: string;
     color: Color;
-    sequence: Sequence;
+    sequence: * Sequence;
     width: float32;
     height: float32;
     inherit_timelines: bool;
@@ -207,9 +208,15 @@ Attachment_Clipping :: struct {
 }
 
 Sequence :: struct {
+    regions_count: s32;
+    start: s32;
+    digits: s32;
+    setup_index: s32;
 }
 
 Vertices :: struct {
+    vertices: [..] float32;
+    bones: [..] [..] Bone_Index;
 }
 
 Blend_Mode :: enum {
