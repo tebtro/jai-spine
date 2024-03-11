@@ -32,16 +32,19 @@ read_bool :: (data: * string) -> bool {
 read_var_s32 :: (data: * string, optimize_positive: bool) -> s32 {
     b := read_u8(data);
     value: s32 = b & 0x7F;
-    if (b & 0x80) {
+    if b & 0x80 {
         b = read_u8(data);
-        value |= (b & 0x7F) << 7;
-        if (b & 0x80) {
+        value |= cast(s32) (cast(u32) b & 0x7F) << 7;
+        if b & 0x80 {
             b = read_u8(data);
-            value |= (b & 0x7F) << 14;
-            if (b & 0x80) {
+            value |= cast(s32) (cast(u32) b & 0x7F) << 14;
+            if b & 0x80 {
                 b = read_u8(data);
-                value |= (b & 0x7F) << 21;
-                if (b & 0x80) value |= (read_u8(data) & 0x7F) << 28;
+                value |= cast(s32) (cast(u32) b & 0x7F) << 21;
+                if b & 0x80 {
+                    b = read_u8(data);
+                    value |= cast(s32) (cast(u32) b & 0x7F) << 28;
+                }
             }
         }
     }
@@ -61,7 +64,7 @@ read_f32 :: (data: * string) -> float32 {
 
 read_string :: (data: * string) -> string {
     count := read_var_s32(data, true);
-    if      count <= 0  return .{};
+    if count <= 0 || count >= data.count  return .{};
     else if count == 1  return "";
 
     count -= 1;
@@ -376,6 +379,12 @@ Skeleton_Binary_41 :: struct {
             }
         }
 
+        // Linked meshes
+
+        // Events
+
+        // Animations
+
         print("TODO: 41\n");
         return true;
     }
@@ -438,7 +447,6 @@ Skeleton_Binary_41 :: struct {
         if !name  name = attachment_name;
 
         attachment_type := cast(Attachment_Type) read_u8(s);
-        log("Attachment: %\n", attachment_type);
         if attachment_type == {
             case .REGION;
                 region := New(Attachment_Region);
@@ -454,7 +462,6 @@ Skeleton_Binary_41 :: struct {
                 region.height   = read_f32(s) * scale;
                 region.color    = read_color(s);
                 region.sequence = read_sequence(s, spine_version);
-                print("Region: %\n", region.*);
                 return region;
 
             case .BOUNDING_BOX;
@@ -481,12 +488,16 @@ Skeleton_Binary_41 :: struct {
                     mesh.width   = read_f32(s) * scale;
                     mesh.height  = read_f32(s) * scale;
                 }
-                print("Mesh: %\n", mesh.*);
                 return mesh;
 
             case .LINKED_MESH;
+                print("TODO: Linked Mesh\n");
+
             case .PATH;
+                print("TODO: Path\n");
+
             case .POINT;
+                print("TODO: Point\n");
 
             case .CLIPPING;
                 clipping := New(Attachment_Clipping);
