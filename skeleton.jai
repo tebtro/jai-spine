@@ -23,6 +23,8 @@ Skeleton_Data :: struct {
     skins: [..] Skin;
 
     events: [..] Event_Data;
+
+    animations: [..] Animation_Data;
 }
 
 Bone_Index :: s32;
@@ -229,6 +231,41 @@ Event_Data :: struct {
     audio_path: string;
     volume: float32;
     balance: float32;
+}
+
+Animation_Data :: struct {
+    name: string;
+    slot_timelines: [..] Slot_Timeline;
+}
+
+Slot_Timeline :: struct {
+    slot_index: Slot_Index;
+
+    timelines: [..] * Timeline;
+
+    Timeline_Type :: enum u8 {
+        ATTACHMENT :: 0;
+        RGBA       :: 1;
+        RGB        :: 2;
+        RGBA2      :: 3;
+        RGB2       :: 4;
+        ALPHA      :: 5;
+    }
+
+    Timeline :: struct {
+        type: Timeline_Type;
+    }
+
+    Attachment_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .ATTACHMENT };
+
+        frames: [..] Frame;
+
+        Frame :: struct {
+            time: float32;
+            name: string;
+        }
+    }
 }
 
 Blend_Mode :: enum {

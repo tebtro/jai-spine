@@ -12,7 +12,7 @@ main :: () {
         return;
     }
 
-    print("Skeleton: %\n", skeleton.events);
+    print("Skeleton: %\n", skeleton.animations);
 
     /*
     for atlas.pages {

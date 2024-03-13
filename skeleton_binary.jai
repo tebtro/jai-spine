@@ -400,6 +400,21 @@ Skeleton_Binary_41 :: struct {
         }
 
         // Animations
+        animations_count := read_var_s32(s, true);
+        array_reserve(*animations, animations_count);
+        for 0..animations_count-1 {
+            animation := array_add(*animations);
+            animation.name = read_string(s);
+            if !animation.name {
+                log("Animation name must not be null!");
+                return false;
+            }
+
+            success := read_animation(skeleton, animation, s);
+            if !success {
+                return false;
+            }
+        }
 
         print("TODO: 41\n");
         return true;
@@ -573,6 +588,59 @@ Skeleton_Binary_41 :: struct {
         }
 
         return result;
+    }
+
+    read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data, s: * string) -> bool {
+        _ := read_var_s32(s, true);  // timelines_count
+
+        // Slot timelines
+        slot_timelines_count := read_var_s32(s, true);
+        array_reserve(*slot_timelines, slot_timelines_count);
+        for 0..slot_timelines_count-1 {
+            slot_timeline := array_add(*slot_timelines);
+            slot_timeline.slot_index = read_var_s32(s, true);
+
+            timelines_count := read_var_s32(s, true);
+            array_reserve(*slot_timeline.timelines, timelines_count);
+            for 0..timelines_count-1 {
+                timeline_type := cast(Slot_Timeline.Timeline_Type) read_u8(s);
+                frame_count := read_var_s32(s, true);
+
+                if timeline_type == {
+                    case .ATTACHMENT;
+                        timeline := New(Slot_Timeline.Attachment_Timeline);
+                        array_add(*slot_timeline.timelines, timeline);
+
+                        array_reserve(*timeline.frames, frame_count);
+                        for 0..frame_count-1 {
+                            frame := array_add(*timeline.frames);
+                            frame.time = read_f32(s);
+                            frame.name = read_string_reference(s, skeleton.shared_strings);
+                        }
+
+                    case .RGBA;
+                        log("TODO: rgba timeline");
+
+                    case .RGB;
+                        log("TODO: rgb timeline");
+
+                    case .RGBA2;
+                        log("TODO: rgba2 timeline");
+
+                    case .RGB2;
+                        log("TODO: rgb2 timeline");
+
+                    case .ALPHA;
+                        log("TODO: alpha timeline");
+
+                    case;
+                        log("Unknown slot timeline type: %\n", timeline_type);
+                        return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
 
