@@ -21,6 +21,8 @@ Skeleton_Data :: struct {
 
     default_skin: * Skin;
     skins: [..] Skin;
+
+    events: [..] Event_Data;
 }
 
 Bone_Index :: s32;
@@ -217,6 +219,16 @@ Sequence :: struct {
 Vertices :: struct {
     vertices: [..] float32;
     bones: [..] [..] Bone_Index;
+}
+
+Event_Data :: struct {
+    name: string;
+    value_int: s32;
+    value_float: float32;
+    value_string: string;
+    audio_path: string;
+    volume: float32;
+    balance: float32;
 }
 
 Blend_Mode :: enum {

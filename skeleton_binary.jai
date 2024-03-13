@@ -379,9 +379,25 @@ Skeleton_Binary_41 :: struct {
             }
         }
 
-        // Linked meshes
-
         // Events
+        events_count := read_var_s32(s, true);
+        array_reserve(*events, events_count);
+        for 0..events_count-1 {
+            event := array_add(*events);
+            event.name = read_string_reference(s, shared_strings);
+            if !event.name {
+                log("Event name must not be null!");
+                return false;
+            }
+            event.value_int = read_var_s32(s, false);
+            event.value_float = read_f32(s);
+            event.value_string = read_string(s);
+            event.audio_path = read_string(s);
+            if event.audio_path {
+                event.volume = read_f32(s);
+                event.balance = read_f32(s);
+            }
+        }
 
         // Animations
 
