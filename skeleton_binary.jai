@@ -410,7 +410,7 @@ Skeleton_Binary_41 :: struct {
                 return false;
             }
 
-            success := read_animation(skeleton, animation, s);
+            success := read_animation(skeleton, animation, s, scale);
             if !success {
                 return false;
             }
@@ -590,7 +590,7 @@ Skeleton_Binary_41 :: struct {
         return result;
     }
 
-    read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data, s: * string) -> bool {
+    read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data, s: * string, scale: float32) -> bool {
         _ := read_var_s32(s, true);  // timelines_count
 
         // Slot timelines
@@ -606,7 +606,7 @@ Skeleton_Binary_41 :: struct {
                 timeline_type := cast(Slot_Timeline.Timeline_Type) read_u8(s);
                 frame_count := read_var_s32(s, true);
 
-                if timeline_type == {
+                if #complete timeline_type == {
                     case .ATTACHMENT;
                         timeline := New(Slot_Timeline.Attachment_Timeline);
                         array_add(*slot_timeline.timelines, timeline);
@@ -640,7 +640,94 @@ Skeleton_Binary_41 :: struct {
             }
         }
 
+        // Bone timelines
+        bone_timelines_count := read_var_s32(s, true);
+        array_reserve(*bone_timelines, bone_timelines_count);
+        for 0..bone_timelines_count-1 {
+            bone_timeline := array_add(*bone_timelines);
+            bone_timeline.bone_index = read_var_s32(s, true);
+
+            timelines_count := read_var_s32(s, true);
+            array_reserve(*bone_timeline.timelines, timelines_count);
+            for 0..timelines_count-1 {
+                timeline_type := cast(Bone_Timeline.Timeline_Type) read_u8(s);
+                frame_count  := read_var_s32(s, true);
+                bezier_count := read_var_s32(s, true);
+
+                if #complete timeline_type == {
+                    case .ROTATE;
+                        timeline := New(Bone_Timeline.Rotate_Timeline);
+                        array_add(*bone_timeline.timelines, timeline);
+                        read_curve_timeline(timeline, s, frame_count, bezier_count, scale);
+
+                    case .TRANSLATE;
+                        log("TODO: translate timeline");
+
+                    case .TRANSLATE_X;
+                        log("TODO: translate_x timeline");
+
+                    case .TRANSLATE_Y;
+                        log("TODO: translate_y timeline");
+
+                    case .SCALE;
+                        log("TODO: scale timeline");
+
+                    case .SCALE_X;
+                        log("TODO: scale_x timeline");
+
+                    case .SCALE_Y;
+                        log("TODO: scale_y timeline");
+
+                    case .SHEAR;
+                        log("TODO: shear timeline");
+
+                    case .SHEAR_X;
+                        log("TODO: shear_xtimeline");
+
+                    case .SHEAR_Y;
+                        log("TODO: shear_ytimeline");
+
+                    case;
+                        log("Unknown bone timeline type: %\n", timeline_type);
+                        return false;
+                }
+            }
+        }
+
+        // Ik constraint timelines
+        print("TODO: Ik constraint timelines\n");
+
+        // Transform constraint timelines
+        print("TODO: Transform constraint timelines\n");
+
+        // Path constraint timelines
+        print("TODO: Path constraint timelines\n");
+
+        // Deform timelines
+        print("TODO: Deform timelines\n");
+
+        // Draw order timeline
+        print("TODO: Draw order timeline\n");
+
+        // Event timeline
+        print("TODO: Event timeline\n");
+
         return true;
+    }
+
+    read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_count: s32, bezier_count: s32, scale: float32 = 1) {
+        array_reserve(*frames, frame_count);
+        for 0..frame_count-1 {
+            frame := array_add(*frames);
+            frame.time = read_f32(s);
+            for * frame.values {
+                it.* = read_f32(s);
+            }
+
+            if it > 0 {
+                frame.type = xx read_u8(s);
+            }
+        }
     }
 }
 

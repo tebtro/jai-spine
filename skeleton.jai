@@ -236,6 +236,7 @@ Event_Data :: struct {
 Animation_Data :: struct {
     name: string;
     slot_timelines: [..] Slot_Timeline;
+    bone_timelines: [..] Bone_Timeline;
 }
 
 Slot_Timeline :: struct {
@@ -266,6 +267,50 @@ Slot_Timeline :: struct {
             name: string;
         }
     }
+}
+
+Bone_Timeline :: struct {
+    bone_index: Bone_Index;
+
+    timelines: [..] * Timeline;
+
+    Timeline_Type :: enum u8 {
+        ROTATE      :: 0;
+        TRANSLATE   :: 1;
+        TRANSLATE_X :: 2;
+        TRANSLATE_Y :: 3;
+        SCALE       :: 4;
+        SCALE_X     :: 5;
+        SCALE_Y     :: 6;
+        SHEAR       :: 7;
+        SHEAR_X     :: 8;
+        SHEAR_Y     :: 9;
+    }
+
+    Timeline :: struct {
+        type: Timeline_Type;
+    }
+
+    Rotate_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .ROTATE };
+        #as using _ : Curve_Timeline(1);
+    }
+}
+
+Curve_Timeline :: struct(N: int) {
+    Curve_Type :: enum u8 {
+        LINEAR  :: 0;
+        STEPPED :: 1;
+        BEZIER  :: 2;
+    }
+
+    Frame :: struct {
+        time: float32;
+        values: [N] float32;
+        type: Curve_Type;
+    }
+
+    frames: [..] Frame;
 }
 
 Blend_Mode :: enum {
