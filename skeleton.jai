@@ -29,6 +29,7 @@ Skeleton_Data :: struct {
 
 Bone_Index :: s32;
 Slot_Index :: s32;
+Skin_Index :: s32;
 
 Ik\      _Constraint_Index :: s32;
 Transform_Constraint_Index :: s32;
@@ -239,6 +240,8 @@ Animation_Data :: struct {
     bone\    _timelines: [..] Bone\    _Timeline;
     ik\      _timelines: [..] Ik\      _Timeline;
     transform_timelines: [..] Transform_Timeline;
+    path\    _timelines: [..] Path\    _Timeline;
+    deform\  _timelines: [..] Deform\  _Timeline;
 }
 
 Slot_Timeline :: struct {
@@ -335,6 +338,45 @@ Transform_Timeline :: struct {
     }
 }
 
+Path_Timeline :: struct {
+    path_constraint_index: Path_Constraint_Index;
+
+    timelines: [..] * Timeline;
+
+    Timeline :: struct {
+        path_type: Path_Type;
+    }
+}
+
+Deform_Timeline :: struct {
+    skin_index: Skin_Index;
+
+    slot_timelines: [..] Slot_Timeline;
+
+    Slot_Timeline :: struct {
+        slot_index: Slot_Index;
+
+        attachment_timelines: [..] Attachment_Timeline;
+
+        Attachment_Timeline :: struct {
+            #as using _ : Curve_Timeline(Frame);
+
+            attachment_name: string;
+
+            timeline_type: Timeline_Type;
+
+            Timeline_Type :: enum u8 {
+                DEFORM   :: 0;
+                SEQUENCE :: 1;
+            }
+
+            Frame :: struct {
+                #as using _ : Curve_Frame;
+            }
+        }
+    }
+}
+
 Curve_Type :: enum u8 {
     LINEAR  :: 0;
     STEPPED :: 1;
@@ -344,10 +386,18 @@ Curve_Type :: enum u8 {
 Curve_Frame :: struct {
     type: Curve_Type;
     time: float32;
+    bezier: Bezier_Data;
 }
 
 Curve_Timeline :: struct(T: Type) {
     frames: [..] T;
+}
+
+Bezier_Data :: struct {
+    start_time:  float32;
+    end\ _time:  float32;
+    start_value: float32;
+    end\ _value: float32;
 }
 
 Blend_Mode :: enum {
