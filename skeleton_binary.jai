@@ -695,10 +695,30 @@ Skeleton_Binary_41 :: struct {
         }
 
         // Ik constraint timelines
-        print("TODO: Ik constraint timelines\n");
+        ik_timelines_count := read_var_s32(s, true);
+        array_reserve(*ik_timelines, ik_timelines_count);
+        for 0..ik_timelines_count-1 {
+            timeline := array_add(*ik_timelines);
+            timeline.ik_constraint_index = read_var_s32(s, true);
+
+            frame_count  := read_var_s32(s, true);
+            bezier_count := read_var_s32(s, true);
+
+            read_curve_timeline(timeline, s, frame_count, bezier_count, scale);
+        }
 
         // Transform constraint timelines
-        print("TODO: Transform constraint timelines\n");
+        transform_timelines_count := read_var_s32(s, true);
+        array_reserve(*transform_timelines, transform_timelines_count);
+        for 0..transform_timelines_count-1 {
+            timeline := array_add(*transform_timelines);
+            timeline.transform_constraint_index = read_var_s32(s, true);
+
+            frame_count  := read_var_s32(s, true);
+            bezier_count := read_var_s32(s, true);
+
+            read_curve_timeline(timeline, s, frame_count, bezier_count, scale);
+        }
 
         // Path constraint timelines
         print("TODO: Path constraint timelines\n");
@@ -715,14 +735,33 @@ Skeleton_Binary_41 :: struct {
         return true;
     }
 
+    read_curve_timeline_frame :: (using frame: * Bone_Timeline.Rotate_Timeline.Frame, s: * string, scale: float32) {
+        rotation = read_f32(s);
+    }
+
+    read_curve_timeline_frame :: (using frame: * Ik_Timeline.Frame, s: * string, scale: float32) {
+        mix            = read_f32(s);
+        softness       = read_f32(s);
+        bend_direction = read_s8(s);
+        compress       = read_bool(s);
+        stretch        = read_bool(s);
+    }
+
+    read_curve_timeline_frame :: (using frame: * Transform_Timeline.Frame, s: * string, scale: float32) {
+        rotate  = read_f32(s);
+        mix_x   = read_f32(s);
+        mix_y   = read_f32(s);
+        scale_x = read_f32(s);
+        scale_y = read_f32(s);
+        shear_y = read_f32(s);
+    }
+
     read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_count: s32, bezier_count: s32, scale: float32 = 1) {
         array_reserve(*frames, frame_count);
         for 0..frame_count-1 {
             frame := array_add(*frames);
             frame.time = read_f32(s);
-            for * frame.values {
-                it.* = read_f32(s);
-            }
+            read_curve_timeline_frame(frame, s, scale);
 
             if it > 0 {
                 frame.type = xx read_u8(s);

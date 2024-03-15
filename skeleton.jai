@@ -30,9 +30,9 @@ Skeleton_Data :: struct {
 Bone_Index :: s32;
 Slot_Index :: s32;
 
-Ik_Constraint_Index        :: s32;
+Ik\      _Constraint_Index :: s32;
 Transform_Constraint_Index :: s32;
-Path_Constraint_Index      :: s32;
+Path\    _Constraint_Index :: s32;
 
 Color :: [4] float32;
 
@@ -224,19 +224,21 @@ Vertices :: struct {
 }
 
 Event_Data :: struct {
-    name: string;
-    value_int: s32;
-    value_float: float32;
+    name:         string;
+    value_int:    s32;
+    value_float:  float32;
     value_string: string;
-    audio_path: string;
-    volume: float32;
-    balance: float32;
+    audio_path:   string;
+    volume:       float32;
+    balance:      float32;
 }
 
 Animation_Data :: struct {
     name: string;
-    slot_timelines: [..] Slot_Timeline;
-    bone_timelines: [..] Bone_Timeline;
+    slot\    _timelines: [..] Slot\    _Timeline;
+    bone\    _timelines: [..] Bone\    _Timeline;
+    ik\      _timelines: [..] Ik\      _Timeline;
+    transform_timelines: [..] Transform_Timeline;
 }
 
 Slot_Timeline :: struct {
@@ -293,24 +295,59 @@ Bone_Timeline :: struct {
 
     Rotate_Timeline :: struct {
         #as using _ : Timeline = .{ type = .ROTATE };
-        #as using _ : Curve_Timeline(1);
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame;
+            rotation: float32;
+        }
     }
 }
 
-Curve_Timeline :: struct(N: int) {
-    Curve_Type :: enum u8 {
-        LINEAR  :: 0;
-        STEPPED :: 1;
-        BEZIER  :: 2;
-    }
+Ik_Timeline :: struct {
+    #as using _ : Curve_Timeline(Frame);
+
+    ik_constraint_index: Ik_Constraint_Index;
 
     Frame :: struct {
-        time: float32;
-        values: [N] float32;
-        type: Curve_Type;
+        #as using _ : Curve_Frame;
+        mix:            float32;
+        softness:       float32;
+        bend_direction: s8;
+        compress:       bool;
+        stretch:        bool;
     }
+}
 
-    frames: [..] Frame;
+Transform_Timeline :: struct {
+    #as using _ : Curve_Timeline(Frame);
+
+    transform_constraint_index: Transform_Constraint_Index;
+
+    Frame :: struct {
+        #as using _ : Curve_Frame;
+        rotate: float32;
+        mix_x: float32;
+        mix_y: float32;
+        scale_x: float32;
+        scale_y: float32;
+        shear_y: float32;
+    }
+}
+
+Curve_Type :: enum u8 {
+    LINEAR  :: 0;
+    STEPPED :: 1;
+    BEZIER  :: 2;
+}
+
+Curve_Frame :: struct {
+    type: Curve_Type;
+    time: float32;
+}
+
+Curve_Timeline :: struct(T: Type) {
+    frames: [..] T;
 }
 
 Blend_Mode :: enum {
@@ -318,12 +355,6 @@ Blend_Mode :: enum {
     ADDITIVE :: 1;
     MULTIPLY :: 2;
     SCREEN   :: 3;
-}
-
-Curve_Type :: enum {
-    LINEAR  :: 0;
-    STEPPED :: 1;
-    BEZIER  :: 2;
 }
 
 Bone_Type :: enum {
