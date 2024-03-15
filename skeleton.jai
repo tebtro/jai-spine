@@ -394,10 +394,10 @@ Curve_Timeline :: struct(T: Type) {
 }
 
 Bezier_Data :: struct {
-    start_time:  float32;
-    end\ _time:  float32;
-    start_value: float32;
-    end\ _value: float32;
+    cx1: float32;
+    cy1: float32;
+    cx2: float32;
+    cy2: float32;
 }
 
 Blend_Mode :: enum {

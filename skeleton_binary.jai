@@ -820,7 +820,7 @@ Skeleton_Binary_41 :: struct {
                     case .LINEAR;
                     case .STEPPED;
                     case .BEZIER;
-                        read_bezier(*frame.bezier, s);
+                        read_bezier(*frame.bezier, s, scale);
 
                     case;
                         log("Unknown curve type: %\n", frame.type);
@@ -833,11 +833,11 @@ Skeleton_Binary_41 :: struct {
         return true;
     }
 
-    read_bezier :: (using bezier: * Bezier_Data, s: * string) {
-        start_time  = read_f32(s);
-        end\ _time  = read_f32(s);
-        start_value = read_f32(s);
-        end\ _value = read_f32(s);
+    read_bezier :: (using bezier: * Bezier_Data, s: * string, scale: float32) {
+        cx1 = read_f32(s);
+        cy1 = read_f32(s) * scale;
+        cx2 = read_f32(s);
+        cy2 = read_f32(s) * scale;
     }
 }
 
