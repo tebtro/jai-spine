@@ -296,13 +296,108 @@ Bone_Timeline :: struct {
         type: Timeline_Type;
     }
 
+    // @todo Thats a bit bloated!
+
     Rotate_Timeline :: struct {
         #as using _ : Timeline = .{ type = .ROTATE };
         #as using _ : Curve_Timeline(Frame);
 
         Frame :: struct {
-            #as using _ : Curve_Frame;
+            #as using _ : Curve_Frame(1);
             rotation: float32;
+        }
+    }
+
+    Translate_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .TRANSLATE };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(2);
+            x: float32;
+            y: float32;
+        }
+    }
+
+    Translate_X_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .TRANSLATE_X };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(1);
+            x: float32;
+        }
+    }
+
+    Translate_Y_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .TRANSLATE_Y };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(1);
+            y: float32;
+        }
+    }
+
+    Scale_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .SCALE };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(2);
+            scale_x: float32;
+            scale_y: float32;
+        }
+    }
+
+    Scale_X_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .SCALE_X };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(1);
+            scale_x: float32;
+        }
+    }
+
+    Scale_Y_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .SCALE_Y };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(1);
+            scale_y: float32;
+        }
+    }
+
+    Shear_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .SHEAR };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(2);
+            shear_x: float32;
+            shear_y: float32;
+        }
+    }
+
+    Shear_X_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .SHEAR_X };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(1);
+            shear_x: float32;
+        }
+    }
+
+    Shear_Y_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .SHEAR_Y };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(1);
+            shear_y: float32;
         }
     }
 }
@@ -313,7 +408,7 @@ Ik_Timeline :: struct {
     ik_constraint_index: Ik_Constraint_Index;
 
     Frame :: struct {
-        #as using _ : Curve_Frame;
+        #as using _ : Curve_Frame(1);
         mix:            float32;
         softness:       float32;
         bend_direction: s8;
@@ -328,10 +423,10 @@ Transform_Timeline :: struct {
     transform_constraint_index: Transform_Constraint_Index;
 
     Frame :: struct {
-        #as using _ : Curve_Frame;
-        rotate: float32;
-        mix_x: float32;
-        mix_y: float32;
+        #as using _ : Curve_Frame(1);
+        rotate:  float32;
+        mix\ _x: float32;
+        mix\ _y: float32;
         scale_x: float32;
         scale_y: float32;
         shear_y: float32;
@@ -346,6 +441,12 @@ Path_Timeline :: struct {
     Timeline :: struct {
         path_type: Path_Type;
     }
+}
+
+
+Deform_Timeline_Type :: enum u8 {
+    DEFORM   :: 0;
+    SEQUENCE :: 1;
 }
 
 Deform_Timeline :: struct {
@@ -363,15 +464,10 @@ Deform_Timeline :: struct {
 
             attachment_name: string;
 
-            timeline_type: Timeline_Type;
-
-            Timeline_Type :: enum u8 {
-                DEFORM   :: 0;
-                SEQUENCE :: 1;
-            }
+            timeline_type: Deform_Timeline_Type;
 
             Frame :: struct {
-                #as using _ : Curve_Frame;
+                #as using _ : Curve_Frame(1);
             }
         }
     }
@@ -383,10 +479,10 @@ Curve_Type :: enum u8 {
     BEZIER  :: 2;
 }
 
-Curve_Frame :: struct {
+Curve_Frame :: struct(N: int) {
     type: Curve_Type;
     time: float32;
-    bezier: Bezier_Data;
+    beziers: [N] Bezier_Data;
 }
 
 Curve_Timeline :: struct(T: Type) {

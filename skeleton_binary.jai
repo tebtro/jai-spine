@@ -200,7 +200,7 @@ Skeleton_Binary_38 :: struct {
 }
 
 Skeleton_Binary_41 :: struct {
-    load :: (using skeleton: * Skeleton_Data, data: string, scale: float32, spine_version: Spine_Version) -> bool {
+    load :: (using skeleton: * Skeleton_Data, data: string, scale: float32, spine_version: Spine_Version) -> bool #must {
         s := * data;
 
         hash_low  := read_u32(s);
@@ -412,7 +412,7 @@ Skeleton_Binary_41 :: struct {
 
             log("Animation name: %", animation.name);
 
-            success := read_animation(skeleton, animation, s, scale);
+            success := read_animation(skeleton, animation, s, scale, spine_version);
             if !success {
                 return false;
             }
@@ -422,7 +422,7 @@ Skeleton_Binary_41 :: struct {
         return true;
     }
 
-    read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, non_essential: bool, spine_version: Spine_Version, is_default_skin: bool) -> * Skin {
+    read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, non_essential: bool, spine_version: Spine_Version, is_default_skin: bool) -> * Skin #must {
         skin: * Skin;
         slots_count: s32;
 
@@ -475,7 +475,7 @@ Skeleton_Binary_41 :: struct {
         return null;
     }
 
-    read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, attachment_name: string, scale: float32, non_essential: bool, spine_version: Spine_Version) -> * Attachment {
+    read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, attachment_name: string, scale: float32, non_essential: bool, spine_version: Spine_Version) -> * Attachment #must {
         name := read_string_reference(s, shared_strings);
         if !name  name = attachment_name;
 
@@ -547,7 +547,7 @@ Skeleton_Binary_41 :: struct {
         return null;
     }
 
-    read_sequence :: (s: * string, version: Spine_Version) -> * Sequence {
+    read_sequence :: (s: * string, version: Spine_Version) -> * Sequence #must {
         if (version < .Version41 || !read_bool(s))  return null;
 
         result := New(Sequence);
@@ -558,12 +558,12 @@ Skeleton_Binary_41 :: struct {
         return result;
     }
 
-    read_vertices :: (s: * string, scale: float32) -> Vertices {
+    read_vertices :: (s: * string, scale: float32) -> Vertices #must {
         vertex_count := read_var_s32(s, true);
         return read_vertices(s, vertex_count, scale);
     }
 
-    read_vertices :: (s: * string, vertex_count: s32, scale: float32) -> Vertices {
+    read_vertices :: (s: * string, vertex_count: s32, scale: float32) -> Vertices #must {
         result: Vertices;
 
         vertices_count := vertex_count << 1;
@@ -592,7 +592,7 @@ Skeleton_Binary_41 :: struct {
         return result;
     }
 
-    read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data, s: * string, scale: float32) -> bool {
+    read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data, s: * string, scale: float32, version: Spine_Version) -> bool #must {
         _ := read_var_s32(s, true);  // timelines_count
 
         // Slot timelines
@@ -664,11 +664,19 @@ Skeleton_Binary_41 :: struct {
                     case .ROTATE;
                         timeline := New(Bone_Timeline.Rotate_Timeline);
                         array_add(*bone_timeline.timelines, timeline);
-                        success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale);
+                        success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
+                            frame.rotation = read_f32(s);
+                        });
                         if !success  return false;
 
                     case .TRANSLATE;
-                        log("TODO: translate timeline");
+                        timeline := New(Bone_Timeline.Translate_Timeline);
+                        array_add(*bone_timeline.timelines, timeline);
+                        success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
+                            frame.x = read_f32(s);
+                            frame.y = read_f32(s);
+                        });
+                        if !success  return false;
 
                     case .TRANSLATE_X;
                         log("TODO: translate_x timeline");
@@ -677,7 +685,13 @@ Skeleton_Binary_41 :: struct {
                         log("TODO: translate_y timeline");
 
                     case .SCALE;
-                        log("TODO: scale timeline");
+                        timeline := New(Bone_Timeline.Scale_Timeline);
+                        array_add(*bone_timeline.timelines, timeline);
+                        success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
+                            frame.scale_x = read_f32(s);
+                            frame.scale_y = read_f32(s);
+                        });
+                        if !success  return false;
 
                     case .SCALE_X;
                         log("TODO: scale_x timeline");
@@ -686,7 +700,13 @@ Skeleton_Binary_41 :: struct {
                         log("TODO: scale_y timeline");
 
                     case .SHEAR;
-                        log("TODO: shear timeline");
+                        timeline := New(Bone_Timeline.Shear_Timeline);
+                        array_add(*bone_timeline.timelines, timeline);
+                        success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
+                            frame.shear_x = read_f32(s);
+                            frame.shear_y = read_f32(s);
+                        });
+                        if !success  return false;
 
                     case .SHEAR_X;
                         log("TODO: shear_xtimeline");
@@ -711,7 +731,13 @@ Skeleton_Binary_41 :: struct {
             frame_count  := read_var_s32(s, true);
             bezier_count := read_var_s32(s, true);
 
-            success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale);
+            success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
+                frame.mix            = read_f32(s);
+                frame.softness       = read_f32(s);
+                frame.bend_direction = read_s8(s);
+                frame.compress       = read_bool(s);
+                frame.stretch        = read_bool(s);
+            });
             if !success  return false;
         }
 
@@ -725,7 +751,14 @@ Skeleton_Binary_41 :: struct {
             frame_count  := read_var_s32(s, true);
             bezier_count := read_var_s32(s, true);
 
-            success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale);
+            success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
+                frame.rotate  = read_f32(s);
+                frame.mix_x   = read_f32(s);
+                frame.mix_y   = read_f32(s);
+                frame.scale_x = read_f32(s);
+                frame.scale_y = read_f32(s);
+                frame.shear_y = read_f32(s);
+            });
             if !success  return false;
         }
 
@@ -766,7 +799,40 @@ Skeleton_Binary_41 :: struct {
             deform_timeline := array_add(*deform_timelines);
             deform_timeline.skin_index = read_var_s32(s, true);
 
-            print("TODO: Deform skin timeline\n");
+            slot_timelines_count := read_var_s32(s, true);
+            array_reserve(*deform_timeline.slot_timelines, slot_timelines_count);
+            for 0..slot_timelines_count-1 {
+                slot_timeline := array_add(*deform_timeline.slot_timelines);
+                slot_timeline.slot_index = read_var_s32(s, true);
+
+                attachment_timelines_count := read_var_s32(s, true);
+                array_reserve(*slot_timeline.attachment_timelines, attachment_timelines_count);
+                for 0..attachment_timelines_count-1 {
+                    attachment_timeline := array_add(*slot_timeline.attachment_timelines);
+                    attachment_timeline.attachment_name = read_string_reference(s, skeleton.shared_strings);
+                    attachment_timeline.timeline_type = read_deform_timeline_type(s, version);
+                    frame_count := read_var_s32(s, true);
+
+                    if #complete attachment_timeline.timeline_type == {
+                        case .DEFORM;
+                            bezier_count := read_var_s32(s, true);
+                            success := read_curve_timeline(attachment_timeline, s, frame_count, bezier_count, 1, #code {
+                                log("Frame: %", frame.*);
+                            });
+                            if !success  return false;
+
+                        case .SEQUENCE;
+                            log("TODO: sequence");
+
+                        case;
+                            log("Unknown deform timeline type: %\n", attachment_timeline.timeline_type);
+                            return false;
+                    }
+
+                    print("TODO: Attachment timeline: %\n", attachment_timeline.*);
+                    return false;
+                }
+            }
         }
 
         // Draw order timeline
@@ -784,34 +850,13 @@ Skeleton_Binary_41 :: struct {
         return true;
     }
 
-    read_curve_timeline_frame :: (using frame: * Bone_Timeline.Rotate_Timeline.Frame, s: * string, scale: float32) {
-        rotation = read_f32(s);
-    }
-
-    read_curve_timeline_frame :: (using frame: * Ik_Timeline.Frame, s: * string, scale: float32) {
-        mix            = read_f32(s);
-        softness       = read_f32(s);
-        bend_direction = read_s8(s);
-        compress       = read_bool(s);
-        stretch        = read_bool(s);
-    }
-
-    read_curve_timeline_frame :: (using frame: * Transform_Timeline.Frame, s: * string, scale: float32) {
-        rotate  = read_f32(s);
-        mix_x   = read_f32(s);
-        mix_y   = read_f32(s);
-        scale_x = read_f32(s);
-        scale_y = read_f32(s);
-        shear_y = read_f32(s);
-    }
-
-    read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_count: s32, bezier_count: s32, scale: float32 = 1) -> bool #must {
-        log("read_curve_timeline: frame_count = %", frame_count);
+    read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_count: s32, bezier_count: s32, scale: float32, code: Code) -> bool #must #expand {
         array_reserve(*frames, frame_count);
         for 0..frame_count-1 {
-            frame := array_add(*frames);
+            `frame := array_add(*frames);
             frame.time = read_f32(s);
-            inline read_curve_timeline_frame(frame, s, scale);
+
+            #insert code;
 
             if it > 0 {
                 frame.type = xx read_u8(s);
@@ -820,7 +865,9 @@ Skeleton_Binary_41 :: struct {
                     case .LINEAR;
                     case .STEPPED;
                     case .BEZIER;
-                        read_bezier(*frame.bezier, s, scale);
+                        for * frame.beziers {
+                            read_bezier(it, s, scale);
+                        }
 
                     case;
                         log("Unknown curve type: %\n", frame.type);
@@ -829,7 +876,6 @@ Skeleton_Binary_41 :: struct {
             }
         }
 
-        print("Frames: %\n", frames);
         return true;
     }
 
@@ -838,6 +884,14 @@ Skeleton_Binary_41 :: struct {
         cy1 = read_f32(s) * scale;
         cx2 = read_f32(s);
         cy2 = read_f32(s) * scale;
+    }
+
+    read_deform_timeline_type :: (s: * string, version: Spine_Version) -> Deform_Timeline_Type {
+        if version == .Version40 {
+            return .DEFORM;
+        } else {
+            return xx read_u8(s);
+        }
     }
 }
 
