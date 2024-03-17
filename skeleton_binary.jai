@@ -109,17 +109,21 @@ read_s16_array :: (s: * string) -> [..] s16 {
 
 read_f32_array :: (s: * string, count: s32, scale: float32 = 1) -> [..] float32 {
     result: [..] float32;
-    array_reserve(*result, count);
+    read_f32_array(*result, s, count, scale);
+    return result;
+}
+
+read_f32_array :: (result: * [..] float32, s: * string, count: s32, scale: float32 = 1) {
+    array_reserve(result, count);
     if scale == 1 {
         for 0..count-1 {
-            array_add(*result, read_f32(s));
+            array_add(result, read_f32(s));
         }
     } else {
         for 0..count-1 {
-            array_add(*result, read_f32(s) * scale);
+            array_add(result, read_f32(s) * scale);
         }
     }
-    return result;
 }
 
 Spine_Version :: enum {
@@ -666,7 +670,7 @@ Skeleton_Binary_41 :: struct {
                         array_add(*timelines, timeline);
                         success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
                             frame.rotation = read_f32(s);
-                        });
+                        }, #code {});
                         if !success  return false;
 
                     case .TRANSLATE;
@@ -675,7 +679,7 @@ Skeleton_Binary_41 :: struct {
                         success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
                             frame.x = read_f32(s);
                             frame.y = read_f32(s);
-                        });
+                        }, #code {});
                         if !success  return false;
 
                     case .TRANSLATE_X;
@@ -690,7 +694,7 @@ Skeleton_Binary_41 :: struct {
                         success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
                             frame.scale_x = read_f32(s);
                             frame.scale_y = read_f32(s);
-                        });
+                        }, #code {});
                         if !success  return false;
 
                     case .SCALE_X;
@@ -705,7 +709,7 @@ Skeleton_Binary_41 :: struct {
                         success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
                             frame.shear_x = read_f32(s);
                             frame.shear_y = read_f32(s);
-                        });
+                        }, #code {});
                         if !success  return false;
 
                     case .SHEAR_X;
@@ -731,9 +735,12 @@ Skeleton_Binary_41 :: struct {
             frame_count  := read_var_s32(s, true);
             bezier_count := read_var_s32(s, true);
 
+            log("Ik constraint timeline");
+
             success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
                 frame.mix            = read_f32(s);
-                frame.softness       = read_f32(s);
+                frame.softness       = read_f32(s) * scale;
+            }, #code {
                 frame.bend_direction = read_s8(s);
                 frame.compress       = read_bool(s);
                 frame.stretch        = read_bool(s);
@@ -751,6 +758,8 @@ Skeleton_Binary_41 :: struct {
             frame_count  := read_var_s32(s, true);
             bezier_count := read_var_s32(s, true);
 
+            log("Transform timeline");
+
             success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
                 frame.rotate  = read_f32(s);
                 frame.mix_x   = read_f32(s);
@@ -758,7 +767,7 @@ Skeleton_Binary_41 :: struct {
                 frame.scale_x = read_f32(s);
                 frame.scale_y = read_f32(s);
                 frame.shear_y = read_f32(s);
-            });
+            }, #code {});
             if !success  return false;
         }
 
@@ -774,6 +783,8 @@ Skeleton_Binary_41 :: struct {
             for 0..timelines_count-1 {
                 path_type := cast(Path_Type) read_u8(s);
                 frame_count := read_var_s32(s, true);
+
+                log("Path timeline type: %", path_type);
 
                 if #complete path_type == {
                     case .POSITION;
@@ -813,25 +824,16 @@ Skeleton_Binary_41 :: struct {
                     timeline_type = read_deform_timeline_type(s, version);
                     frame_count := read_var_s32(s, true);
 
+                    log("Deform timeline type: %", timeline_type);
+
                     if #complete timeline_type == {
                         case .DEFORM;
                             bezier_count := read_var_s32(s, true);
-                            success := read_curve_timeline(attachment_timeline, s, frame_count, bezier_count, 1, #code {
+                            success := read_curve_timeline(attachment_timeline, s, frame_count, bezier_count, 1, #code{}, #code {
                                 deform_length := read_var_s32(s, true);
                                 if deform_length > 0 {
                                     frame.offset = read_var_s32(s, true);
-
-                                    array_reserve(*frame.deform, deform_length);
-
-                                    if scale == 1 {
-                                        for 0..deform_length-1 {
-                                            array_add(*frame.deform, read_f32(s));
-                                        }
-                                    } else {
-                                        for 0..deform_length-1 {
-                                            array_add(*frame.deform, read_f32(s) * scale);
-                                        }
-                                    }
+                                    read_f32_array(*frame.deform, s, deform_length, scale);
                                 }
                             });
                             if !success  return false;
@@ -843,9 +845,6 @@ Skeleton_Binary_41 :: struct {
                             log("Unknown deform timeline type: %\n", timeline_type);
                             return false;
                     }
-
-                    print("TODO: Attachment timeline: %\n", attachment_timeline.*);
-                    return false;
                 }
             }
         }
@@ -854,24 +853,26 @@ Skeleton_Binary_41 :: struct {
         draw_order_count := read_var_s32(s, true);
         if draw_order_count > 0 {
             print("TODO: Draw order timeline\n");
+            return false;
         }
 
         // Event timeline
         event_count := read_var_s32(s, true);
         if event_count > 0 {
             print("TODO: Event timeline\n");
+            return false;
         }
 
         return true;
     }
 
-    read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_count: s32, bezier_count: s32, scale: float32, code: Code) -> bool #must #expand {
+    read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_count: s32, bezier_count: s32, scale: float32, code_before_bezier: Code, code_after_bezier: Code) -> bool #must #expand {
         array_reserve(*frames, frame_count);
         for 0..frame_count-1 {
             `frame := array_add(*frames);
             frame.time = read_f32(s);
 
-            #insert code;
+            #insert code_before_bezier;
 
             if it > 0 {
                 frame.type = xx read_u8(s);
@@ -885,10 +886,12 @@ Skeleton_Binary_41 :: struct {
                         }
 
                     case;
-                        log("Unknown curve type: %\n", frame.type);
+                        assert(false, "Unknown curve type: %\n", frame.type);
                         return false;
                 }
             }
+
+            #insert code_after_bezier;
         }
 
         return true;

@@ -408,7 +408,7 @@ Ik_Timeline :: struct {
     ik_constraint_index: Ik_Constraint_Index;
 
     Frame :: struct {
-        #as using _ : Curve_Frame(1);
+        #as using _ : Curve_Frame(2);
         mix:            float32;
         softness:       float32;
         bend_direction: s8;
