@@ -422,7 +422,6 @@ Skeleton_Binary_41 :: struct {
             }
         }
 
-        print("TODO: 41\n");
         return true;
     }
 
@@ -529,12 +528,15 @@ Skeleton_Binary_41 :: struct {
 
             case .LINKED_MESH;
                 print("TODO: Linked Mesh\n");
+                return null;
 
             case .PATH;
                 print("TODO: Path\n");
+                return null;
 
             case .POINT;
                 print("TODO: Point\n");
+                return null;
 
             case .CLIPPING;
                 clipping := New(Attachment_Clipping);
@@ -627,19 +629,33 @@ Skeleton_Binary_41 :: struct {
                         }
 
                     case .RGBA;
-                        log("TODO: rgba timeline");
+                        using timeline := New(Slot_Timeline.Rgba_Timeline);
+                        array_add(*timelines, timeline);
+
+                        bezier_count := read_var_s32(s, true);
+                        success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
+                            frame.r = cast(float32) read_u8(s) / 255.0;
+                            frame.g = cast(float32) read_u8(s) / 255.0;
+                            frame.b = cast(float32) read_u8(s) / 255.0;
+                            frame.a = cast(float32) read_u8(s) / 255.0;
+                        }, #code {});
+                        if !success  return false;
 
                     case .RGB;
                         log("TODO: rgb timeline");
+                        return false;
 
                     case .RGBA2;
                         log("TODO: rgba2 timeline");
+                        return false;
 
                     case .RGB2;
                         log("TODO: rgb2 timeline");
+                        return false;
 
                     case .ALPHA;
                         log("TODO: alpha timeline");
+                        return false;
 
                     case;
                         log("Unknown slot timeline type: %\n", timeline_type);
@@ -684,9 +700,11 @@ Skeleton_Binary_41 :: struct {
 
                     case .TRANSLATE_X;
                         log("TODO: translate_x timeline");
+                        return false;
 
                     case .TRANSLATE_Y;
                         log("TODO: translate_y timeline");
+                        return false;
 
                     case .SCALE;
                         timeline := New(Bone_Timeline.Scale_Timeline);
@@ -699,9 +717,11 @@ Skeleton_Binary_41 :: struct {
 
                     case .SCALE_X;
                         log("TODO: scale_x timeline");
+                        return false;
 
                     case .SCALE_Y;
                         log("TODO: scale_y timeline");
+                        return false;
 
                     case .SHEAR;
                         timeline := New(Bone_Timeline.Shear_Timeline);
@@ -714,9 +734,11 @@ Skeleton_Binary_41 :: struct {
 
                     case .SHEAR_X;
                         log("TODO: shear_xtimeline");
+                        return false;
 
                     case .SHEAR_Y;
                         log("TODO: shear_ytimeline");
+                        return false;
 
                     case;
                         log("Unknown bone timeline type: %\n", timeline_type);
@@ -789,12 +811,15 @@ Skeleton_Binary_41 :: struct {
                 if #complete path_type == {
                     case .POSITION;
                         log("TODO: path timeline");
+                        return false;
 
                     case .SPACING;
                         log("TODO: spacing timeline");
+                        return false;
 
                     case .MIX;
                         log("TODO: mix timeline");
+                        return false;
 
                     case;
                         log("Unknown path type: %\n", path_type);
@@ -840,6 +865,7 @@ Skeleton_Binary_41 :: struct {
 
                         case .SEQUENCE;
                             log("TODO: sequence");
+                            return false;
 
                         case;
                             log("Unknown deform timeline type: %\n", timeline_type);

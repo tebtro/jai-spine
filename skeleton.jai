@@ -284,6 +284,35 @@ Slot_Timeline :: struct {
             name: string;
         }
     }
+
+    Rgba_Timeline :: struct {
+        #as using _ : Timeline = .{ type = .RGBA };
+        #as using _ : Curve_Timeline(Frame);
+
+        Frame :: struct {
+            #as using _ : Curve_Frame(4);
+            r: float32;
+            g: float32;
+            b: float32;
+            a: float32;
+        }
+    }
+
+    Rgb_Timline :: struct {
+        #as using _ : Timeline = .{ type = .RGB };
+    }
+
+    Rgba2_Timline :: struct {
+        #as using _ : Timeline = .{ type = .RGBA2 };
+    }
+
+    Rgb2_Timline :: struct {
+        #as using _ : Timeline = .{ type = .RGB2 };
+    }
+
+    Alpha_Timline :: struct {
+        #as using _ : Timeline = .{ type = .ALPHA };
+    }
 }
 
 Bone_Timeline :: struct {
