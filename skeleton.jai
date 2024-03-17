@@ -27,9 +27,10 @@ Skeleton_Data :: struct {
     animations: [..] Animation_Data;
 }
 
-Bone_Index :: s32;
-Slot_Index :: s32;
-Skin_Index :: s32;
+Bone\_Index :: s32;
+Slot\_Index :: s32;
+Skin\_Index :: s32;
+Event_Index :: s32;
 
 Ik\      _Constraint_Index :: s32;
 Transform_Constraint_Index :: s32;
@@ -234,6 +235,16 @@ Event_Data :: struct {
     balance:      float32;
 }
 
+Event :: struct {
+    time:         float32;
+    event_index:  Event_Index;
+    value_int:    s32;
+    value_float:  float32;
+    value_string: string;
+    volume:       float32;
+    balance:      float32;
+}
+
 Animation_Data :: struct {
     name: string;
     slot\    _timelines: [..] Slot\    _Timeline;
@@ -242,6 +253,7 @@ Animation_Data :: struct {
     transform_timelines: [..] Transform_Timeline;
     path\    _timelines: [..] Path\    _Timeline;
     deform\  _timelines: [..] Deform\  _Timeline;
+    events: [..] Event;
 }
 
 Slot_Timeline :: struct {

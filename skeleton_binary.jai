@@ -858,9 +858,19 @@ Skeleton_Binary_41 :: struct {
 
         // Event timeline
         event_count := read_var_s32(s, true);
-        if event_count > 0 {
-            print("TODO: Event timeline\n");
-            return false;
+        array_reserve(*events, event_count);
+        for 0..event_count-1 {
+            using event := array_add(*events);
+            time         = read_f32(s);
+            event_index  = read_var_s32(s, true);
+            value_int    = read_var_s32(s, false);
+            value_float  = read_f32(s);
+            event_data  := skeleton.events[event_index];
+            value_string = ifx read_bool(s) then read_string(s) else event_data.value_string;
+            if event_data.audio_path {
+                volume  = read_f32(s);
+                balance = read_f32(s);
+            }
         }
 
         return true;
