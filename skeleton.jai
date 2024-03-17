@@ -254,6 +254,7 @@ Animation_Data :: struct {
     path\    _timelines: [..] Path\    _Timeline;
     deform\  _timelines: [..] Deform\  _Timeline;
     events: [..] Event;
+    draw_order_timeline: Draw_Order_Timeline;
 }
 
 Slot_Timeline :: struct {
@@ -512,6 +513,20 @@ Deform_Timeline :: struct {
                 offset: s32;
                 deform: [..] float32;
             }
+        }
+    }
+}
+
+Draw_Order_Timeline :: struct {
+    frames: [..] Frame;
+
+    Frame :: struct {
+        time: float32;
+        offsets: [..] Offset;
+
+        Offset :: struct {
+            slot_index: Slot_Index;
+            offset: s32;
         }
     }
 }

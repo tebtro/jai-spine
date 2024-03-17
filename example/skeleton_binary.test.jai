@@ -1,5 +1,6 @@
 main :: () {
-    data, success := read_entire_file("spineboy/export/spineboy-pro.skel");
+    data, success := read_entire_file("spineboy/export/spineboy-ess.skel");
+    //data, success := read_entire_file("spineboy/export/spineboy-pro.skel");
     if !success {
         print("Could not open file!\n");
         return;

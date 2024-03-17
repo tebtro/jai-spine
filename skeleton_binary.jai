@@ -30,27 +30,32 @@ read_bool :: (data: * string) -> bool {
 }
 
 read_var_s32 :: (data: * string, optimize_positive: bool) -> s32 {
+    union {
+        value_s: s32 = 1;
+        value_u: u32;
+    }
+
     b := read_u8(data);
-    value: s32 = b & 0x7F;
+    value_u = b & 0x7F;
     if b & 0x80 {
         b = read_u8(data);
-        value |= cast(s32) (cast(u32) b & 0x7F) << 7;
+        value_u |= (cast(u32) b & 0x7F) << 7;
         if b & 0x80 {
             b = read_u8(data);
-            value |= cast(s32) (cast(u32) b & 0x7F) << 14;
+            value_u |= (cast(u32) b & 0x7F) << 14;
             if b & 0x80 {
                 b = read_u8(data);
-                value |= cast(s32) (cast(u32) b & 0x7F) << 21;
+                value_u |= (cast(u32) b & 0x7F) << 21;
                 if b & 0x80 {
                     b = read_u8(data);
-                    value |= cast(s32) (cast(u32) b & 0x7F) << 28;
+                    value_u |= (cast(u32) b & 0x7F) << 28;
                 }
             }
         }
     }
 
-    if (!optimize_positive) value = cast(s32) (cast(u32) value >> 1) ^ cast(u32) -(value & 1);
-    return value;
+    if (!optimize_positive) value_s = cast(s32) (value_u >> 1) ^ cast(u32) -(value_s & 1);
+    return value_s;
 }
 
 read_f32 :: (data: * string) -> float32 {
@@ -877,9 +882,18 @@ Skeleton_Binary_41 :: struct {
 
         // Draw order timeline
         draw_order_count := read_var_s32(s, true);
-        if draw_order_count > 0 {
-            print("TODO: Draw order timeline\n");
-            return false;
+        array_reserve(*draw_order_timeline.frames, draw_order_count);
+        for 0..draw_order_count-1 {
+            using frame := array_add(*draw_order_timeline.frames);
+            time = read_f32(s);
+
+            offsets_count := read_var_s32(s, true);
+            array_reserve(*offsets, offsets_count);
+            for 0..offsets_count-1 {
+                using _ := array_add(*offsets);
+                slot_index = read_var_s32(s, true);
+                offset     = read_var_s32(s, true);
+            }
         }
 
         // Event timeline
