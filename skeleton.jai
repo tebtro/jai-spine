@@ -468,6 +468,8 @@ Deform_Timeline :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
+                offset: s32;
+                deform: [..] float32;
             }
         }
     }
@@ -545,4 +547,24 @@ Path_Rotate_Mode :: enum {
     TANGENT     :: 0;
     CHAIN       :: 1;
     CHAIN_SCALE :: 2;
+}
+
+find_slot :: (using skin: * Skin, slot_index: Slot_Index) -> * Slot {
+    for * slots {
+        if it.index == slot_index {
+            return it;
+        }
+    }
+
+    return null;
+}
+
+find_attachment :: (using slot: * Slot, attachment_name: string) -> * Attachment {
+    for attachments {
+        if it.name == attachment_name {
+            return it;
+        }
+    }
+
+    return null;
 }
