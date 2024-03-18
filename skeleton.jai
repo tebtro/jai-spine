@@ -183,19 +183,21 @@ Attachment_Linked_Mesh :: struct {
     #as using _: Attachment = .{ type = .LINKED_MESH };
     path: string;
     color: Color;
-    sequence: * Sequence;
-    width: float32;
-    height: float32;
+    skin_name: string;
+    parent: string;
     inherit_timelines: bool;
+    sequence: * Sequence;
+    width:  float32;
+    height: float32;
 }
 
 Attachment_Path :: struct {
     #as using _: Attachment = .{ type = .PATH };
-    path: string;
     closed: bool;
     constant_speed: bool;
     vertices: Vertices;
     lengths: [..] float32;
+    color: Color;
 }
 
 Attachment_Point :: struct {

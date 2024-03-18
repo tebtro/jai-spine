@@ -31,7 +31,7 @@ read_bool :: (data: * string) -> bool {
 
 read_var_s32 :: (data: * string, optimize_positive: bool) -> s32 {
     union {
-        value_s: s32 = 1;
+        value_s: s32;
         value_u: u32;
     }
 
@@ -362,17 +362,18 @@ Skeleton_Binary_41 :: struct {
             for 0..bones_count-1 {
                 array_add(*constraint.bones, read_var_s32(s, true));
             }
-            constraint.target        = read_var_s32(s, true);
-            constraint.position_mode = xx read_var_s32(s, true);
-            constraint.spacing\_mode = xx read_var_s32(s, true);
-            constraint.rotate\ _mode = xx read_var_s32(s, true);
-            constraint.position      = read_f32(s);
+            constraint.target          = read_var_s32(s, true);
+            constraint.position_mode   = xx read_var_s32(s, true);
+            constraint.spacing\_mode   = xx read_var_s32(s, true);
+            constraint.rotate\ _mode   = xx read_var_s32(s, true);
+            constraint.offset_rotation = read_f32(s);
+            constraint.position        = read_f32(s);
             if constraint.position_mode == .FIXED  constraint.position *= scale;
-            constraint.spacing       = read_f32(s);
+            constraint.spacing         = read_f32(s);
             if constraint.spacing_mode == .LENGTH || constraint.spacing_mode == .FIXED  constraint.spacing *= scale;
-            constraint.mix_rotate    = read_f32(s);
-            constraint.mix_x         = read_f32(s);
-            constraint.mix_y         = read_f32(s);
+            constraint.mix_rotate      = read_f32(s);
+            constraint.mix_x           = read_f32(s);
+            constraint.mix_y           = read_f32(s);
         }
 
         // Default skin
@@ -384,6 +385,7 @@ Skeleton_Binary_41 :: struct {
         for 0..skins_count-1 {
             skin := read_skin(skeleton, s, scale, non_essential, spine_version, is_default_skin = false);
             if !skin {
+                log("Error while loading skin!");
                 return false;
             }
         }
@@ -423,6 +425,7 @@ Skeleton_Binary_41 :: struct {
 
             success := read_animation(skeleton, animation, s, scale, spine_version);
             if !success {
+                log("Error while loading animation!");
                 return false;
             }
         }
@@ -436,7 +439,9 @@ Skeleton_Binary_41 :: struct {
 
         if is_default_skin {
             slots_count = read_var_s32(s, true);
-            if slots_count <= 0  return null;
+            if slots_count <= 0 {
+                return null;
+            }
 
             skin = array_add(*skins);
             skin.name = "default";
@@ -456,6 +461,8 @@ Skeleton_Binary_41 :: struct {
             slots_count = read_var_s32(s, true);
         }
 
+        log("Read skin: %", skin.name);
+
         array_reserve(*skin.slots, slots_count);
         for 0..slots_count-1 {
             slot := array_add(*skin.slots);
@@ -470,9 +477,11 @@ Skeleton_Binary_41 :: struct {
                     return null;
                 }
 
+                log("Read attachment: %", attachment_name);
+
                 attachment := read_attachment(skeleton, s, skin, slot.index, attachment_name, scale, non_essential, spine_version);
                 if !attachment {
-                    log("ERROR!");
+                    log("Error while loading attachment!");
                     return null;
                 }
 
@@ -480,7 +489,7 @@ Skeleton_Binary_41 :: struct {
             }
         }
 
-        return null;
+        return skin;
     }
 
     read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, attachment_name: string, scale: float32, non_essential: bool, spine_version: Spine_Version) -> * Attachment #must {
@@ -532,12 +541,28 @@ Skeleton_Binary_41 :: struct {
                 return mesh;
 
             case .LINKED_MESH;
-                print("TODO: Linked Mesh\n");
-                return null;
+                mesh := New(Attachment_Linked_Mesh);
+                mesh.path              = read_string_reference(s, shared_strings);
+                mesh.color             = read_color(s);
+                mesh.skin_name         = read_string_reference(s, shared_strings);
+                mesh.parent            = read_string_reference(s, shared_strings);
+                mesh.inherit_timelines = read_bool(s);
+                mesh.sequence          = read_sequence(s, spine_version);
+                if non_essential {
+                    mesh.width  = read_f32(s) * scale;
+                    mesh.height = read_f32(s) * scale;
+                }
+                return mesh;
 
             case .PATH;
-                print("TODO: Path\n");
-                return null;
+                path := New(Attachment_Path);
+                path.closed         = read_bool(s);
+                path.constant_speed = read_bool(s);
+                vertex_count       := read_var_s32(s, true);
+                path.vertices       = read_vertices(s, vertex_count, scale);
+                read_f32_array(*path.lengths, s, vertex_count / 3, scale);
+                path.color = ifx non_essential then read_color(s);
+                return path;
 
             case .POINT;
                 print("TODO: Point\n");

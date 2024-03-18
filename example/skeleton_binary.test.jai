@@ -1,5 +1,7 @@
 main :: () {
-    data, success := read_entire_file("spineboy/export/spineboy-ess.skel");
+    data, success := read_entire_file("stretchyman/export/stretchyman-pro.skel");
+    //data, success := read_entire_file("chibi-stickers/export/chibi-stickers.skel");
+    //data, success := read_entire_file("spineboy/export/spineboy-ess.skel");
     //data, success := read_entire_file("spineboy/export/spineboy-pro.skel");
     if !success {
         print("Could not open file!\n");
