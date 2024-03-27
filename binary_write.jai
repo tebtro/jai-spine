@@ -78,13 +78,9 @@ write_string :: (builder: * String_Builder, data: string) {
     }
 }
 
-write_string_reference :: (builder: * String_Builder, shared_strings: * [..] string, data: string) {
-    index := 0;
-    if data != "" {
-        _, i := array_add_if_unique(shared_strings, data);
-        index = i + 1;
-    }
-
+write_string_reference :: (builder: * String_Builder, shared_strings: [] string, data: string) {
+    found, i := array_find(shared_strings, data);
+    index := ifx found then (i + 1) else 0;
     write_var_s32(builder, xx index, true);
 }
 

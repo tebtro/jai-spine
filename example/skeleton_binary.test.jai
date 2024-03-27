@@ -45,6 +45,7 @@ test_serialization :: () {
     f32_arrays: [][] float32 = .[ .[], .[ 123 ], .[ 1, 2, 3 ] ];
 
     shared_strings: [..] string;
+    for strings  array_add_if_unique(*shared_strings, it);
 
     builder: String_Builder;
     for u8s         write_u8(*builder, it);
@@ -53,7 +54,7 @@ test_serialization :: () {
     for s32s        write_var_s32(*builder, it, true);
     for s32s        write_var_s32(*builder, it, false);
     for strings     write_string(*builder, it);
-    for strings     write_string_reference(*builder, *shared_strings, it);
+    for strings     write_string_reference(*builder, shared_strings, it);
     for colors      write_color(*builder, it);
     for s32_arrays  write_var_s32_array(*builder, it);
     for s16_arrays  write_s16_array(*builder, it);
