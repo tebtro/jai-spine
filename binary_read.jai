@@ -84,12 +84,49 @@ read_string :: (data: * string) -> string {
     return result;
 }
 
-read_string_reference :: (data: * string, shared_strings: [] string) -> string {
+read_string_reference :: (data: * string, shared_strings: [] String_Reference) -> String_Reference {
     index := read_var_s32(data, true);
-    return ifx index > 0 then shared_strings[index - 1] else .{};
+    if index > 0 {
+        return shared_strings[index - 1];
+    } else {
+        return .{
+            original_index = index,
+            value = "",
+        };
+    }
 }
 
 read_color :: read_u32;
+
+read_string_array :: (s: * string) -> [..] string {
+    result: [..] string;
+    read_string_array(s, * result);
+    return result;
+}
+
+read_string_array :: (s: * string, array: * [..] string) {
+    count := read_var_s32(s, true);
+    array_reserve(array, count);
+    for 0..count-1 {
+        array_add(array, read_string(s));
+    }
+}
+
+read_string_reference_array :: (s: * string) -> [..] String_Reference {
+    result: [..] String_Reference;
+    read_string_reference_array(s, * result);
+    return result;
+}
+
+read_string_reference_array :: (s: * string, array: * [..] String_Reference) {
+    count := read_var_s32(s, true);
+    array_reserve(array, count);
+    for 0..count-1 {
+        reference := array_add(array);
+        reference.original_index = it + 1;
+        reference.value = read_string(s);
+    }
+}
 
 read_var_s32_array :: (s: * string) -> [..] s32 {
     result: [..] s32;
@@ -143,6 +180,9 @@ read_f32_array :: (result: * [..] float32, s: * string, count: s32, scale: float
 #import "Basic";
 #import "String";
 #import "Bit_Operations";
+
+
+#import,file "binary.jai";
 
 
 #scope_file

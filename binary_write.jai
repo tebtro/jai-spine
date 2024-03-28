@@ -26,7 +26,7 @@ write_s32 :: #bake_arguments builder_write_number(T = s32);
 write_s64 :: #bake_arguments builder_write_number(T = s64);
 
 write_bool :: (builder: * String_Builder, value: bool) {
-    write_u8(builder, ifx value then 1 else 0);
+    write_u8(builder, xx ifx value then 1 else 0);
 }
 
 write_f32 :: (builder: * String_Builder, value: float32) {
@@ -78,13 +78,37 @@ write_string :: (builder: * String_Builder, data: string) {
     }
 }
 
-write_string_reference :: (builder: * String_Builder, shared_strings: [] string, data: string) {
-    found, i := array_find(shared_strings, data);
-    index := ifx found then (i + 1) else 0;
+write_string_reference :: (builder: * String_Builder, shared_strings: [] String_Reference, data: String_Reference, optimize: bool) {
+    index := 0;
+
+    if optimize {
+        for shared_strings {
+            if it.value == data.value {
+                index = it_index + 1;
+            }
+        }
+    } else {
+        index = data.original_index;
+    }
+
     write_var_s32(builder, xx index, true);
 }
 
 write_color :: write_u32;
+
+write_string_array :: (builder: * String_Builder, array: [] string) {
+    write_var_s32(builder, xx array.count, true);
+    for array {
+        write_string(builder, it);
+    }
+}
+
+write_string_reference_array :: (builder: * String_Builder, array: [] String_Reference) {
+    write_var_s32(builder, xx array.count, true);
+    for array {
+        write_string(builder, it.value);
+    }
+}
 
 write_var_s32_array :: (builder: * String_Builder, array: [] s32) {
     write_var_s32(builder, xx array.count, true);
@@ -111,6 +135,9 @@ write_f32_array :: (builder: * String_Builder, array: [] float32) {
 #import "Basic";
 #import "Memory";
 #import "Bit_Operations";
+
+
+#import,file "binary.jai";
 
 
 #scope_file

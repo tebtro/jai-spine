@@ -3,7 +3,9 @@ Skeleton_Data :: struct {
         loader_version = .Version41,
     };
 
-    hash:    string;
+    hash_low:  u32;
+    hash_high: u32;
+
     version: string;
 
     x:      float32;
@@ -11,11 +13,13 @@ Skeleton_Data :: struct {
     width:  float32;
     height: float32;
 
+    non_essential: bool;
+
     fps: float32;
     image_path: string;
     audio_path: string;
 
-    shared_strings: [..] string;
+    shared_strings: [..] String_Reference;
 
     bones: [..] Bone_Data;
     slots: [..] Slot_Data;
@@ -61,7 +65,7 @@ Slot_Data :: struct {
     bone: Bone_Index;
     color: Color;
     dark_color: Color;
-    attachment_name: string;
+    attachment_name: String_Reference;
     blend_mode: Blend_Mode;
 }
 
@@ -119,7 +123,7 @@ Path_Constraint :: struct {
 }
 
 Skin :: struct {
-    name: string;
+    name: String_Reference;
     bones: [..] Bone_Index;
     ik\      _constraints: [..] Ik\      _Constraint_Index;
     transform_constraints: [..] Transform_Constraint_Index;
@@ -133,7 +137,7 @@ Slot :: struct {
 }
 
 Attachment :: struct {
-    name: string;
+    name: String_Reference;
     type: Attachment_Type;
 }
 
@@ -149,7 +153,7 @@ Attachment_Type :: enum {
 
 Attachment_Region :: struct {
     #as using _: Attachment = .{ type = .REGION };
-    path: string;
+    path: String_Reference;
     rotation: float32;
     x: float32;
     y: float32;
@@ -169,7 +173,7 @@ Attachment_Bounding_Box :: struct {
 
 Attachment_Mesh :: struct {
     #as using _: Attachment = .{ type = .MESH };
-    path: string;
+    path: String_Reference;
     color: Color;
     vertices: Vertices;
     triangles: [..] s16;
@@ -183,10 +187,10 @@ Attachment_Mesh :: struct {
 
 Attachment_Linked_Mesh :: struct {
     #as using _: Attachment = .{ type = .LINKED_MESH };
-    path: string;
+    path: String_Reference;
     color: Color;
-    skin_name: string;
-    parent: string;
+    skin_name: String_Reference;
+    parent: String_Reference;
     inherit_timelines: bool;
     sequence: * Sequence;
     width:  float32;
@@ -230,7 +234,7 @@ Vertices :: struct {
 }
 
 Event_Data :: struct {
-    name:         string;
+    name:         String_Reference;
     value_int:    s32;
     value_float:  float32;
     value_string: string;
@@ -286,7 +290,7 @@ Slot_Timeline :: struct {
 
         Frame :: struct {
             time: float32;
-            name: string;
+            name: String_Reference;
         }
     }
 
@@ -508,7 +512,7 @@ Deform_Timeline :: struct {
         Attachment_Timeline :: struct {
             #as using _ : Curve_Timeline(Frame);
 
-            attachment_name: string;
+            attachment_name: String_Reference;
 
             timeline_type: Deform_Timeline_Type;
 
@@ -629,4 +633,5 @@ find_attachment :: (using slot: * Slot, attachment_name: string) -> * Attachment
     return null;
 }
 
+#import,file "binary.jai";
 #import,file "skeleton.jai";

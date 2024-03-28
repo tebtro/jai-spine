@@ -3,9 +3,8 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
 
     using skeleton := New(Skeleton_Data);
 
-    hash_low  := read_u32(s);
-    hash_high := read_u32(s);
-    hash = sprint("%0%", FormatInt.{ value = hash_high, base = 16 }, FormatInt.{ value = hash_low, base = 16 });
+    hash_low  = read_u32(s);
+    hash_high = read_u32(s);
 
     version = read_string(s);
     if slice(version, 0, 3) == {
@@ -21,7 +20,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     width  = read_f32(s);
     height = read_f32(s);
 
-    non_essential := read_bool(s);
+    non_essential = read_bool(s);
     if non_essential {
         fps        = read_f32(s);
         image_path = read_string(s);
@@ -29,11 +28,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     }
 
     // Shared strings
-    shared_strings_count := read_var_s32(s, true);
-    array_reserve(*shared_strings, shared_strings_count);
-    for 0..shared_strings_count-1 {
-        array_add(*shared_strings, read_string(s));
-    }
+    read_string_reference_array(s, *shared_strings);
 
     // Bones
     bones_count := read_var_s32(s, true);
@@ -168,13 +163,13 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     }
 
     // Default skin
-    default_skin = read_skin(skeleton, s, scale, non_essential, spine_version, is_default_skin = true);
+    default_skin = read_skin(skeleton, s, scale, spine_version, is_default_skin = true);
 
     // Skins
     skins_count := read_var_s32(s, true);
     array_reserve(*skins, skins.count + skins_count);
     for 0..skins_count-1 {
-        skin := read_skin(skeleton, s, scale, non_essential, spine_version, is_default_skin = false);
+        skin := read_skin(skeleton, s, scale, spine_version, is_default_skin = false);
         if !skin {
             log("Error while loading skin!");
             return null;
@@ -187,7 +182,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     for 0..events_count-1 {
         event := array_add(*events);
         event.name = read_string_reference(s, shared_strings);
-        if !event.name {
+        if !event.name.value {
             log("Event name must not be null!");
             return null;
         }
@@ -224,7 +219,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     return skeleton;
 }
 
-read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, non_essential: bool, spine_version: Spine_Version, is_default_skin: bool) -> * Skin #must {
+read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, spine_version: Spine_Version, is_default_skin: bool) -> * Skin #must {
     skin: * Skin;
     slots_count: s32;
 
@@ -235,11 +230,11 @@ read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, non_
         }
 
         skin = array_add(*skins);
-        skin.name = "default";
+        skin.name = .{ value = "default" };
     } else {
         skin = array_add(*skins);
         skin.name = read_string_reference(s, shared_strings);
-        if !skin.name {
+        if !skin.name.value {
             log("Skin name must not be null!");
             return null;
         }
@@ -263,14 +258,14 @@ read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, non_
         array_reserve(*slot.attachments, attachments_count);
         for 0..attachments_count-1 {
             attachment_name := read_string_reference(s, shared_strings);
-            if !attachment_name {
+            if !attachment_name.value {
                 log("Attachment name must not be null!");
                 return null;
             }
 
             //log("Read attachment: %", attachment_name);
 
-            attachment := read_attachment(skeleton, s, skin, slot.index, attachment_name, scale, non_essential, spine_version);
+            attachment := read_attachment(skeleton, s, skin, slot.index, attachment_name, scale, spine_version);
             if !attachment {
                 log("Error while loading attachment!");
                 return null;
@@ -283,9 +278,9 @@ read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, non_
     return skin;
 }
 
-read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, attachment_name: string, scale: float32, non_essential: bool, spine_version: Spine_Version) -> * Attachment #must {
+read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, attachment_name: String_Reference, scale: float32, spine_version: Spine_Version) -> * Attachment #must {
     name := read_string_reference(s, shared_strings);
-    if !name  name = attachment_name;
+    if !name.value  name = attachment_name;
 
     attachment_type := cast(Attachment_Type) read_u8(s);
     if attachment_type == {
@@ -293,7 +288,7 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
             region := New(Attachment_Region);
             region.name     = name;
             region.path     = read_string_reference(s, shared_strings);
-            if !region.path  region.path = name;
+            if !region.path.value  region.path = name;
             region.rotation = read_f32(s);
             region.x        = read_f32(s) * scale;
             region.y        = read_f32(s) * scale;
@@ -316,7 +311,7 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
             mesh := New(Attachment_Mesh);
             mesh.name        = name;
             mesh.path        = read_string_reference(s, shared_strings);
-            if !mesh.path  mesh.path = name;
+            if !mesh.path.value  mesh.path = name;
             mesh.color       = read_color(s);
             vertex_count    := read_var_s32(s, true);
             mesh.region_uvs  = read_f32_array(s, vertex_count << 1);
@@ -782,6 +777,7 @@ read_deform_timeline_type :: (s: * string, version: Spine_Version) -> Deform_Tim
 #import "Basic";
 #import "String";
 
+#import,file "binary.jai";
 #import,file "binary_read.jai";
 #import,file "skeleton.jai";
 #import,file "skeleton_4.jai";
