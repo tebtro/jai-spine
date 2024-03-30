@@ -39,17 +39,17 @@ write :: (b: * String_Builder, base_skeleton: * Base_Skeleton_Data, optimize: bo
         write_f32(b, it.shear_y);
         write_f32(b, it.length);
         write_var_s32(b, xx it.transform_mode, true);
-        write_bool(b, it.skin_required);
+        write_bool   (b,    it.skin_required);
         if non_essential  write_color(b, it.color);
     }
 
     // Slots
     write_var_s32(b, xx slots.count, true);
     for slots {
-        write_string(b, it.name);
+        write_string (b, it.name);
         write_var_s32(b, it.bone, true);
-        write_color(b, it.color);
-        write_color(b, it.dark_color);
+        write_color  (b, it.color);
+        write_color  (b, it.dark_color);
         write_string_reference(b, shared_strings, it.attachment_name, optimize);
         write_var_s32(b, xx it.blend_mode, true);
     }
@@ -57,20 +57,235 @@ write :: (b: * String_Builder, base_skeleton: * Base_Skeleton_Data, optimize: bo
     // Ik constraints
     write_var_s32(b, xx ik_constraints.count, true);
     for ik_constraints {
-        write_string(b, it.name);
-        write_var_s32(b, it.order, true);
-        write_bool(b, it.skin_required);
+        write_string (b,    it.name);
+        write_var_s32(b,    it.order, true);
+        write_bool   (b,    it.skin_required);
         write_var_s32(b, xx it.bones.count, true);
         for it.bones {
             write_var_s32(b, it, true);
         }
         write_var_s32(b, it.target, true);
-        write_f32(b, it.mix);
-        write_f32(b, it.softness);
-        write_s8(b, it.bend_direction);
-        write_bool(b, it.compress);
-        write_bool(b, it.stretch);
-        write_bool(b, it.uniform);
+        write_f32    (b, it.mix);
+        write_f32    (b, it.softness);
+        write_s8     (b, it.bend_direction);
+        write_bool   (b, it.compress);
+        write_bool   (b, it.stretch);
+        write_bool   (b, it.uniform);
+    }
+
+    // Transform constraints
+    write_var_s32(b, xx transform_constraints.count, true);
+    for transform_constraints {
+        write_string (b,    it.name);
+        write_var_s32(b,    it.order, true);
+        write_bool   (b,    it.skin_required);
+        write_var_s32(b, xx it.bones.count, true);
+        for it.bones {
+            write_var_s32(b, it, true);
+        }
+        write_var_s32(b, it.target, true);
+        write_bool(b, it.local);
+        write_bool(b, it.relative);
+        write_f32(b, it.offset_rotation);
+        write_f32(b, it.offset_x);
+        write_f32(b, it.offset_y);
+        write_f32(b, it.offset_scale_x);
+        write_f32(b, it.offset_scale_y);
+        write_f32(b, it.offset_shear_y);
+        write_f32(b, it.mix_rotate);
+        write_f32(b, it.mix_x);
+        write_f32(b, it.mix_y);
+        write_f32(b, it.mix_scale_x);
+        write_f32(b, it.mix_scale_y);
+        write_f32(b, it.mix_shear_y);
+    }
+
+    // Path constraints
+    write_var_s32(b, xx path_constraints.count, true);
+    for path_constraints {
+        write_string (b, it.name);
+        write_var_s32(b, it.order, true);
+        write_bool   (b, it.skin_required);
+        write_var_s32(b, xx it.bones.count, true);
+        for it.bones {
+            write_var_s32(b, it, true);
+        }
+        write_var_s32(b,    it.target, true);
+        write_var_s32(b, xx it.position_mode, true);
+        write_var_s32(b, xx it.spacing\_mode, true);
+        write_var_s32(b, xx it.rotate\ _mode, true);
+        write_f32    (b,    it.offset_rotation);
+        write_f32    (b,    it.position);
+        write_f32    (b,    it.spacing);
+        write_f32    (b,    it.mix_rotate);
+        write_f32    (b,    it.mix_x);
+        write_f32    (b,    it.mix_y);
+    }
+
+    // Default skin
+    write_skin(b, skeleton, *default_skin, is_default_skin = true, optimize);
+
+    // Skins
+    write_var_s32(b, xx skins.count, true);
+    for * skins {
+        write_skin(b, skeleton, it, is_default_skin = false, optimize);
+    }
+
+    // Events
+    write_var_s32(b, xx events.count, true);
+    for events {
+        write_string_reference(b, shared_strings, it.name, optimize);
+        write_var_s32(b, it.value_int, false);
+        write_f32    (b, it.value_float);
+        write_string (b, it.value_string);
+        write_string (b, it.audio_path);
+        if it.audio_path.has_value && it.audio_path.value {
+            write_f32(b, it.volume);
+            write_f32(b, it.balance);
+        }
+    }
+
+    // Animations
+    // TODO
+}
+
+write_skin :: (b: * String_Builder, skeleton: * Skeleton_Data, using skin: * Skin, is_default_skin: bool, optimize: bool) {
+    if is_default_skin {
+        assert(name.data.has_value && name.data.value == "default");
+        write_var_s32(b, xx slots.count, true);
+    } else {
+        write_string_reference(b, skeleton.shared_strings, name, optimize);
+
+        write_var_s32_array(b, bones);
+        write_var_s32_array(b, ik\      _constraints);
+        write_var_s32_array(b, transform_constraints);
+        write_var_s32_array(b, path\    _constraints);
+
+        write_var_s32(b, xx slots.count, true);
+    }
+
+    for slots {
+        write_var_s32(b, it.index, true);
+
+        write_var_s32(b, xx it.attachments.count, true);
+        for it.attachments {
+            write_string_reference(b, skeleton.shared_strings, it.name,          optimize);
+            write_string_reference(b, skeleton.shared_strings, it.name_override, optimize);
+            write_attachment(b, skeleton, it, optimize);
+        }
+    }
+}
+
+write_attachment :: (b: * String_Builder, using skeleton: * Skeleton_Data, attachment: * Attachment, optimize: bool) {
+    write_u8(b, xx attachment.type);
+    if attachment.type == {
+        case .REGION;
+            region := cast(* Attachment_Region) attachment;
+            write_string_reference(b, shared_strings, region.path, optimize);
+            write_f32  (b, region.rotation);
+            write_f32  (b, region.x);
+            write_f32  (b, region.y);
+            write_f32  (b, region.scale_x);
+            write_f32  (b, region.scale_y);
+            write_f32  (b, region.width);
+            write_f32  (b, region.height);
+            write_color(b, region.color);
+            write_sequence(b, skeleton, region.sequence);
+
+        case .BOUNDING_BOX;
+            bounding_box := cast(* Attachment_Bounding_Box) attachment;
+            write_vertices(b, bounding_box.vertices);
+            if non_essential  write_color(b, bounding_box.color);
+
+        case .MESH;
+            mesh := cast(* Attachment_Mesh) attachment;
+            write_string_reference(b, shared_strings, mesh.path, optimize);
+            write_color    (b, mesh.color);
+            write_var_s32  (b, mesh.vertex_count, true);
+            write_f32_array(b, mesh.region_uvs, mesh.vertex_count << 1);
+            write_s16_array(b, mesh.triangles);
+            write_vertices (b, mesh.vertices, mesh.vertex_count);
+            write_var_s32  (b, mesh.hull_length >> 1, true);
+            write_sequence (b, skeleton, mesh.sequence);
+            if non_essential {
+                write_s16_array(b, mesh.edges);
+                write_f32      (b, mesh.width);
+                write_f32      (b, mesh.height);
+            }
+
+        case .LINKED_MESH;
+            mesh := cast(* Attachment_Linked_Mesh) attachment;
+            write_string_reference(b, shared_strings, mesh.path, optimize);
+            write_color(b, mesh.color);
+            write_string_reference(b, shared_strings, mesh.skin_name, optimize);
+            write_string_reference(b, shared_strings, mesh.parent,    optimize);
+            write_bool(b, mesh.inherit_timelines);
+            write_sequence(b, skeleton, mesh.sequence);
+            if non_essential {
+                write_f32(b, mesh.width);
+                write_f32(b, mesh.height);
+            }
+
+        case .PATH;
+            path := cast(* Attachment_Path) attachment;
+            write_bool     (b, path.closed);
+            write_bool     (b, path.constant_speed);
+            write_var_s32  (b, path.vertex_count, true);
+            write_vertices (b, path.vertices, path.vertex_count);
+            write_f32_array(b, path.lengths, path.vertex_count / 3);
+            if non_essential  write_color(b, path.color);
+
+        case .POINT;
+            log("TODO: Point");
+
+        case .CLIPPING;
+            clipping := cast(* Attachment_Clipping) attachment;
+            write_var_s32 (b, clipping.end_slot_index, true);
+            write_vertices(b, clipping.vertices);
+            if non_essential  write_color(b, clipping.color);
+
+        case;
+            log("Unknown attachment type: %", attachment.type);
+    }
+}
+
+write_sequence :: (b: * String_Builder, using skeleton: * Skeleton_Data, sequence: * Sequence) {
+    if loader_version < .Version41 {
+        return;
+    }
+
+    write_bool(b, xx sequence);
+    if sequence {
+        write_var_s32(b, sequence.regions_count, true);
+        write_var_s32(b, sequence.start,         true);
+        write_var_s32(b, sequence.digits,        true);
+        write_var_s32(b, sequence.setup_index,   true);
+    }
+}
+
+write_vertices :: (b: * String_Builder, vertices: Vertices) {
+    write_var_s32(b, vertices.vertex_count, true);
+    write_vertices(b, vertices, vertices.vertex_count);
+}
+
+write_vertices :: (b: * String_Builder, vertices: Vertices, vertex_count: s32) {
+    vertices_count := vertex_count << 1;
+
+    write_bool(b, vertices.with_bones);
+    if !vertices.with_bones {
+        write_f32_array(b, vertices.vertices, vertices_count);
+        return;
+    }
+
+    assert(vertices.bones.count == vertex_count);
+    for vertices.bones {
+        write_var_s32(b, xx it.count, true);
+        for it {
+            write_var_s32(b, it.bone, true);
+            write_f32    (b, it.x);
+            write_f32    (b, it.y);
+            write_f32    (b, it.weight);
+        }
     }
 }
 

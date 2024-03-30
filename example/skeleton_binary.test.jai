@@ -29,31 +29,50 @@ test_skeleton :: (path: string) {
     new_data := write_skeleton_binary(skeleton, false);
     //write_entire_file("output.skel", new_data);
 
-    if !compare(data, new_data, new_data.count) {
-        log("ERROR: New data differs from old data partially!");
+    same, offset := compare_strings_partially(data, new_data, new_data.count);
+    if !same {
+        log("ERROR: New data differs from old data partially! (Offset: %)", offset);
     }
 
     if data != new_data {
         log("ERROR: New data differs from old data!");
     }
+
+    print("\n");
 }
+
+#assert(string.{} == "");
 
 test_serialization :: () {
     u8s:     [] u8      = .[ 0, 1, U8_MAX, U8_MAX/3 ];
     s32s:    [] s32     = .[ -1, 0, 1, S32_MIN, S32_MAX, S32_MIN/3, S32_MAX/3 ];
     f32s:    [] float32 = .[ -1, 0, 1, FLOAT32_MIN, FLOAT32_MAX, FLOAT32_INFINITY ];
-    strings: [] string  = .[ .{}, "", "same", "Hello Sailor!", "same" ];
     colors:  [] Color   = .[ 0x00000000, 0x7f7f7f7f, 0xffffffff ];
+    strings: [] Optional(string)  = .[
+        .{},
+        #run create_optional(""),
+        #run create_optional("same"),
+        #run create_optional("Hello Sailor!"),
+        #run create_optional("same"),
+    ];
     s32_arrays:    [][] s32     = .[ .[], .[ 123 ], .[ 1, 2, 3 ] ];
     s16_arrays:    [][] s16     = .[ .[], .[ 123 ], .[ 1, 2, 3 ] ];
     f32_arrays:    [][] float32 = .[ .[], .[ 123 ], .[ 1, 2, 3 ] ];
-    string_arrays: [][] string  = .[ .[], .[ "" ], .[ "", "Hello Sailor!" ] ];
+    string_arrays: [][] Optional(string)  = .[
+        .[],
+        .[ .{} ],
+        .[ #run create_optional("") ],
+        .[
+            #run create_optional(""),
+            #run create_optional("Hello Sailor!"),
+        ],
+    ];
 
     shared_strings: [..] String_Reference;
     for strings {
         reference := array_add(*shared_strings);
         reference.original_index = xx (it_index + 1);
-        reference.value = it;
+        reference.data = it;
     }
 
     builder: String_Builder;
@@ -62,9 +81,9 @@ test_serialization :: () {
     for f32s           write_f32(*builder, it);
     for s32s           write_var_s32(*builder, it, true);
     for s32s           write_var_s32(*builder, it, false);
+    for colors         write_color(*builder, it);
     for strings        write_string(*builder, it);
     for strings        write_string_reference(*builder, shared_strings, shared_strings[it_index], false);
-    for colors         write_color(*builder, it);
     for s32_arrays     write_var_s32_array(*builder, it);
     for s16_arrays     write_s16_array(*builder, it);
     for f32_arrays     write_f32_array(*builder, it);
@@ -76,9 +95,9 @@ test_serialization :: () {
     for f32s           assert(it == read_f32(*data));
     for s32s           assert(it == read_var_s32(*data, true));
     for s32s           assert(it == read_var_s32(*data, false));
-    for strings        assert(it == read_string(*data));
-    for strings        assert(it == read_string_reference(*data, shared_strings).value);
     for colors         assert(it == read_color(*data));
+    for strings        assert(it == read_string(*data));
+    for strings        assert(it == read_string_reference(*data, shared_strings).data);
     for s32_arrays     assert(compare(it, read_var_s32_array(*data)));
     for s16_arrays     assert(compare(it, read_s16_array(*data)));
     for f32_arrays     assert(compare(it, read_f32_array(*data)));
@@ -98,12 +117,12 @@ compare :: (a: [] $T, b: [] T, count: int) -> bool {
     return true;
 }
 
-compare :: (a: string, b: string, count: int) -> bool {
-    if a.count < count || b.count < count  return false;
+compare_strings_partially :: (a: string, b: string, count: int) -> (same: bool, offset: int) {
+    if a.count < count || b.count < count  return false, count;
     for 0..count-1 {
-        if a[it] != b[it]  return false;
+        if a[it] != b[it]  return false, it;
     }
-    return true;
+    return true, count;
 }
 
 #load "../skeleton_binary_read.jai";

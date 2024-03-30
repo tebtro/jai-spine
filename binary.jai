@@ -1,4 +1,7 @@
 String_Reference :: struct {
     original_index: s32;
-    value: string;
+    data: Optional(string);
 }
+
+
+#import,file "modules/Optional.jai";

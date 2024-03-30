@@ -1,17 +1,19 @@
 load_skeleton_binary :: (data: string, scale: float32 = 1) -> * Base_Skeleton_Data {
-    read_version_old :: (data: string) -> string {
+    read_version_old :: (data: string) -> Optional(string) {
         read_string(*data);
         return read_string(*data);
     }
 
-    read_version_new :: (data: string) -> string {
+    read_version_new :: (data: string) -> Optional(string) {
         read_u32(*data);
         read_u32(*data);
         return read_string(*data);
     }
 
-    detect_spine_version :: (version_string: string) -> Spine_Version {
-        sub3 := slice(version_string, 0, 3);
+    detect_spine_version :: (version_string: Optional(string)) -> Spine_Version {
+        if !version_string.has_value  return .Unknown;
+
+        sub3 := slice(version_string.value, 0, 3);
         if sub3 == {
             case "3.7";  return .Version37;
             case "3.8";  return .Version38;
@@ -50,6 +52,8 @@ load_skeleton_binary :: (data: string, scale: float32 = 1) -> * Base_Skeleton_Da
 
 Skeleton_Binary_3 :: #import,file "skeleton_3_binary_read.jai";
 Skeleton_Binary_4 :: #import,file "skeleton_4_binary_read.jai";
+
+#import,file "modules/Optional.jai";
 
 #import,file "binary_read.jai";
 #import,file "skeleton.jai";

@@ -72,16 +72,16 @@ read_var_s32 :: (data: * string, optimize_positive: bool) -> s32 {
     return value_s;
 }
 
-read_string :: (data: * string) -> string {
+read_string :: (data: * string) -> Optional(string) {
     count := read_var_s32(data, true);
     if count <= 0 || count-1 > data.count  return .{};
-    else if count == 1  return "";
+    else if count == 1  return create_optional("");
 
     count -= 1;
 
     result := string.{ count, data.data };
     advance(data, count);
-    return result;
+    return create_optional(result);
 }
 
 read_string_reference :: (data: * string, shared_strings: [] String_Reference) -> String_Reference {
@@ -91,20 +91,20 @@ read_string_reference :: (data: * string, shared_strings: [] String_Reference) -
     } else {
         return .{
             original_index = index,
-            value = "",
+            data = create_optional(""),
         };
     }
 }
 
 read_color :: read_u32;
 
-read_string_array :: (s: * string) -> [..] string {
-    result: [..] string;
+read_string_array :: (s: * string) -> [..] Optional(string) {
+    result: [..] Optional(string);
     read_string_array(s, * result);
     return result;
 }
 
-read_string_array :: (s: * string, array: * [..] string) {
+read_string_array :: (s: * string, array: * [..] Optional(string)) {
     count := read_var_s32(s, true);
     array_reserve(array, count);
     for 0..count-1 {
@@ -124,7 +124,7 @@ read_string_reference_array :: (s: * string, array: * [..] String_Reference) {
     for 0..count-1 {
         reference := array_add(array);
         reference.original_index = it + 1;
-        reference.value = read_string(s);
+        reference.data = read_string(s);
     }
 }
 
@@ -176,6 +176,9 @@ read_f32_array :: (result: * [..] float32, s: * string, count: s32, scale: float
         }
     }
 }
+
+
+#import,file "modules/Optional.jai";
 
 #import "Basic";
 #import "String";

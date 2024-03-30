@@ -7,7 +7,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     hash_high = read_u32(s);
 
     version = read_string(s);
-    if slice(version, 0, 3) == {
+    if slice(version.value, 0, 3) == {
         case "4.0";
         case "4.1";
         case;
@@ -36,7 +36,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     for 0..bones_count-1 {
         bone := array_add(*bones);
         bone.name = read_string(s);
-        if !bone.name {
+        if !bone.name.has_value || !bone.name.value {
             log("Bone name must not be null!");
             return null;
         }
@@ -60,7 +60,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     for 0..slots_count-1 {
         slot := array_add(*slots);
         slot.name = read_string(s);
-        if !slot.name {
+        if !slot.name.has_value || !slot.name.value {
             log("Slot name must not be null!");
             return null;
         }
@@ -77,7 +77,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     for 0..ik_constraints_count-1 {
         ik := array_add(*ik_constraints);
         ik.name = read_string(s);
-        if !ik.name {
+        if !ik.name.has_value || !ik.name.value {
             log("Ik constraint name must not be null!");
             return null;
         }
@@ -103,7 +103,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     for 0..transform_constraints_count-1 {
         constraint := array_add(*transform_constraints);
         constraint.name = read_string(s);
-        if !constraint.name {
+        if !constraint.name.has_value || !constraint.name.value {
             log("Ik constraint name must not be null!");
             return null;
         }
@@ -137,7 +137,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     for 0..path_constraints_count-1 {
         constraint := array_add(*path_constraints);
         constraint.name = read_string(s);
-        if !constraint.name {
+        if !constraint.name.has_value || !constraint.name.value {
             log("Path constraint name must not be null!");
             return null;
         }
@@ -154,23 +154,26 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
         constraint.rotate\ _mode   = xx read_var_s32(s, true);
         constraint.offset_rotation = read_f32(s);
         constraint.position        = read_f32(s);
-        if constraint.position_mode == .FIXED  constraint.position *= scale;
         constraint.spacing         = read_f32(s);
-        if constraint.spacing_mode == .LENGTH || constraint.spacing_mode == .FIXED  constraint.spacing *= scale;
         constraint.mix_rotate      = read_f32(s);
         constraint.mix_x           = read_f32(s);
         constraint.mix_y           = read_f32(s);
     }
 
     // Default skin
-    default_skin = read_skin(skeleton, s, scale, spine_version, is_default_skin = true);
+    success := read_skin(skeleton, *default_skin, s, scale, spine_version, is_default_skin = true);
+    if !success {
+        log("Error while loading default skin!");
+        return null;
+    }
 
     // Skins
     skins_count := read_var_s32(s, true);
-    array_reserve(*skins, skins.count + skins_count);
+    array_reserve(*skins, skins_count);
     for 0..skins_count-1 {
-        skin := read_skin(skeleton, s, scale, spine_version, is_default_skin = false);
-        if !skin {
+        skin := array_add(*skins);
+        success := read_skin(skeleton, skin, s, scale, spine_version, is_default_skin = false);
+        if !success {
             log("Error while loading skin!");
             return null;
         }
@@ -182,16 +185,16 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     for 0..events_count-1 {
         event := array_add(*events);
         event.name = read_string_reference(s, shared_strings);
-        if !event.name.value {
+        if !event.name.data.has_value || !event.name.data.value {
             log("Event name must not be null!");
             return null;
         }
-        event.value_int = read_var_s32(s, false);
-        event.value_float = read_f32(s);
+        event.value_int    = read_var_s32(s, false);
+        event.value_float  = read_f32(s);
         event.value_string = read_string(s);
-        event.audio_path = read_string(s);
-        if event.audio_path {
-            event.volume = read_f32(s);
+        event.audio_path   = read_string(s);
+        if event.audio_path.has_value && event.audio_path.value {
+            event.volume  = read_f32(s);
             event.balance = read_f32(s);
         }
     }
@@ -202,7 +205,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     for 0..animations_count-1 {
         animation := array_add(*animations);
         animation.name = read_string(s);
-        if !animation.name {
+        if !animation.name.has_value || !animation.name.value {
             log("Animation name must not be null!");
             return null;
         }
@@ -219,24 +222,21 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     return skeleton;
 }
 
-read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, spine_version: Spine_Version, is_default_skin: bool) -> * Skin #must {
-    skin: * Skin;
+read_skin :: (using skeleton: * Skeleton_Data, skin: * Skin, s: * string, scale: float32, spine_version: Spine_Version, is_default_skin: bool) -> bool #must {
     slots_count: s32;
 
     if is_default_skin {
         slots_count = read_var_s32(s, true);
         if slots_count <= 0 {
-            return null;
+            return false;
         }
 
-        skin = array_add(*skins);
-        skin.name = .{ value = "default" };
+        skin.name = .{ data = create_optional("default") };
     } else {
-        skin = array_add(*skins);
         skin.name = read_string_reference(s, shared_strings);
-        if !skin.name.value {
+        if !skin.name.data.has_value || !skin.name.data.value {
             log("Skin name must not be null!");
-            return null;
+            return false;
         }
 
         read_var_s32_array(s, *skin.bones);
@@ -258,37 +258,37 @@ read_skin :: (using skeleton: * Skeleton_Data, s: * string, scale: float32, spin
         array_reserve(*slot.attachments, attachments_count);
         for 0..attachments_count-1 {
             attachment_name := read_string_reference(s, shared_strings);
-            if !attachment_name.value {
+            if !attachment_name.data.has_value || !attachment_name.data.value {
                 log("Attachment name must not be null!");
-                return null;
+                return false;
             }
+
+            attachment_name_override := read_string_reference(s, shared_strings);
 
             //log("Read attachment: %", attachment_name);
 
-            attachment := read_attachment(skeleton, s, skin, slot.index, attachment_name, scale, spine_version);
+            attachment := read_attachment(skeleton, s, skin, slot.index, scale, spine_version);
             if !attachment {
                 log("Error while loading attachment!");
-                return null;
+                return false;
             }
+
+            attachment.name          = attachment_name;
+            attachment.name_override = attachment_name_override;
 
             array_add(*slot.attachments, attachment);
         }
     }
 
-    return skin;
+    return true;
 }
 
-read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, attachment_name: String_Reference, scale: float32, spine_version: Spine_Version) -> * Attachment #must {
-    name := read_string_reference(s, shared_strings);
-    if !name.value  name = attachment_name;
-
+read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, scale: float32, spine_version: Spine_Version) -> * Attachment #must {
     attachment_type := cast(Attachment_Type) read_u8(s);
     if attachment_type == {
         case .REGION;
             region := New(Attachment_Region);
-            region.name     = name;
             region.path     = read_string_reference(s, shared_strings);
-            if !region.path.value  region.path = name;
             region.rotation = read_f32(s);
             region.x        = read_f32(s) * scale;
             region.y        = read_f32(s) * scale;
@@ -302,27 +302,24 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
 
         case .BOUNDING_BOX;
             bounding_box := New(Attachment_Bounding_Box);
-            bounding_box.name     = name;
             bounding_box.vertices = read_vertices(s, scale);
             bounding_box.color    = ifx non_essential then read_color(s);
             return bounding_box;
 
         case .MESH;
             mesh := New(Attachment_Mesh);
-            mesh.name        = name;
-            mesh.path        = read_string_reference(s, shared_strings);
-            if !mesh.path.value  mesh.path = name;
-            mesh.color       = read_color(s);
-            vertex_count    := read_var_s32(s, true);
-            mesh.region_uvs  = read_f32_array(s, vertex_count << 1);
-            mesh.triangles   = read_s16_array(s);
-            mesh.vertices    = read_vertices(s, vertex_count, scale);
-            mesh.hull_length = read_var_s32(s, true) << 1;
-            mesh.sequence    = read_sequence(s, spine_version);
+            mesh.path         = read_string_reference(s, shared_strings);
+            mesh.color        = read_color(s);
+            mesh.vertex_count = read_var_s32(s, true);
+            mesh.region_uvs   = read_f32_array(s, mesh.vertex_count << 1);
+            mesh.triangles    = read_s16_array(s);
+            mesh.vertices     = read_vertices(s, mesh.vertex_count, scale);
+            mesh.hull_length  = read_var_s32(s, true) << 1;
+            mesh.sequence     = read_sequence(s, spine_version);
             if non_essential {
-                mesh.edges   = read_s16_array(s);
-                mesh.width   = read_f32(s) * scale;
-                mesh.height  = read_f32(s) * scale;
+                mesh.edges    = read_s16_array(s);
+                mesh.width    = read_f32(s) * scale;
+                mesh.height   = read_f32(s) * scale;
             }
             return mesh;
 
@@ -344,9 +341,9 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
             path := New(Attachment_Path);
             path.closed         = read_bool(s);
             path.constant_speed = read_bool(s);
-            vertex_count       := read_var_s32(s, true);
-            path.vertices       = read_vertices(s, vertex_count, scale);
-            read_f32_array(*path.lengths, s, vertex_count / 3, scale);
+            path.vertex_count   = read_var_s32(s, true);
+            path.vertices       = read_vertices(s, path.vertex_count, scale);
+            read_f32_array(*path.lengths, s, path.vertex_count / 3, scale);
             path.color = ifx non_essential then read_color(s);
             return path;
 
@@ -356,7 +353,6 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
 
         case .CLIPPING;
             clipping := New(Attachment_Clipping);
-            clipping.name           = name;
             clipping.end_slot_index = read_var_s32(s, true);
             clipping.vertices       = read_vertices(s, scale);
             clipping.color          = ifx non_essential then read_color(s);
@@ -370,7 +366,9 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
 }
 
 read_sequence :: (s: * string, version: Spine_Version) -> * Sequence #must {
-    if (version < .Version41 || !read_bool(s))  return null;
+    if version < .Version41 || !read_bool(s) {
+        return null;
+    }
 
     result := New(Sequence);
     result.regions_count = read_var_s32(s, true);
@@ -387,27 +385,28 @@ read_vertices :: (s: * string, scale: float32) -> Vertices #must {
 
 read_vertices :: (s: * string, vertex_count: s32, scale: float32) -> Vertices #must {
     result: Vertices;
+    result.vertex_count = vertex_count;
 
     vertices_count := vertex_count << 1;
 
-    if !read_bool(s) {
+    result.with_bones = read_bool(s);
+    if !result.with_bones {
         result.vertices = read_f32_array(s, vertices_count, scale);
         return result;
     }
 
-    array_reserve(*result.vertices, vertices_count);
     array_reserve(*result.bones, vertex_count);
-
     for 0..vertex_count-1 {
         bones := array_add(*result.bones);
 
         bones_count := read_var_s32(s, true);
         array_reserve(bones, bones_count);
         for 0..bones_count-1 {
-            array_add(bones, read_var_s32(s, true));
-            array_add(*result.vertices, read_f32(s) * scale);
-            array_add(*result.vertices, read_f32(s) * scale);
-            array_add(*result.vertices, read_f32(s));
+            vertex := array_add(bones);
+            vertex.bone   = read_var_s32(s, true);
+            vertex.x      = read_f32(s) * scale;
+            vertex.y      = read_f32(s) * scale;
+            vertex.weight = read_f32(s);
         }
     }
 
@@ -718,7 +717,7 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
         value_float  = read_f32(s);
         event_data  := skeleton.events[event_index];
         value_string = ifx read_bool(s) then read_string(s) else event_data.value_string;
-        if event_data.audio_path {
+        if event_data.audio_path.has_value && event_data.audio_path.value {
             volume  = read_f32(s);
             balance = read_f32(s);
         }
@@ -781,3 +780,4 @@ read_deform_timeline_type :: (s: * string, version: Spine_Version) -> Deform_Tim
 #import,file "binary_read.jai";
 #import,file "skeleton.jai";
 #import,file "skeleton_4.jai";
+#import,file "modules/Optional.jai";

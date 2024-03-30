@@ -70,11 +70,15 @@ write_var_s32 :: (builder: * String_Builder, value: s32, optimize_positive: bool
     }
 }
 
-write_string :: (builder: * String_Builder, data: string) {
-    count := cast(s32) data.count + 1;
-    write_var_s32(builder, count, true);
+write_string :: (builder: * String_Builder, data: Optional(string)) {
+    count := 0;
+    if data.has_value {
+        count = data.value.count + 1;
+    }
+
+    write_var_s32(builder, xx count, true);
     if count > 1 {
-        append(builder, data.data, count - 1);
+        append(builder, data.value.data, count - 1);
     }
 }
 
@@ -82,9 +86,11 @@ write_string_reference :: (builder: * String_Builder, shared_strings: [] String_
     index := 0;
 
     if optimize {
-        for shared_strings {
-            if it.value == data.value {
-                index = it_index + 1;
+        if data.data.has_value {
+            for shared_strings {
+                if it.data.value == data.data.value {
+                    index = it_index + 1;
+                }
             }
         }
     } else {
@@ -96,7 +102,7 @@ write_string_reference :: (builder: * String_Builder, shared_strings: [] String_
 
 write_color :: write_u32;
 
-write_string_array :: (builder: * String_Builder, array: [] string) {
+write_string_array :: (builder: * String_Builder, array: [] Optional(string)) {
     write_var_s32(builder, xx array.count, true);
     for array {
         write_string(builder, it);
@@ -106,7 +112,7 @@ write_string_array :: (builder: * String_Builder, array: [] string) {
 write_string_reference_array :: (builder: * String_Builder, array: [] String_Reference) {
     write_var_s32(builder, xx array.count, true);
     for array {
-        write_string(builder, it.value);
+        write_string(builder, it.data);
     }
 }
 
@@ -131,6 +137,13 @@ write_f32_array :: (builder: * String_Builder, array: [] float32) {
     }
 }
 
+write_f32_array :: (builder: * String_Builder, array: [] float32, count: s32) {
+    assert(array.count == count);
+    for array {
+        write_f32(builder, it);
+    }
+}
+
 
 #import "Basic";
 #import "Memory";
@@ -138,6 +151,7 @@ write_f32_array :: (builder: * String_Builder, array: [] float32) {
 
 
 #import,file "binary.jai";
+#import,file "modules/Optional.jai";
 
 
 #scope_file

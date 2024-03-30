@@ -6,7 +6,7 @@ Skeleton_Data :: struct {
     hash_low:  u32;
     hash_high: u32;
 
-    version: string;
+    version: Optional(string);
 
     x:      float32;
     y:      float32;
@@ -16,8 +16,8 @@ Skeleton_Data :: struct {
     non_essential: bool;
 
     fps: float32;
-    image_path: string;
-    audio_path: string;
+    image_path: Optional(string);
+    audio_path: Optional(string);
 
     shared_strings: [..] String_Reference;
 
@@ -27,7 +27,7 @@ Skeleton_Data :: struct {
     transform_constraints: [..] Transform_Constraint;
     path_constraints: [..] Path_Constraint;
 
-    default_skin: * Skin;
+    default_skin: Skin;
     skins: [..] Skin;
 
     events: [..] Event_Data;
@@ -45,7 +45,7 @@ Transform_Constraint_Index :: s32;
 Path\    _Constraint_Index :: s32;
 
 Bone_Data :: struct {
-    name: string;
+    name: Optional(string);
     parent: Bone_Index;
     rotation: float32;
     x: float32;
@@ -61,7 +61,7 @@ Bone_Data :: struct {
 }
 
 Slot_Data :: struct {
-    name: string;
+    name: Optional(string);
     bone: Bone_Index;
     color: Color;
     dark_color: Color;
@@ -70,7 +70,7 @@ Slot_Data :: struct {
 }
 
 Ik_Constraint :: struct {
-    name: string;
+    name: Optional(string);
     order: s32;
     skin_required: bool;
     bones: [..] Bone_Index;
@@ -84,7 +84,7 @@ Ik_Constraint :: struct {
 }
 
 Transform_Constraint :: struct {
-    name: string;
+    name: Optional(string);
     order: s32;
     skin_required: bool;
     bones: [..] Bone_Index;
@@ -106,7 +106,7 @@ Transform_Constraint :: struct {
 }
 
 Path_Constraint :: struct {
-    name: string;
+    name: Optional(string);
     order: s32;
     skin_required: bool;
     bones: [..] Bone_Index;
@@ -137,8 +137,9 @@ Slot :: struct {
 }
 
 Attachment :: struct {
-    name: String_Reference;
-    type: Attachment_Type;
+    name:          String_Reference;
+    name_override: String_Reference;
+    type:          Attachment_Type;
 }
 
 Attachment_Type :: enum {
@@ -175,9 +176,10 @@ Attachment_Mesh :: struct {
     #as using _: Attachment = .{ type = .MESH };
     path: String_Reference;
     color: Color;
-    vertices: Vertices;
-    triangles: [..] s16;
+    vertex_count: s32;
     region_uvs: [..] float32;
+    triangles: [..] s16;
+    vertices: Vertices;
     hull_length: s32;
     sequence: * Sequence;
     edges: [..] s16;
@@ -201,6 +203,7 @@ Attachment_Path :: struct {
     #as using _: Attachment = .{ type = .PATH };
     closed: bool;
     constant_speed: bool;
+    vertex_count: s32;
     vertices: Vertices;
     lengths: [..] float32;
     color: Color;
@@ -229,16 +232,25 @@ Sequence :: struct {
 }
 
 Vertices :: struct {
+    vertex_count: s32;
+    with_bones: bool;
     vertices: [..] float32;
-    bones: [..] [..] Bone_Index;
+    bones: [..] [..] Bone_Vertex;
+
+    Bone_Vertex :: struct {
+        bone: Bone_Index;
+        x: float32;
+        y: float32;
+        weight: float32;
+    }
 }
 
 Event_Data :: struct {
     name:         String_Reference;
     value_int:    s32;
     value_float:  float32;
-    value_string: string;
-    audio_path:   string;
+    value_string: Optional(string);
+    audio_path:   Optional(string);
     volume:       float32;
     balance:      float32;
 }
@@ -248,13 +260,13 @@ Event :: struct {
     event_index:  Event_Index;
     value_int:    s32;
     value_float:  float32;
-    value_string: string;
+    value_string: Optional(string);
     volume:       float32;
     balance:      float32;
 }
 
 Animation_Data :: struct {
-    name: string;
+    name: Optional(string);
     slot\    _timelines: [..] Slot\    _Timeline;
     bone\    _timelines: [..] Bone\    _Timeline;
     ik\      _timelines: [..] Ik\      _Timeline;
@@ -635,3 +647,4 @@ find_attachment :: (using slot: * Slot, attachment_name: string) -> * Attachment
 
 #import,file "binary.jai";
 #import,file "skeleton.jai";
+#import,file "modules/Optional.jai";
