@@ -256,17 +256,19 @@ Event_Data :: struct {
 }
 
 Event :: struct {
-    time:         float32;
-    event_index:  Event_Index;
-    value_int:    s32;
-    value_float:  float32;
-    value_string: Optional(string);
-    volume:       float32;
-    balance:      float32;
+    time:             float32;
+    event_index:      Event_Index;
+    value_int:        s32;
+    value_float:      float32;
+    use_value_string: bool;
+    value_string:     Optional(string);
+    volume:           float32;
+    balance:          float32;
 }
 
 Animation_Data :: struct {
     name: Optional(string);
+    total_timelines_count: s32;
     slot\    _timelines: [..] Slot\    _Timeline;
     bone\    _timelines: [..] Bone\    _Timeline;
     ik\      _timelines: [..] Ik\      _Timeline;
@@ -293,6 +295,7 @@ Slot_Timeline :: struct {
 
     Timeline :: struct {
         type: Timeline_Type;
+        frame_count: s32;
     }
 
     Attachment_Timeline :: struct {
@@ -310,12 +313,11 @@ Slot_Timeline :: struct {
         #as using _ : Timeline = .{ type = .RGBA };
         #as using _ : Curve_Timeline(Frame);
 
+        bezier_count: s32;
+
         Frame :: struct {
             #as using _ : Curve_Frame(4);
-            r: float32;
-            g: float32;
-            b: float32;
-            a: float32;
+            r, g, b, a: u8;
         }
     }
 
@@ -356,6 +358,8 @@ Bone_Timeline :: struct {
 
     Timeline :: struct {
         type: Timeline_Type;
+        frame_count: s32;
+        bezier_count: s32;
     }
 
     // @todo Thats a bit bloated!
@@ -468,6 +472,8 @@ Ik_Timeline :: struct {
     #as using _ : Curve_Timeline(Frame);
 
     ik_constraint_index: Ik_Constraint_Index;
+    frame_count: s32;
+    bezier_count: s32;
 
     Frame :: struct {
         #as using _ : Curve_Frame(2);
@@ -483,6 +489,8 @@ Transform_Timeline :: struct {
     #as using _ : Curve_Timeline(Frame);
 
     transform_constraint_index: Transform_Constraint_Index;
+    frame_count: s32;
+    bezier_count: s32;
 
     Frame :: struct {
         #as using _ : Curve_Frame(1);
@@ -519,17 +527,22 @@ Deform_Timeline :: struct {
     Slot_Timeline :: struct {
         slot_index: Slot_Index;
 
-        attachment_timelines: [..] Attachment_Timeline;
+        attachment_timelines: [..] * Attachment_Timeline;
 
         Attachment_Timeline :: struct {
-            #as using _ : Curve_Timeline(Frame);
-
             attachment_name: String_Reference;
-
             timeline_type: Deform_Timeline_Type;
+            frame_count: s32;
+        }
+
+        Attachment_Deform_Timeline :: struct {
+            #as using _ : Attachment_Timeline;
+            #as using _ : Curve_Timeline(Frame);
+            bezier_count: s32;
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
+                deform_length: s32;
                 offset: s32;
                 deform: [..] float32;
             }

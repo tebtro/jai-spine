@@ -1,7 +1,8 @@
-load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skeleton_Data {
+load :: (data: string, scale: float32, lv: Spine_Version) -> * Skeleton_Data {
     s := * data;
 
     using skeleton := New(Skeleton_Data);
+    loader_version = lv;
 
     hash_low  = read_u32(s);
     hash_high = read_u32(s);
@@ -161,7 +162,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     }
 
     // Default skin
-    success := read_skin(skeleton, *default_skin, s, scale, spine_version, is_default_skin = true);
+    success := read_skin(skeleton, *default_skin, s, scale, is_default_skin = true);
     if !success {
         log("Error while loading default skin!");
         return null;
@@ -172,7 +173,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     array_reserve(*skins, skins_count);
     for 0..skins_count-1 {
         skin := array_add(*skins);
-        success := read_skin(skeleton, skin, s, scale, spine_version, is_default_skin = false);
+        success := read_skin(skeleton, skin, s, scale, is_default_skin = false);
         if !success {
             log("Error while loading skin!");
             return null;
@@ -212,7 +213,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
 
         //log("Animation name: %", animation.name);
 
-        success := read_animation(skeleton, animation, s, scale, spine_version);
+        success := read_animation(skeleton, animation, s, scale);
         if !success {
             log("Error while loading animation!");
             return null;
@@ -222,7 +223,7 @@ load :: (data: string, scale: float32, spine_version: Spine_Version) -> * Skelet
     return skeleton;
 }
 
-read_skin :: (using skeleton: * Skeleton_Data, skin: * Skin, s: * string, scale: float32, spine_version: Spine_Version, is_default_skin: bool) -> bool #must {
+read_skin :: (using skeleton: * Skeleton_Data, skin: * Skin, s: * string, scale: float32, is_default_skin: bool) -> bool #must {
     slots_count: s32;
 
     if is_default_skin {
@@ -267,7 +268,7 @@ read_skin :: (using skeleton: * Skeleton_Data, skin: * Skin, s: * string, scale:
 
             //log("Read attachment: %", attachment_name);
 
-            attachment := read_attachment(skeleton, s, skin, slot.index, scale, spine_version);
+            attachment := read_attachment(skeleton, s, skin, slot.index, scale);
             if !attachment {
                 log("Error while loading attachment!");
                 return false;
@@ -283,7 +284,7 @@ read_skin :: (using skeleton: * Skeleton_Data, skin: * Skin, s: * string, scale:
     return true;
 }
 
-read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, scale: float32, spine_version: Spine_Version) -> * Attachment #must {
+read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, slot_index: Slot_Index, scale: float32) -> * Attachment #must {
     attachment_type := cast(Attachment_Type) read_u8(s);
     if attachment_type == {
         case .REGION;
@@ -297,7 +298,7 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
             region.width    = read_f32(s) * scale;
             region.height   = read_f32(s) * scale;
             region.color    = read_color(s);
-            region.sequence = read_sequence(s, spine_version);
+            region.sequence = read_sequence(s, loader_version);
             return region;
 
         case .BOUNDING_BOX;
@@ -315,7 +316,7 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
             mesh.triangles    = read_s16_array(s);
             mesh.vertices     = read_vertices(s, mesh.vertex_count, scale);
             mesh.hull_length  = read_var_s32(s, true) << 1;
-            mesh.sequence     = read_sequence(s, spine_version);
+            mesh.sequence     = read_sequence(s, loader_version);
             if non_essential {
                 mesh.edges    = read_s16_array(s);
                 mesh.width    = read_f32(s) * scale;
@@ -330,7 +331,7 @@ read_attachment :: (using skeleton: * Skeleton_Data, s: * string, skin: * Skin, 
             mesh.skin_name         = read_string_reference(s, shared_strings);
             mesh.parent            = read_string_reference(s, shared_strings);
             mesh.inherit_timelines = read_bool(s);
-            mesh.sequence          = read_sequence(s, spine_version);
+            mesh.sequence          = read_sequence(s, loader_version);
             if non_essential {
                 mesh.width  = read_f32(s) * scale;
                 mesh.height = read_f32(s) * scale;
@@ -413,8 +414,8 @@ read_vertices :: (s: * string, vertex_count: s32, scale: float32) -> Vertices #m
     return result;
 }
 
-read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data, s: * string, scale: float32, version: Spine_Version) -> bool #must {
-    _ := read_var_s32(s, true);  // timelines_count
+read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data, s: * string, scale: float32) -> bool #must {
+    total_timelines_count = read_var_s32(s, true);  // timelines_count
 
     // Slot timelines
     slot_timelines_count := read_var_s32(s, true);
@@ -429,30 +430,34 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
             timeline_type := cast(Slot_Timeline.Timeline_Type) read_u8(s);
             frame_count := read_var_s32(s, true);
 
-            //log("Slot timeline type: %", timeline_type);
+            create_timeline :: ($T: Type) -> * T #expand {
+                timeline := New(T);
+                timeline.frame_count = frame_count;
+                array_add(*timelines, timeline);
+                return timeline;
+            }
 
+            //log("Slot timeline type: %", timeline_type);
             if #complete timeline_type == {
                 case .ATTACHMENT;
-                    using timeline := New(Slot_Timeline.Attachment_Timeline);
-                    array_add(*timelines, timeline);
+                    timeline := create_timeline(Slot_Timeline.Attachment_Timeline);
 
-                    array_reserve(*frames, frame_count);
+                    array_reserve(*timeline.frames, frame_count);
                     for 0..frame_count-1 {
-                        frame := array_add(*frames);
+                        frame := array_add(*timeline.frames);
                         frame.time = read_f32(s);
                         frame.name = read_string_reference(s, skeleton.shared_strings);
                     }
 
                 case .RGBA;
-                    using timeline := New(Slot_Timeline.Rgba_Timeline);
-                    array_add(*timelines, timeline);
+                    timeline := create_timeline(Slot_Timeline.Rgba_Timeline);
 
-                    bezier_count := read_var_s32(s, true);
-                    success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
-                        frame.r = cast(float32) read_u8(s) / 255.0;
-                        frame.g = cast(float32) read_u8(s) / 255.0;
-                        frame.b = cast(float32) read_u8(s) / 255.0;
-                        frame.a = cast(float32) read_u8(s) / 255.0;
+                    timeline.bezier_count = read_var_s32(s, true);
+                    success := read_curve_timeline(timeline, s, frame_count, 1, #code {
+                        frame.r = read_u8(s);
+                        frame.g = read_u8(s);
+                        frame.b = read_u8(s);
+                        frame.a = read_u8(s);
                     }, #code {});
                     if !success  return false;
 
@@ -493,21 +498,26 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
             frame_count  := read_var_s32(s, true);
             bezier_count := read_var_s32(s, true);
 
-            //log("Bone timeline type: %", timeline_type);
+            create_timeline :: ($T: Type) -> * T #expand {
+                timeline := New(T);
+                timeline.frame_count = frame_count;
+                timeline.bezier_count = bezier_count;
+                array_add(*timelines, timeline);
+                return timeline;
+            }
 
+            //log("Bone timeline type: %", timeline_type);
             if #complete timeline_type == {
                 case .ROTATE;
-                    timeline := New(Bone_Timeline.Rotate_Timeline);
-                    array_add(*timelines, timeline);
-                    success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
+                    timeline := create_timeline(Bone_Timeline.Rotate_Timeline);
+                    success := read_curve_timeline(timeline, s, frame_count, 1, #code {
                         frame.rotation = read_f32(s);
                     }, #code {});
                     if !success  return false;
 
                 case .TRANSLATE;
-                    timeline := New(Bone_Timeline.Translate_Timeline);
-                    array_add(*timelines, timeline);
-                    success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
+                    timeline := create_timeline(Bone_Timeline.Translate_Timeline);
+                    success := read_curve_timeline(timeline, s, frame_count, scale, #code {
                         frame.x = read_f32(s);
                         frame.y = read_f32(s);
                     }, #code {});
@@ -522,9 +532,8 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
                     return false;
 
                 case .SCALE;
-                    timeline := New(Bone_Timeline.Scale_Timeline);
-                    array_add(*timelines, timeline);
-                    success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
+                    timeline := create_timeline(Bone_Timeline.Scale_Timeline);
+                    success := read_curve_timeline(timeline, s, frame_count, 1, #code {
                         frame.scale_x = read_f32(s);
                         frame.scale_y = read_f32(s);
                     }, #code {});
@@ -539,9 +548,8 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
                     return false;
 
                 case .SHEAR;
-                    timeline := New(Bone_Timeline.Shear_Timeline);
-                    array_add(*timelines, timeline);
-                    success := read_curve_timeline(timeline, s, frame_count, bezier_count, 1, #code {
+                    timeline := create_timeline(Bone_Timeline.Shear_Timeline);
+                    success := read_curve_timeline(timeline, s, frame_count, 1, #code {
                         frame.shear_x = read_f32(s);
                         frame.shear_y = read_f32(s);
                     }, #code {});
@@ -569,12 +577,12 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
         using timeline := array_add(*ik_timelines);
         ik_constraint_index = read_var_s32(s, true);
 
-        frame_count  := read_var_s32(s, true);
-        bezier_count := read_var_s32(s, true);
+        frame_count  = read_var_s32(s, true);
+        bezier_count = read_var_s32(s, true);
 
         //log("Ik constraint timeline");
 
-        success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
+        success := read_curve_timeline(timeline, s, frame_count, scale, #code {
             frame.mix            = read_f32(s);
             frame.softness       = read_f32(s) * scale;
         }, #code {
@@ -592,12 +600,12 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
         using timeline := array_add(*transform_timelines);
         transform_constraint_index = read_var_s32(s, true);
 
-        frame_count  := read_var_s32(s, true);
-        bezier_count := read_var_s32(s, true);
+        frame_count  = read_var_s32(s, true);
+        bezier_count = read_var_s32(s, true);
 
         //log("Transform timeline");
 
-        success := read_curve_timeline(timeline, s, frame_count, bezier_count, scale, #code {
+        success := read_curve_timeline(timeline, s, frame_count, scale, #code {
             frame.rotate  = read_f32(s);
             frame.mix_x   = read_f32(s);
             frame.mix_y   = read_f32(s);
@@ -659,21 +667,29 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
             attachment_timelines_count := read_var_s32(s, true);
             array_reserve(*attachment_timelines, attachment_timelines_count);
             for 0..attachment_timelines_count-1 {
-                using attachment_timeline := array_add(*attachment_timelines);
-                attachment_name = read_string_reference(s, skeleton.shared_strings);
-                timeline_type = read_deform_timeline_type(s, version);
+                attachment_name := read_string_reference(s, skeleton.shared_strings);
+                timeline_type := read_deform_timeline_type(s, skeleton.loader_version);
                 frame_count := read_var_s32(s, true);
 
-                //log("Deform timeline type: %", timeline_type);
+                create_timeline :: ($T: Type) -> * T #expand {
+                    timeline := New(T);
+                    timeline.attachment_name = attachment_name;
+                    timeline.timeline_type = timeline_type;
+                    timeline.frame_count = frame_count;
+                    array_add(*attachment_timelines, timeline);
+                    return timeline;
+                }
 
+                //log("Deform timeline type: %", timeline_type);
                 if #complete timeline_type == {
                     case .DEFORM;
-                        bezier_count := read_var_s32(s, true);
-                        success := read_curve_timeline(attachment_timeline, s, frame_count, bezier_count, 1, #code{}, #code {
-                            deform_length := read_var_s32(s, true);
-                            if deform_length > 0 {
+                        timeline := create_timeline(Deform_Timeline.Slot_Timeline.Attachment_Deform_Timeline);
+                        timeline.bezier_count = read_var_s32(s, true);
+                        success := read_curve_timeline(timeline, s, frame_count, 1, #code {}, #code {
+                            frame.deform_length = read_var_s32(s, true);
+                            if frame.deform_length > 0 {
                                 frame.offset = read_var_s32(s, true);
-                                read_f32_array(*frame.deform, s, deform_length, scale);
+                                read_f32_array(*frame.deform, s, frame.deform_length, scale);
                             }
                         });
                         if !success  return false;
@@ -711,12 +727,13 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
     array_reserve(*events, event_count);
     for 0..event_count-1 {
         using event := array_add(*events);
-        time         = read_f32(s);
-        event_index  = read_var_s32(s, true);
-        value_int    = read_var_s32(s, false);
-        value_float  = read_f32(s);
+        time             = read_f32(s);
+        event_index      = read_var_s32(s, true);
+        value_int        = read_var_s32(s, false);
+        value_float      = read_f32(s);
+        use_value_string = read_bool(s);
+        value_string     = ifx use_value_string then read_string(s);
         event_data  := skeleton.events[event_index];
-        value_string = ifx read_bool(s) then read_string(s) else event_data.value_string;
         if event_data.audio_path.has_value && event_data.audio_path.value {
             volume  = read_f32(s);
             balance = read_f32(s);
@@ -726,7 +743,7 @@ read_animation :: (skeleton: * Skeleton_Data, using animation: * Animation_Data,
     return true;
 }
 
-read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_count: s32, bezier_count: s32, scale: float32, code_before_bezier: Code, code_after_bezier: Code) -> bool #must #expand {
+read_curve_timeline :: (using timeline: * Curve_Timeline($Frame), s: * string, frame_count: s32, scale: float32, code_before_bezier: Code, code_after_bezier: Code) -> bool #must #expand {
     array_reserve(*frames, frame_count);
     for 0..frame_count-1 {
         `frame := array_add(*frames);
@@ -742,7 +759,10 @@ read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_cou
                 case .STEPPED;
                 case .BEZIER;
                     for * frame.beziers {
-                        read_bezier(it, s, scale);
+                        it.cx1 = read_f32(s);
+                        it.cy1 = read_f32(s) * scale;
+                        it.cx2 = read_f32(s);
+                        it.cy2 = read_f32(s) * scale;
                     }
 
                 case;
@@ -755,13 +775,6 @@ read_curve_timeline :: (using timeline: * Curve_Timeline, s: * string, frame_cou
     }
 
     return true;
-}
-
-read_bezier :: (using bezier: * Bezier_Data, s: * string, scale: float32) {
-    cx1 = read_f32(s);
-    cy1 = read_f32(s) * scale;
-    cx2 = read_f32(s);
-    cy2 = read_f32(s) * scale;
 }
 
 read_deform_timeline_type :: (s: * string, version: Spine_Version) -> Deform_Timeline_Type {

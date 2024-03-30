@@ -37,8 +37,6 @@ test_skeleton :: (path: string) {
     if data != new_data {
         log("ERROR: New data differs from old data!");
     }
-
-    print("\n");
 }
 
 #assert(string.{} == "");

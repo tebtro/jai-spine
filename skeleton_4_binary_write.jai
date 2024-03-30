@@ -146,7 +146,11 @@ write :: (b: * String_Builder, base_skeleton: * Base_Skeleton_Data, optimize: bo
     }
 
     // Animations
-    // TODO
+    write_var_s32(b, xx animations.count, true);
+    for animations {
+        write_string(b, it.name);
+        write_animation(b, skeleton, it, optimize);
+    }
 }
 
 write_skin :: (b: * String_Builder, skeleton: * Skeleton_Data, using skin: * Skin, is_default_skin: bool, optimize: bool) {
@@ -286,6 +290,268 @@ write_vertices :: (b: * String_Builder, vertices: Vertices, vertex_count: s32) {
             write_f32    (b, it.y);
             write_f32    (b, it.weight);
         }
+    }
+}
+
+write_animation :: (b: * String_Builder, skeleton: * Skeleton_Data, using animation: Animation_Data, optimize: bool) {
+    write_var_s32(b, total_timelines_count, true);
+
+    // Slot timelines
+    write_var_s32(b, xx slot_timelines.count, true);
+    for slot_timelines {
+        write_var_s32(b, it.slot_index, true);
+
+        write_var_s32(b, xx it.timelines.count, true);
+        for it.timelines {
+            write_u8(b, xx it.type);
+            write_var_s32(b, xx it.frame_count, true);
+
+            if #complete it.type == {
+                case .ATTACHMENT;
+                    timeline := cast(* Slot_Timeline.Attachment_Timeline) it;
+
+                    for timeline.frames {
+                        write_f32(b, it.time);
+                        write_string_reference(b, skeleton.shared_strings, it.name, optimize);
+                    }
+
+                case .RGBA;
+                    timeline := cast(* Slot_Timeline.Rgba_Timeline) it;
+
+                    write_var_s32(b, timeline.bezier_count, true);
+                    write_curve_timeline(b, timeline, #code {
+                        write_u8(b, frame.r);
+                        write_u8(b, frame.g);
+                        write_u8(b, frame.b);
+                        write_u8(b, frame.a);
+                    }, #code {});
+
+                case .RGB;
+                    log("TODO: rgb timeline");
+
+                case .RGBA2;
+                    log("TODO: rgba2 timeline");
+
+                case .RGB2;
+                    log("TODO: rgb2 timeline");
+
+                case .ALPHA;
+                    log("TODO: alpha timeline");
+
+                case;
+                    log("Unknown slot timeline type: %\n", it.type);
+            }
+        }
+    }
+
+    // Bone timelines
+    write_var_s32(b, xx bone_timelines.count, true);
+    for bone_timelines {
+        write_var_s32(b, it.bone_index, true);
+
+        write_var_s32(b, xx it.timelines.count, true);
+        for it.timelines {
+            write_u8(b, xx it.type);
+            write_var_s32(b, it.frame_count, true);
+            write_var_s32(b, it.bezier_count, true);
+
+            if #complete it.type == {
+                case .ROTATE;
+                    timeline := cast(* Bone_Timeline.Rotate_Timeline) it;
+                    write_curve_timeline(b, timeline, #code {
+                        write_f32(b, frame.rotation);
+                    }, #code {});
+
+                case .TRANSLATE;
+                    timeline := cast(* Bone_Timeline.Translate_Timeline) it;
+                    write_curve_timeline(b, timeline, #code {
+                        write_f32(b, frame.x);
+                        write_f32(b, frame.y);
+                    }, #code {});
+
+                case .TRANSLATE_X;
+                    log("TODO: translate_x timeline");
+
+                case .TRANSLATE_Y;
+                    log("TODO: translate_y timeline");
+
+                case .SCALE;
+                    timeline := cast(* Bone_Timeline.Scale_Timeline) it;
+                    write_curve_timeline(b, timeline, #code {
+                        write_f32(b, frame.scale_x);
+                        write_f32(b, frame.scale_y);
+                    }, #code {});
+
+                case .SCALE_X;
+                    log("TODO: scale_x timeline");
+
+                case .SCALE_Y;
+                    log("TODO: scale_y timeline");
+
+                case .SHEAR;
+                    timeline := cast(* Bone_Timeline.Shear_Timeline) it;
+                    write_curve_timeline(b, timeline, #code {
+                        write_f32(b, frame.shear_x);
+                        write_f32(b, frame.shear_y);
+                    }, #code {});
+
+                case .SHEAR_X;
+                    log("TODO: shear_xtimeline");
+
+                case .SHEAR_Y;
+                    log("TODO: shear_ytimeline");
+
+                case;
+                    log("Unknown bone timeline type: %\n", it.type);
+            }
+        }
+    }
+
+    // Ik constraint timelines
+    write_var_s32(b, xx ik_timelines.count, true);
+    for * ik_timelines {
+        write_var_s32(b, it.ik_constraint_index, true);
+
+        write_var_s32(b, it.frame_count, true);
+        write_var_s32(b, it.bezier_count, true);
+
+        write_curve_timeline(b, it, #code {
+            write_f32(b, frame.mix);
+            write_f32(b, frame.softness);
+        }, #code {
+            write_s8(b, frame.bend_direction);
+            write_bool(b, frame.compress);
+            write_bool(b, frame.stretch);
+        });
+    }
+
+    // Transform constraint timelines
+    write_var_s32(b, xx transform_timelines.count, true);
+    for * transform_timelines {
+        write_var_s32(b, it.transform_constraint_index, true);
+
+        write_var_s32(b, it.frame_count, true);
+        write_var_s32(b, it.bezier_count, true);
+
+        write_curve_timeline(b, it, #code {
+            write_f32(b, frame.rotate);
+            write_f32(b, frame.mix_x);
+            write_f32(b, frame.mix_y);
+            write_f32(b, frame.scale_x);
+            write_f32(b, frame.scale_y);
+            write_f32(b, frame.shear_y);
+        }, #code {});
+    }
+
+    // Path constraint timelines
+    write_var_s32(b, xx path_timelines.count, true);
+    for path_timelines {
+        write_var_s32(b, it.path_constraint_index, true);
+
+        write_var_s32(b, xx it.timelines.count, true);
+        for it.timelines {
+            log("TODO: Path constraint timelines");
+        }
+    }
+
+    // Deform timelines
+    write_var_s32(b, xx deform_timelines.count, true);
+    for deform_timelines {
+        write_var_s32(b, it.skin_index, true);
+
+        write_var_s32(b, xx it.slot_timelines.count, true);
+        for it.slot_timelines {
+            write_var_s32(b, it.slot_index, true);
+
+            write_var_s32(b, xx it.attachment_timelines.count, true);
+            for it.attachment_timelines {
+                write_string_reference(b, skeleton.shared_strings, it.attachment_name, optimize);
+                write_deform_timeline_type(b, skeleton, it.timeline_type);
+                write_var_s32(b, it.frame_count, true);
+
+                if #complete it.timeline_type == {
+                    case .DEFORM;
+                        timeline := cast(* Deform_Timeline.Slot_Timeline.Attachment_Deform_Timeline) it;
+                        write_var_s32(b, timeline.bezier_count, true);
+                        write_curve_timeline(b, timeline, #code {}, #code {
+                            write_var_s32(b, frame.deform_length, true);
+                            if frame.deform_length > 0 {
+                                write_var_s32(b, frame.offset, true);
+                                write_f32_array(b, frame.deform, frame.deform_length);
+                            }
+                        });
+
+                    case .SEQUENCE;
+                        log("TODO: sequence");
+
+                    case;
+                        log("Unknown deform timeline type: %\n", it.timeline_type);
+                }
+            }
+        }
+    }
+
+    // Draw order timeline
+    write_var_s32(b, xx draw_order_timeline.frames.count, true);
+    for draw_order_timeline.frames {
+        write_f32(b, it.time);
+
+        write_var_s32(b, xx it.offsets.count, true);
+        for it.offsets {
+            write_var_s32(b, it.slot_index, true);
+            write_var_s32(b, it.offset,     true);
+        }
+    }
+
+    // Event timeline
+    write_var_s32(b, xx events.count, true);
+    for events {
+        write_f32    (b, it.time);
+        write_var_s32(b, it.event_index, true);
+        write_var_s32(b, it.value_int, false);
+        write_f32    (b, it.value_float);
+        write_bool   (b, it.use_value_string);
+        if it.use_value_string  write_string (b, it.value_string);
+        event_data  := skeleton.events[it.event_index];
+        if event_data.audio_path.has_value && event_data.audio_path.value {
+            write_f32(b, it.volume);
+            write_f32(b, it.balance);
+        }
+    }
+}
+
+write_curve_timeline :: (b: * String_Builder, using timeline: * Curve_Timeline($Frame), code_before_bezier: Code, code_after_bezier: Code) #expand {
+    for `frame: frames {
+        write_f32(b, frame.time);
+
+        #insert code_before_bezier;
+
+        if it_index > 0 {
+            write_u8(b, xx frame.type);
+
+            if #complete frame.type == {
+                case .LINEAR;
+                case .STEPPED;
+                case .BEZIER;
+                    for frame.beziers {
+                        write_f32(b, it.cx1);
+                        write_f32(b, it.cy1);
+                        write_f32(b, it.cx2);
+                        write_f32(b, it.cy2);
+                    }
+
+                case;
+                    assert(false, "Unknown curve type: %\n", frame.type);
+            }
+        }
+
+        #insert code_after_bezier;
+    }
+}
+
+write_deform_timeline_type :: (b: * String_Builder, skeleton: * Skeleton_Data, type: Deform_Timeline_Type) {
+    if skeleton.loader_version >= .Version41 {
+        write_u8(b, xx type);
     }
 }
 
