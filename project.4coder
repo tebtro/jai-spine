@@ -1,0 +1,59 @@
+version(2);
+project_name = "reel_engine";
+
+patterns = {
+	"*.jai",
+	"*.4coder",
+};
+
+blacklist_patterns = {
+	".*",
+};
+
+load_paths = {
+	.win = {
+		{ .path = ".",       .recursive = false, .relative = true, },
+		{ .path = "src",     .recursive = true , .relative = true, },
+		{ .path = "modules", .recursive = true , .relative = true, },
+	},
+	.linux = {
+		{ .path = ".",                  .recursive = false, .relative = true, },
+		{ .path = "src",                .recursive = true , .relative = true, },
+		{ .path = "modules",            .recursive = true , .relative = true, },
+		{ .path = "../jai/jai/modules", .recursive = true , .relative = true, },
+		{ .path = "../jai/jai/how_to",  .recursive = true , .relative = true, },
+	},
+	.mac = {
+		{ .path = ".",       .recursive = false, .relative = true, },
+		{ .path = "src",     .recursive = true , .relative = true, },
+		{ .path = "modules", .recursive = true , .relative = true, },
+	},
+};
+
+commands = {
+	.build = {
+		.win   = "jai first.jai",
+		.linux = "jai first.jai",
+		.mac   = "jai first.jai",
+		.out = "*compilation*",
+		.footer_panel = true,
+		.save_dirty_files = true,
+		.cursor_at_end = false,
+	},
+	.run = {
+		.win   = ".\build\tests",
+		.linux = "./build/tests",
+		.mac   = "./build/tests",
+		.out = "*run*",
+		.footer_panel = false,
+		.save_dirty_files = false,
+		.cursor_at_end = false,
+	},
+};
+
+fkey_command = {
+	.F1 = "build",
+	.F2 = "run",
+};
+
+

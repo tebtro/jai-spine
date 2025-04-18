@@ -66,8 +66,8 @@ Atlas_Region :: struct {
     entries: [..] Atlas_Entry;
 }
 
-load_atlas :: (using atlas: * Atlas, data: string) -> bool #must {
-    read_line :: (data: * string) -> string, bool {
+load_atlas :: (using atlas: *Atlas, data: string) -> bool #must {
+    read_line :: (data: *string) -> string, bool {
         line, found := consume_next_line(data);
         if !found  return "", false;
         return trim(line), found;
@@ -91,9 +91,9 @@ load_atlas :: (using atlas: * Atlas, data: string) -> bool #must {
     }
 
     // Ignore empty lines before first entry.
-    line, found := read_line(* data);
+    line, found := read_line(*data);
     while found && line.count == 0 {
-        line, found = read_line(* data);
+        line, found = read_line(*data);
     }
 
     // Header entries
@@ -102,27 +102,27 @@ load_atlas :: (using atlas: * Atlas, data: string) -> bool #must {
         entry, found_entry := read_entry(line);
 
         if !found_entry  break;
-        array_add(* headers, entry);
+        array_add(*headers, entry);
 
-        line, found = read_line(* data);
+        line, found = read_line(*data);
     }
 
     // Pages and regions
-    page: * Atlas_Page;
+    page: *Atlas_Page;
 
     while found {
         if line.count == 0 {
             page = null;
-            line, found = read_line(* data);
+            line, found = read_line(*data);
             continue;
         }
 
         if !page {
-            page = array_add(* pages);
+            page = array_add(*pages);
             page.name = line;
 
             while true {
-                line, found = read_line(* data);
+                line, found = read_line(*data);
                 if !found || line.count == 0  break;
 
                 entry, found_entry := read_entry(line);
@@ -156,11 +156,11 @@ load_atlas :: (using atlas: * Atlas, data: string) -> bool #must {
                 }
             }
         } else {
-            region := array_add(* page.regions);
+            region := array_add(*page.regions);
             region.name = line;
 
             while true {
-                line, found = read_line(* data);
+                line, found = read_line(*data);
                 if !found || line.count == 0  break;
 
                 entry, found_entry := read_entry(line);
@@ -210,7 +210,7 @@ load_atlas :: (using atlas: * Atlas, data: string) -> bool #must {
                         }
 
                     case;
-                        array_add(* region.entries, entry);
+                        array_add(*region.entries, entry);
                 }
             }
 
@@ -224,12 +224,12 @@ load_atlas :: (using atlas: * Atlas, data: string) -> bool #must {
     return true;
 }
 
-write_atlas :: (using atlas: * Atlas) -> string {
+write_atlas :: (using atlas: *Atlas) -> string {
     builder: String_Builder;
     init_string_builder(*builder);
     defer reset(*builder);
 
-    write_entries :: (builder: * String_Builder, entries: [] Atlas_Entry) {
+    write_entries :: (builder: *String_Builder, entries: [] Atlas_Entry) {
         for entries {
             append(builder, "\t");
             append(builder, it.name);

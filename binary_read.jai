@@ -1,11 +1,11 @@
-read_number :: inline (s: * string, $T: Type) -> T #modify {
+read_number :: inline (s: *string, $T: Type) -> T #modify {
     return IsScalar(T);
 }{
     size :: size_of(T);
 
     assert(s.count >= size);
 
-    result := (cast(* T) s.data).*;
+    result := (cast(*T) s.data).*;
 
     #if size > 1 && !IS_LITTLE_ENDIAN {  // Spine writes it's data as big endian!
         result = byte_swap(result);
@@ -28,11 +28,11 @@ read_s64 :: #bake_arguments read_number(T = s64);
 read_f32 :: #bake_arguments read_number(T = float32);
 read_f64 :: #bake_arguments read_number(T = float64);
 
-read_bool :: (data: * string) -> bool {
+read_bool :: (data: *string) -> bool {
     return read_u8(data) == 1;
 }
 
-read_var_s32 :: (data: * string, optimize_positive: bool) -> s32 {
+read_var_s32 :: (data: *string, optimize_positive: bool) -> s32 {
     union {
         value_s: s32;
         value_u: u32;
@@ -72,7 +72,7 @@ read_var_s32 :: (data: * string, optimize_positive: bool) -> s32 {
     return value_s;
 }
 
-read_string :: (data: * string) -> Optional(string) {
+read_string :: (data: *string) -> Optional(string) {
     count := read_var_s32(data, true);
     if count <= 0 || count-1 > data.count  return .{};
     else if count == 1  return create_optional("");
@@ -84,7 +84,7 @@ read_string :: (data: * string) -> Optional(string) {
     return create_optional(result);
 }
 
-read_string_reference :: (data: * string, shared_strings: [] String_Reference) -> String_Reference {
+read_string_reference :: (data: *string, shared_strings: [] String_Reference) -> String_Reference {
     index := read_var_s32(data, true);
     if index > 0 {
         return shared_strings[index - 1];
@@ -98,13 +98,13 @@ read_string_reference :: (data: * string, shared_strings: [] String_Reference) -
 
 read_color :: read_u32;
 
-read_string_array :: (s: * string) -> [..] Optional(string) {
+read_string_array :: (s: *string) -> [..] Optional(string) {
     result: [..] Optional(string);
-    read_string_array(s, * result);
+    read_string_array(s, *result);
     return result;
 }
 
-read_string_array :: (s: * string, array: * [..] Optional(string)) {
+read_string_array :: (s: *string, array: *[..] Optional(string)) {
     count := read_var_s32(s, true);
     array_reserve(array, count);
     for 0..count-1 {
@@ -112,13 +112,13 @@ read_string_array :: (s: * string, array: * [..] Optional(string)) {
     }
 }
 
-read_string_reference_array :: (s: * string) -> [..] String_Reference {
+read_string_reference_array :: (s: *string) -> [..] String_Reference {
     result: [..] String_Reference;
-    read_string_reference_array(s, * result);
+    read_string_reference_array(s, *result);
     return result;
 }
 
-read_string_reference_array :: (s: * string, array: * [..] String_Reference) {
+read_string_reference_array :: (s: *string, array: *[..] String_Reference) {
     count := read_var_s32(s, true);
     array_reserve(array, count);
     for 0..count-1 {
@@ -128,13 +128,13 @@ read_string_reference_array :: (s: * string, array: * [..] String_Reference) {
     }
 }
 
-read_var_s32_array :: (s: * string) -> [..] s32 {
+read_var_s32_array :: (s: *string) -> [..] s32 {
     result: [..] s32;
-    read_var_s32_array(s, * result);
+    read_var_s32_array(s, *result);
     return result;
 }
 
-read_var_s32_array :: (s: * string, array: * [..] s32) {
+read_var_s32_array :: (s: *string, array: *[..] s32) {
     count := read_var_s32(s, true);
     array_reserve(array, count);
     for 0..count-1 {
@@ -142,7 +142,7 @@ read_var_s32_array :: (s: * string, array: * [..] s32) {
     }
 }
 
-read_s16_array :: (s: * string) -> [..] s16 {
+read_s16_array :: (s: *string) -> [..] s16 {
     result: [..] s16;
     count := read_var_s32(s, true);
     array_reserve(*result, count);
@@ -152,19 +152,19 @@ read_s16_array :: (s: * string) -> [..] s16 {
     return result;
 }
 
-read_f32_array :: (s: * string, scale: float32 = 1) -> [..] float32 {
+read_f32_array :: (s: *string, scale: float32 = 1) -> [..] float32 {
     result: [..] float32;
     count := read_var_s32(s, true);
     return read_f32_array(s, count, scale);
 }
 
-read_f32_array :: (s: * string, count: s32, scale: float32 = 1) -> [..] float32 {
+read_f32_array :: (s: *string, count: s32, scale: float32 = 1) -> [..] float32 {
     result: [..] float32;
     read_f32_array(*result, s, count, scale);
     return result;
 }
 
-read_f32_array :: (result: * [..] float32, s: * string, count: s32, scale: float32 = 1) {
+read_f32_array :: (result: *[..] float32, s: *string, count: s32, scale: float32 = 1) {
     array_reserve(result, count);
     if scale == 1 {
         for 0..count-1 {
@@ -172,20 +172,15 @@ read_f32_array :: (result: * [..] float32, s: * string, count: s32, scale: float
         }
     } else {
         for 0..count-1 {
-            array_add(result, read_f32(s) * scale);
+            array_add(result, read_f32(s) *scale);
         }
     }
 }
 
 
-#import,file "modules/Optional.jai";
-
 #import "Basic";
 #import "String";
 #import "Bit_Operations";
-
-
-#import,file "binary.jai";
 
 
 #scope_file
