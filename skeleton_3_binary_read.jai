@@ -1,7 +1,7 @@
 Skeleton_3_Binary_Read :: struct {
 	using Skeleton_3;
 
-    load :: (data: string, scale: float32, spine_version: Spine_Version) -> *Skeleton_Data {
+    load :: (data: string, scale: float64, spine_version: Spine_Version) -> *Skeleton_Data {
         s := *data;
 
         using skeleton := New(Skeleton_Data);
@@ -16,7 +16,7 @@ Skeleton_3_Binary_Read :: struct {
 
         if read_bool(s) {
             fps = read_f32(s);
-            image_path = read_string(s);
+            images_path = read_string(s);
             audio_path = read_string(s);
         }
 

@@ -9,14 +9,14 @@ Skeleton_4 :: struct {
 
         version: Optional(string);
 
-        x:      float32;
-        y:      float32;
-        width:  float32;
-        height: float32;
+        x:      float64;
+        y:      float64;
+        width:  float64;
+        height: float64;
 
         non_essential: bool;
 
-        fps: float32;
+        fps: float64;
         image_path: Optional(string);
         audio_path: Optional(string);
 
@@ -48,14 +48,14 @@ Skeleton_4 :: struct {
     Bone_Data :: struct {
         name: Optional(string);
         parent: Bone_Index;
-        rotation: float32;
-        x: float32;
-        y: float32;
-        scale_x: float32;
-        scale_y: float32;
-        shear_x: float32;
-        shear_y: float32;
-        length: float32;
+        rotation: float64;
+        x: float64;
+        y: float64;
+        scale_x: float64;
+        scale_y: float64;
+        shear_x: float64;
+        shear_y: float64;
+        length: float64;
         transform_mode: Transform_Mode;
         skin_required: bool;
         color: Color;
@@ -76,8 +76,8 @@ Skeleton_4 :: struct {
         skin_required: bool;
         bones: [..] Bone_Index;
         target: Bone_Index;
-        mix: float32;
-        softness: float32;
+        mix: float64;
+        softness: float64;
         bend_direction: s8;
         compress: bool;
         stretch: bool;
@@ -92,18 +92,18 @@ Skeleton_4 :: struct {
         target: Bone_Index;
         local: bool;
         relative: bool;
-        offset_rotation: float32;
-        offset_x: float32;
-        offset_y: float32;
-        offset_scale_x: float32;
-        offset_scale_y: float32;
-        offset_shear_y: float32;
-        mix_rotate: float32;
-        mix_x: float32;
-        mix_y: float32;
-        mix_scale_x: float32;
-        mix_scale_y: float32;
-        mix_shear_y: float32;
+        offset_rotation: float64;
+        offset_x: float64;
+        offset_y: float64;
+        offset_scale_x: float64;
+        offset_scale_y: float64;
+        offset_shear_y: float64;
+        mix_rotate: float64;
+        mix_x: float64;
+        mix_y: float64;
+        mix_scale_x: float64;
+        mix_scale_y: float64;
+        mix_shear_y: float64;
     }
 
     Path_Constraint :: struct {
@@ -115,12 +115,12 @@ Skeleton_4 :: struct {
         position_mode: Path_Position_Mode;
         spacing_mode:  Path_Spacing_Mode;
         rotate_mode:   Path_Rotate_Mode;
-        offset_rotation: float32;
-        position: float32;
-        spacing: float32;
-        mix_rotate: float32;
-        mix_x: float32;
-        mix_y: float32;
+        offset_rotation: float64;
+        position: float64;
+        spacing: float64;
+        mix_rotate: float64;
+        mix_x: float64;
+        mix_y: float64;
     }
 
     Skin :: struct {
@@ -156,13 +156,13 @@ Skeleton_4 :: struct {
     Attachment_Region :: struct {
         #as using _: Attachment = .{ type = .REGION };
         path: String_Reference;
-        rotation: float32;
-        x: float32;
-        y: float32;
-        scale_x: float32;
-        scale_y: float32;
-        width: float32;
-        height: float32;
+        rotation: float64;
+        x: float64;
+        y: float64;
+        scale_x: float64;
+        scale_y: float64;
+        width: float64;
+        height: float64;
         color: Color;
         sequence: *Sequence;
     }
@@ -178,14 +178,14 @@ Skeleton_4 :: struct {
         path: String_Reference;
         color: Color;
         vertex_count: s32;
-        region_uvs: [..] float32;
+        region_uvs: [..] float64;
         triangles: [..] s16;
         vertices: Vertices;
         hull_length: s32;
         sequence: *Sequence;
         edges: [..] s16;
-        width: float32;
-        height: float32;
+        width: float64;
+        height: float64;
     }
 
     Attachment_Linked_Mesh :: struct {
@@ -196,8 +196,8 @@ Skeleton_4 :: struct {
         parent: String_Reference;
         inherit_timelines: bool;
         sequence: *Sequence;
-        width:  float32;
-        height: float32;
+        width:  float64;
+        height: float64;
     }
 
     Attachment_Path :: struct {
@@ -206,15 +206,15 @@ Skeleton_4 :: struct {
         constant_speed: bool;
         vertex_count: s32;
         vertices: Vertices;
-        lengths: [..] float32;
+        lengths: [..] float64;
         color: Color;
     }
 
     Attachment_Point :: struct {
         #as using _: Attachment = .{ type = .POINT };
-        rotation: float32;
-        x: float32;
-        y: float32;
+        rotation: float64;
+        x: float64;
+        y: float64;
         color: Color;
     }
 
@@ -235,36 +235,36 @@ Skeleton_4 :: struct {
     Vertices :: struct {
         vertex_count: s32;
         with_bones: bool;
-        vertices: [..] float32;
+        vertices: [..] float64;
         bones: [..] [..] Bone_Vertex;
 
         Bone_Vertex :: struct {
             bone: Bone_Index;
-            x: float32;
-            y: float32;
-            weight: float32;
+            x: float64;
+            y: float64;
+            weight: float64;
         }
     }
 
     Event_Data :: struct {
         name:         String_Reference;
         value_int:    s32;
-        value_float:  float32;
+        value_float:  float64;
         value_string: Optional(string);
         audio_path:   Optional(string);
-        volume:       float32;
-        balance:      float32;
+        volume:       float64;
+        balance:      float64;
     }
 
     Event :: struct {
-        time:             float32;
+        time:             float64;
         event_index:      Event_Index;
         value_int:        s32;
-        value_float:      float32;
+        value_float:      float64;
         use_value_string: bool;
         value_string:     Optional(string);
-        volume:           float32;
-        balance:          float32;
+        volume:           float64;
+        balance:          float64;
     }
 
     Animation_Data :: struct {
@@ -305,7 +305,7 @@ Skeleton_4 :: struct {
             frames: [..] Frame;
 
             Frame :: struct {
-                time: float32;
+                time: float64;
                 name: String_Reference;
             }
         }
@@ -371,7 +371,7 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
-                rotation: float32;
+                rotation: float64;
             }
         }
 
@@ -381,8 +381,8 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(2);
-                x: float32;
-                y: float32;
+                x: float64;
+                y: float64;
             }
         }
 
@@ -392,7 +392,7 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
-                x: float32;
+                x: float64;
             }
         }
 
@@ -402,7 +402,7 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
-                y: float32;
+                y: float64;
             }
         }
 
@@ -412,8 +412,8 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(2);
-                scale_x: float32;
-                scale_y: float32;
+                scale_x: float64;
+                scale_y: float64;
             }
         }
 
@@ -423,7 +423,7 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
-                scale_x: float32;
+                scale_x: float64;
             }
         }
 
@@ -433,7 +433,7 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
-                scale_y: float32;
+                scale_y: float64;
             }
         }
 
@@ -443,8 +443,8 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(2);
-                shear_x: float32;
-                shear_y: float32;
+                shear_x: float64;
+                shear_y: float64;
             }
         }
 
@@ -454,7 +454,7 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
-                shear_x: float32;
+                shear_x: float64;
             }
         }
 
@@ -464,7 +464,7 @@ Skeleton_4 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
-                shear_y: float32;
+                shear_y: float64;
             }
         }
     }
@@ -478,8 +478,8 @@ Skeleton_4 :: struct {
 
         Frame :: struct {
             #as using _ : Curve_Frame(2);
-            mix:            float32;
-            softness:       float32;
+            mix:            float64;
+            softness:       float64;
             bend_direction: s8;
             compress:       bool;
             stretch:        bool;
@@ -495,12 +495,12 @@ Skeleton_4 :: struct {
 
         Frame :: struct {
             #as using _ : Curve_Frame(1);
-            rotate:  float32;
-            mix\ _x: float32;
-            mix\ _y: float32;
-            scale_x: float32;
-            scale_y: float32;
-            shear_y: float32;
+            rotate:  float64;
+            mix\ _x: float64;
+            mix\ _y: float64;
+            scale_x: float64;
+            scale_y: float64;
+            shear_y: float64;
         }
     }
 
@@ -545,7 +545,7 @@ Skeleton_4 :: struct {
                     #as using _ : Curve_Frame(1);
                     deform_length: s32;
                     offset: s32;
-                    deform: [..] float32;
+                    deform: [..] float64;
                 }
             }
         }
@@ -555,7 +555,7 @@ Skeleton_4 :: struct {
         frames: [..] Frame;
 
         Frame :: struct {
-            time: float32;
+            time: float64;
             offsets: [..] Offset;
 
             Offset :: struct {
@@ -573,7 +573,7 @@ Skeleton_4 :: struct {
 
     Curve_Frame :: struct(N: int) {
         type: Curve_Type;
-        time: float32;
+        time: float64;
         beziers: [N] Bezier_Data;
     }
 
@@ -582,10 +582,10 @@ Skeleton_4 :: struct {
     }
 
     Bezier_Data :: struct {
-        cx1: float32;
-        cy1: float32;
-        cx2: float32;
-        cy2: float32;
+        cx1: float64;
+        cy1: float64;
+        cx2: float64;
+        cy2: float64;
     }
 
     Blend_Mode :: enum {

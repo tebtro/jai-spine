@@ -152,19 +152,19 @@ read_s16_array :: (s: *string) -> [..] s16 {
     return result;
 }
 
-read_f32_array :: (s: *string, scale: float32 = 1) -> [..] float32 {
-    result: [..] float32;
+read_f32_array :: (s: *string, scale: float64 = 1) -> [..] float64 {
+    result: [..] float64;
     count := read_var_s32(s, true);
     return read_f32_array(s, count, scale);
 }
 
-read_f32_array :: (s: *string, count: s32, scale: float32 = 1) -> [..] float32 {
-    result: [..] float32;
+read_f32_array :: (s: *string, count: s32, scale: float64 = 1) -> [..] float64 {
+    result: [..] float64;
     read_f32_array(*result, s, count, scale);
     return result;
 }
 
-read_f32_array :: (result: *[..] float32, s: *string, count: s32, scale: float32 = 1) {
+read_f32_array :: (result: *[..] float64, s: *string, count: s32, scale: float64 = 1) {
     array_reserve(result, count);
     if scale == 1 {
         for 0..count-1 {

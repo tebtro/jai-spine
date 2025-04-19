@@ -58,7 +58,7 @@ test_skeleton :: (path: string) {
 test_serialization :: () {
     u8s:     [] u8      = .[ 0, 1, U8_MAX, U8_MAX/3 ];
     s32s:    [] s32     = .[ -1, 0, 1, S32_MIN, S32_MAX, S32_MIN/3, S32_MAX/3 ];
-    f32s:    [] float32 = .[ -1, 0, 1, FLOAT32_MIN, FLOAT32_MAX, FLOAT32_INFINITY ];
+    f32s:    [] float64 = .[ -1, 0, 1, FLOAT32_MIN, FLOAT32_MAX, FLOAT32_INFINITY ];
     colors:  [] Color   = .[ 0x00000000, 0x7f7f7f7f, 0xffffffff ];
     strings: [] Optional(string)  = .[
         .{},
@@ -69,7 +69,7 @@ test_serialization :: () {
     ];
     s32_arrays:    [][] s32     = .[ .[], .[ 123 ], .[ 1, 2, 3 ] ];
     s16_arrays:    [][] s16     = .[ .[], .[ 123 ], .[ 1, 2, 3 ] ];
-    f32_arrays:    [][] float32 = .[ .[], .[ 123 ], .[ 1, 2, 3 ] ];
+    f32_arrays:    [][] float64 = .[ .[], .[ 123 ], .[ 1, 2, 3 ] ];
     string_arrays: [][] Optional(string)  = .[
         .[],
         .[ .{} ],

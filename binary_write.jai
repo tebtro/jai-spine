@@ -29,13 +29,13 @@ write_bool :: (builder: *String_Builder, value: bool) {
     write_u8(builder, xx ifx value then 1 else 0);
 }
 
-write_f32 :: (builder: *String_Builder, value: float32) {
+write_f32 :: (builder: *String_Builder, value: float64) {
     union {
         value_f32: float32;
         value_u32: u32;
     }
 
-   value_f32 = value;
+   value_f32 = xx value;
    write_u32(builder, value_u32);
 }
 
@@ -130,14 +130,14 @@ write_s16_array :: (builder: *String_Builder, array: [] s16) {
     }
 }
 
-write_f32_array :: (builder: *String_Builder, array: [] float32) {
+write_f32_array :: (builder: *String_Builder, array: [] float64) {
     write_var_s32(builder, xx array.count, true);
     for array {
         write_f32(builder, it);
     }
 }
 
-write_f32_array :: (builder: *String_Builder, array: [] float32, count: s32) {
+write_f32_array :: (builder: *String_Builder, array: [] float64, count: s32) {
     assert(array.count == count);
     for array {
         write_f32(builder, it);
