@@ -92,12 +92,10 @@ Skeleton_3 :: struct {
         offset_scale_x: float64;
         offset_scale_y: float64;
         offset_shear_y: float64;
-        mix_rotate: float64;
-        mix_x: float64;
-        mix_y: float64;
-        mix_scale_x: float64;
-        mix_scale_y: float64;
-        mix_shear_y: float64;
+        rotate_mix: float64;
+        translate_mix: float64;
+        scale_mix: float64;
+        shear_mix: float64;
     }
 
     Path_Constraint :: struct {

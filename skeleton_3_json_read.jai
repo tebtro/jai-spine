@@ -1,5 +1,6 @@
 Skeleton_3_Json_Read :: struct {
 	using Skeleton_3;
+	using Json_Read;
 
 	load :: (root: JSON_Value, scale: float64, spine_version: Spine_Version) -> *Skeleton_Data {
         using skeleton := New(Skeleton_Data);
@@ -168,7 +169,59 @@ Skeleton_3_Json_Read :: struct {
 			}
 		}
 		
-		//print("IKs: %\n", ik_constraints);
+		if has(root, "transform") {
+			transform_constraints_node := get(root, "transform", .ARRAY);
+			
+			array_reserve(*transform_constraints, transform_constraints_node.array.count);
+			
+			for constraint_node: transform_constraints_node.array {
+				if constraint_node.type != .OBJECT {
+					log_error("Transform is not an object!");
+					return null;
+				}
+				
+                constraint := array_add(*transform_constraints);
+                constraint.name = get_optional_string(constraint_node, "name");
+                if !constraint.name.has_value || !constraint.name.value {
+                    log("Transform constraint name must not be null!");
+                    return null;
+                }
+                
+                constraint.order         = xx get_number(constraint_node, "order", 0);
+                constraint.skin_required = get_bool(constraint_node, "skin", false);
+                
+                bones_node := get(constraint_node, "bones", .ARRAY);
+                array_reserve(*constraint.bones, bones_node.array.count);
+                for bone_node: bones_node.array {
+                    if bone_node.type != .STRING {
+                        log_error("Bone is not a string!");
+                        return null;
+                    }
+                	
+                    bone_name := create_optional(bone_node.str);
+                    bone_index := find_bone_index(skeleton, bone_name);
+                    array_add(*constraint.bones, bone_index);
+                }
+                
+                target_name := get_optional_string(constraint_node, "target");
+                constraint.target = find_bone_index(skeleton, target_name);
+                
+                constraint.local           = get_bool(constraint_node, "local", false);
+                constraint.relative        = get_bool(constraint_node, "relative", false);
+                constraint.offset_rotation = get_number(constraint_node, "rotation", 0);
+                constraint.offset_x        = get_number(constraint_node, "x", 0) * scale;
+                constraint.offset_y        = get_number(constraint_node, "y", 0) * scale;
+                constraint.offset_scale_x  = get_number(constraint_node, "scaleX", 0);
+                constraint.offset_scale_y  = get_number(constraint_node, "scaleY", 0);
+                constraint.offset_shear_y  = get_number(constraint_node, "shearY", 0);
+                constraint.rotate_mix      = get_number(constraint_node, "rotateMix", 1);
+                constraint.translate_mix   = get_number(constraint_node, "translateMix", 1);
+                constraint.scale_mix       = get_number(constraint_node, "scaleMix", 1);
+                constraint.shear_mix       = get_number(constraint_node, "shearMix", 1);
+			}
+		}
+		
+		//print("Transforms: %\n", transform_constraints);
 		
 		log_error("@todo");
 		return skeleton;

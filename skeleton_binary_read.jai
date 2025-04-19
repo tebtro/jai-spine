@@ -1,4 +1,6 @@
 load_skeleton_binary :: (data: string, scale: float64 = 1) -> *Base_Skeleton_Data {
+	using Binary_Read;
+
     read_version_old :: (data: string) -> Optional(string) {
         read_string(*data);
         return read_string(*data);

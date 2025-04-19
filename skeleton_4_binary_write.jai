@@ -1,5 +1,6 @@
 Skeleton_4_Binary_Write :: struct {
 	using Skeleton_4;
+	using Binary_Write;
 
     write :: (b: *String_Builder, base_skeleton: *Base_Skeleton_Data, optimize: bool) {
         using skeleton := cast(*Skeleton_Data) base_skeleton;

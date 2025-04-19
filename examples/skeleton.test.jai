@@ -56,6 +56,9 @@ test_skeleton :: (path: string) {
 #assert(string.{} == "");
 
 test_serialization :: () {
+	using Binary_Read;
+	using Binary_Write;
+
     u8s:     [] u8      = .[ 0, 1, U8_MAX, U8_MAX/3 ];
     s32s:    [] s32     = .[ -1, 0, 1, S32_MIN, S32_MAX, S32_MIN/3, S32_MAX/3 ];
     f32s:    [] float64 = .[ -1, 0, 1, FLOAT32_MIN, FLOAT32_MAX, FLOAT32_INFINITY ];

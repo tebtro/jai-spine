@@ -1,4 +1,6 @@
 load_skeleton_json :: (data: string, scale: float32 = 1) -> *Base_Skeleton_Data {
+	using Json_Read;
+	
 	success, root := json_parse_string(data);
 	if !success {
 		log_error("Could not parse json data!");

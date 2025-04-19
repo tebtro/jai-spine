@@ -1,5 +1,6 @@
 Skeleton_3_Binary_Read :: struct {
 	using Skeleton_3;
+	using Binary_Read;
 
     load :: (data: string, scale: float64, spine_version: Spine_Version) -> *Skeleton_Data {
         s := *data;
