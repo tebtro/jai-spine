@@ -122,7 +122,53 @@ Skeleton_3_Json_Read :: struct {
 			}
 		}
 		
-		//print("Slots: %\n", slots);
+		if has(root, "ik") {
+			iks_node := get(root, "ik", .ARRAY);
+			
+			array_reserve(*ik_constraints, iks_node.array.count);
+			
+			for ik_node: iks_node.array {
+				if ik_node.type != .OBJECT {
+					log_error("IK is not an object!");
+					return null;
+				}
+				
+                ik := array_add(*ik_constraints);
+                ik.name = get_optional_string(ik_node, "name");
+                if !ik.name.has_value || !ik.name.value {
+                    log("Ik constraint name must not be null!");
+                    return null;
+                }
+                
+                ik.order         = xx get_number(ik_node, "order", 0);
+                ik.skin_required = get_bool(ik_node, "skin", false);
+                
+                bones_node := get(ik_node, "bones", .ARRAY);
+                array_reserve(*ik.bones, bones_node.array.count);
+                for bone_node: bones_node.array {
+                    if bone_node.type != .STRING {
+                        log_error("Bone is not a string!");
+                        return null;
+                    }
+                	
+                    bone_name := create_optional(bone_node.str);
+                    bone_index := find_bone_index(skeleton, bone_name);
+                    array_add(*ik.bones, bone_index);
+                }
+                
+                target_name := get_optional_string(ik_node, "target");
+                ik.target = find_bone_index(skeleton, target_name);
+                
+                ik.mix            = get_number(ik_node, "mix", 1);
+                ik.softness       = get_number(ik_node, "softness", 0) * scale;
+                ik.bend_direction = xx ifx get_bool(ik_node, "bendPositive", true) then 1 else -1;
+                ik.compress       = get_bool(ik_node, "compress", false);
+                ik.stretch        = get_bool(ik_node, "stretch", false);
+                ik.uniform        = get_bool(ik_node, "uniform", false);
+			}
+		}
+		
+		//print("IKs: %\n", ik_constraints);
 		
 		log_error("@todo");
 		return skeleton;
