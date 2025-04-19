@@ -394,8 +394,8 @@ Skeleton_4_Binary_Read :: struct {
 
         vertices_count := vertex_count << 1;
 
-        result.with_bones = read_bool(s);
-        if !result.with_bones {
+        with_bones := read_bool(s);
+        if !with_bones {
             result.vertices = read_f32_array(s, vertices_count, scale);
             return result;
         }

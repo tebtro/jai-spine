@@ -3,13 +3,16 @@ main :: () {
 
     files :: string.[
     	// 3.8
+        "3.8/mix-and-match/export/mix-and-match-pro.json",
         "3.8/spineboy/export/spineboy-ess.json",
         "3.8/spineboy/export/spineboy-pro.json",
+        "3.8/stretchyman/export/stretchyman-pro.json",
+        "3.8/tank/export/tank-pro.json",
         // 4.1
-        "4.1/stretchyman/export/stretchyman-pro.skel",
         "4.1/chibi-stickers/export/chibi-stickers.skel",
         "4.1/spineboy/export/spineboy-ess.skel",
         "4.1/spineboy/export/spineboy-pro.skel",
+        "4.1/stretchyman/export/stretchyman-pro.skel",
     ];
 
     for files  test_skeleton(it);
@@ -23,6 +26,7 @@ test_skeleton :: (path: string) {
     }
 
 	if ends_with(path, ".json") {
+		log("Load skeleton json: %", path);
 		skeleton := load_skeleton_json(data);
         if !skeleton {
             log("Error while loading skeleton json file!\n");
@@ -31,6 +35,7 @@ test_skeleton :: (path: string) {
 		
 		print("@todo\n");
 	} else {
+		log("Load skeleton binary: %", path);
         skeleton := load_skeleton_binary(data);
         if !skeleton {
             log("Error while loading skeleton binary file!\n");

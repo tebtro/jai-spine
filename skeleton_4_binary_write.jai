@@ -279,8 +279,9 @@ Skeleton_4_Binary_Write :: struct {
     write_vertices :: (b: *String_Builder, vertices: Vertices, vertex_count: s32) {
         vertices_count := vertex_count << 1;
 
-        write_bool(b, vertices.with_bones);
-        if !vertices.with_bones {
+		with_bones := vertices.bones.count > 0;
+        write_bool(b, with_bones);
+        if !with_bones {
             write_f32_array(b, vertices.vertices, vertices_count);
             return;
         }

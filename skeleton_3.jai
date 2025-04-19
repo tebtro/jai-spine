@@ -110,9 +110,8 @@ Skeleton_3 :: struct {
         offset_rotation: float64;
         position: float64;
         spacing: float64;
-        mix_rotate: float64;
-        mix_x: float64;
-        mix_y: float64;
+        rotate_mix: float64;
+        translate_mix: float64;
     }
 
     Skin :: struct {
@@ -226,7 +225,6 @@ Skeleton_3 :: struct {
 
     Vertices :: struct {
         vertex_count: s32;
-        with_bones: bool;
         vertices: [..] float64;
         bones: [..] [..] Bone_Vertex;
 
@@ -635,9 +633,67 @@ Skeleton_3 :: struct {
     	if !name.has_value {
     		return -1;
     	}
+    	
+    	return find_bone_index(skeleton, name.value);
+    }
+    find_bone_index :: (using skeleton: *Skeleton_Data, name: string) -> Bone_Index {
     
     	for bones {
-    		if it.name.value == name.value {
+    		if it.name.value == name {
+    			return xx it_index;
+    		}
+    	}
+    	
+    	return -1;
+    }
+    
+    find_ik_constraint_index :: (using skeleton: *Skeleton_Data, name: Optional(string)) -> Ik_Constraint_Index {
+    	if !name.has_value {
+    		return -1;
+    	}
+    	
+    	return find_ik_constraint_index(skeleton, name.value);
+    }
+    find_ik_constraint_index :: (using skeleton: *Skeleton_Data, name: string) -> Ik_Constraint_Index {
+    
+    	for ik_constraints {
+    		if it.name.value == name {
+    			return xx it_index;
+    		}
+    	}
+    	
+    	return -1;
+    }
+    
+    find_transform_constraint_index :: (using skeleton: *Skeleton_Data, name: Optional(string)) -> Transform_Constraint_Index {
+    	if !name.has_value {
+    		return -1;
+    	}
+    	
+    	return find_transform_constraint_index(skeleton, name.value);
+    }
+    find_transform_constraint_index :: (using skeleton: *Skeleton_Data, name: string) -> Transform_Constraint_Index {
+    
+    	for transform_constraints {
+    		if it.name.value == name {
+    			return xx it_index;
+    		}
+    	}
+    	
+    	return -1;
+    }
+    
+    find_path_constraint_index :: (using skeleton: *Skeleton_Data, name: Optional(string)) -> Path_Constraint_Index {
+    	if !name.has_value {
+    		return -1;
+    	}
+    	
+    	return find_path_constraint_index(skeleton, name.value);
+    }
+    find_path_constraint_index :: (using skeleton: *Skeleton_Data, name: string) -> Path_Constraint_Index {
+    
+    	for path_constraints {
+    		if it.name.value == name {
     			return xx it_index;
     		}
     	}
@@ -645,14 +701,16 @@ Skeleton_3 :: struct {
     	return -1;
     }
 
-    find_slot :: (using skin: *Skin, slot_index: Slot_Index) -> *Slot {
+    find_slot_index :: (using skeleton: *Skeleton_Data, name: string) -> Slot_Index {
         for * slots {
-            if it.index == slot_index {
-                return it;
+        	if !it.name.has_value  continue;
+        
+            if it.name.value == name {
+                return xx it_index;
             }
         }
 
-        return null;
+        return -1;
     }
 
 	/*

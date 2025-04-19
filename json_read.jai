@@ -47,7 +47,27 @@ Json_Read :: struct {
             return .{};
         }
     }
+    
+    get_string_array :: (json_value: JSON_Value, key: string, output: *[..] string) -> bool {
+        strings_node := get(json_value, key, .ARRAY);
+        for string_node: strings_node.array {
+            if string_node.type != .STRING {
+                log_error("Is not a string!");
+                return false;
+            }
+                
+            array_add(output, string_node.str);
+        }
+        
+        return true;
+    }
 
+	// @todo: We are just asserting, but on release builds we would just return invalid values!
+    get_number :: (json_value: JSON_Value) -> float64 {
+    	assert(json_value.type == .NUMBER);
+        return json_value.number;
+    }
+    
     get_number :: (json_value: JSON_Value, key: string) -> float64 {
         return get(json_value, key, .NUMBER).number;
     }
@@ -58,6 +78,63 @@ Json_Read :: struct {
         }
 	
         return default;
+    }
+    
+    get_number_array :: (json_value: JSON_Value, key: string, output: *[..] s32) -> bool {
+    	json_array := get(json_value, key, .ARRAY);
+    	return get_number_array(json_value, output);
+    }
+    get_number_array :: (json_value: JSON_Value, output: *[..] s32) -> bool {
+    	if json_value.type != .ARRAY {
+    		return false;
+    	}
+    	
+        array_reserve(output, json_value.array.count);
+    
+    	for json_value.array {
+    		if it.type != .NUMBER {
+    			log_error("Is not a number!");
+    			return false;
+    		}
+    		
+    		array_add(output, xx it.number);
+    	}
+    	
+    	return true;
+    }
+    
+    get_number_array :: (json_value: JSON_Value, key: string, output: *[..] float64, scale: float64) -> bool {
+    	json_array := get(json_value, key, .ARRAY);
+    	return get_number_array(json_value, output, scale);
+    }
+    get_number_array :: (json_value: JSON_Value, output: *[..] float64, scale: float64) -> bool {
+    	if json_value.type != .ARRAY {
+    		return false;
+    	}
+    	
+        array_reserve(output, json_value.array.count);
+    
+        if scale == 1 {
+            for json_value.array {
+                if it.type != .NUMBER {
+                    log_error("Vertex is not a number!");
+                    return false;
+                }
+                	
+                array_add(output, it.number);
+            }
+        } else {
+            for json_value.array {
+                if it.type != .NUMBER {
+                    log_error("Vertex is not a number!");
+                    return false;
+                }
+                	
+                array_add(output, it.number * scale);
+            }
+        }
+    	
+    	return true;
     }
 
     get_color :: (json_value: JSON_Value, key: string, default: Color) -> (success: bool, color: Color) {
@@ -78,23 +155,27 @@ Json_Read :: struct {
     get_string_reference :: (json_value: JSON_Value, key: string, shared_strings: *[..] String_Reference) -> String_Reference {
         str := get_optional_string(json_value, key);
         if str.has_value {
-            found, index := find_string_reference(shared_strings.*, str.value);
-            if found {
-                return shared_strings.*[index];
-            } else {
-                result := String_Reference.{
-                    original_index = xx shared_strings.count,
-                    data = str,
-                };
-    		
-                array_add(shared_strings, result);
-                return result;
-            }
+        	return get_string_reference(str.value, shared_strings);
         } else {
             return .{
                 original_index = 0,
                 data = create_optional(""),
             };
+        }
+    }
+    
+    get_string_reference :: (value: string, shared_strings: *[..] String_Reference) -> String_Reference {
+        found, index := find_string_reference(shared_strings.*, value);
+        if found {
+            return shared_strings.*[index];
+        } else {
+            result := String_Reference.{
+                original_index = xx shared_strings.count,
+                data = create_optional(value),
+            };
+    		
+            array_add(shared_strings, result);
+            return result;
         }
     }
 

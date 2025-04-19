@@ -234,7 +234,6 @@ Skeleton_4 :: struct {
 
     Vertices :: struct {
         vertex_count: s32;
-        with_bones: bool;
         vertices: [..] float64;
         bones: [..] [..] Bone_Vertex;
 
