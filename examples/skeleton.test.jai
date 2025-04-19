@@ -1,24 +1,26 @@
 main :: () {
     test_serialization();
-
-    files :: string.[
-    	// 3.8
-        "3.8/mix-and-match/export/mix-and-match-pro.json",
-        "3.8/powerup/export/powerup-ess.json",
-        "3.8/powerup/export/powerup-pro.json",
-        "3.8/raptor/export/raptor-pro.json",
-        "3.8/spineboy/export/spineboy-ess.json",
-        "3.8/spineboy/export/spineboy-pro.json",
-        "3.8/stretchyman/export/stretchyman-pro.json",
-        "3.8/tank/export/tank-pro.json",
-        // 4.1
-        "4.1/chibi-stickers/export/chibi-stickers.skel",
-        "4.1/spineboy/export/spineboy-ess.skel",
-        "4.1/spineboy/export/spineboy-pro.skel",
-        "4.1/stretchyman/export/stretchyman-pro.skel",
-    ];
-
-    for files  test_skeleton(it);
+    
+    files := file_list(".", recursive = true);
+    for files {
+    	if contains(it, "atlas")  continue;
+    	if contains(it, "binary")  continue;
+    	if contains(it, "json.json")  continue;
+    	if !contains(it, "export")  continue;
+    	if !ends_with(it, ".json") && !ends_with(it, ".skel")  continue;
+    	
+    	if contains(it, "3.8") && contains(it, ".skel") {
+    		// @todo: Implement 3.8 binary reader!
+    		continue;
+    	}
+    	
+    	if contains(it, "4.1") && contains(it, ".json") {
+    		// @todo: Implement 4.1 JSON reader!
+    		continue;
+    	}
+    	
+    	test_skeleton(it);
+    }
 }
 
 test_skeleton :: (path: string) {
@@ -36,7 +38,8 @@ test_skeleton :: (path: string) {
             return;
         }
 		
-		print("@todo\n");
+		// @todo: Format json somehow and compare
+		// @todo: Could probably also just load both and compare the JSON_Value tree
 	} else {
 		log("Load skeleton binary: %", path);
         skeleton := load_skeleton_binary(data);
@@ -155,6 +158,7 @@ compare_strings_partially :: (a: string, b: string, count: int) -> (same: bool, 
 
 #import "Basic";
 #import "File";
+#import "File_Utilities";
 #import "Math";
 #import "String";
 
