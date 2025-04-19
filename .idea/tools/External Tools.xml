@@ -1,0 +1,9 @@
+<toolSet name="External Tools">
+  <tool name="jai first.jai -very_debug" showInMainMenu="false" showInEditor="false" showInProject="false" showInSearchPopup="false" disabled="false" useConsole="true" showConsoleOnStdOut="false" showConsoleOnStdErr="false" synchronizeAfterRun="true">
+    <exec>
+      <option name="COMMAND" value="$USER_HOME$/Projects/jai/jai/bin/jai-linux" />
+      <option name="PARAMETERS" value="first.jai -very_debug" />
+      <option name="WORKING_DIRECTORY" value="$ProjectFileDir$" />
+    </exec>
+  </tool>
+</toolSet>

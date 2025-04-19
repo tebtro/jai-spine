@@ -4,6 +4,9 @@ main :: () {
     files :: string.[
     	// 3.8
         "3.8/mix-and-match/export/mix-and-match-pro.json",
+        "3.8/powerup/export/powerup-ess.json",
+        "3.8/powerup/export/powerup-pro.json",
+        "3.8/raptor/export/raptor-pro.json",
         "3.8/spineboy/export/spineboy-ess.json",
         "3.8/spineboy/export/spineboy-pro.json",
         "3.8/stretchyman/export/stretchyman-pro.json",

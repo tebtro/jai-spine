@@ -483,59 +483,76 @@ Skeleton_3_Json_Read :: struct {
                 
                 return bounding_box;
 
-    	/*
-            case .MESH;
+            case "mesh";
                 mesh := New(Attachment_Mesh);
-                mesh.path         = read_string_reference(s, shared_strings);
-                mesh.color        = read_color(s);
-                mesh.vertex_count = read_var_s32(s, true);
-                mesh.region_uvs   = read_f32_array(s, mesh.vertex_count << 1);
-                mesh.triangles    = read_s16_array(s);
-                mesh.vertices     = read_vertices(s, mesh.vertex_count, scale);
-                mesh.hull_length  = read_var_s32(s, true) << 1;
-                mesh.sequence     = read_sequence(s, loader_version);
-                if non_essential {
-                    mesh.edges    = read_s16_array(s);
-                    mesh.width    = read_f32(s) * scale;
-                    mesh.height   = read_f32(s) * scale;
-                }
+                mesh.path = get_string_reference(attachment_node, "path", *shared_strings);
+                
+                success, mesh.color = get_color(attachment_node, "color", 0xffffffff);
+                if !success then return null;
+                
+                success = get_number_array(attachment_node, "uvs", *mesh.region_uvs, 1);
+                if !success then return null;
+                
+                mesh.vertex_count = xx mesh.region_uvs.count;
+                
+                success = get_number_array(attachment_node, "triangles", *mesh.triangles);
+                if !success then return null;
+                
+                success, mesh.vertices = read_vertices(attachment_node, mesh.vertex_count, scale);
+                if !success then return null;
+                
+                mesh.hull_length = get_number(attachment_node, "hull", 0).(s32);  // @todo Check range
+                
+                success = get_number_array(attachment_node, "edges", *mesh.edges);
+                if !success then return null;
+                
+                mesh.width    = get_number(attachment_node, "width", 0) * scale;
+                mesh.height   = get_number(attachment_node, "height", 0) * scale;
+                
                 return mesh;
 
-            case .LINKED_MESH;
+            case "linkedmesh";
                 mesh := New(Attachment_Linked_Mesh);
-                mesh.path              = read_string_reference(s, shared_strings);
-                mesh.color             = read_color(s);
-                mesh.skin_name         = read_string_reference(s, shared_strings);
-                mesh.parent            = read_string_reference(s, shared_strings);
-                mesh.inherit_timelines = read_bool(s);
-                mesh.sequence          = read_sequence(s, loader_version);
-                if non_essential {
-                    mesh.width  = read_f32(s) * scale;
-                    mesh.height = read_f32(s) * scale;
-                }
+                mesh.path = get_string_reference(attachment_node, "path", *shared_strings);
+                
+                success, mesh.color = get_color(attachment_node, "color", 0xffffffff);
+                if !success then return null;
+                
+                mesh.skin_name = get_string_reference(attachment_node, "skin", *shared_strings);
+                mesh.parent    = get_string_reference(attachment_node, "parent", *shared_strings);
+                
+                mesh.inherit_deform = get_bool(attachment_node, "deform", true);
+                
+                mesh.width  = get_number(attachment_node, "width", 0) * scale;
+                mesh.height = get_number(attachment_node, "height", 0) * scale;
+                
                 return mesh;
 
-            case .PATH;
+            case "path";
                 path := New(Attachment_Path);
+                log("Path: %", path.*);
+                /*
                 path.closed         = read_bool(s);
                 path.constant_speed = read_bool(s);
                 path.vertex_count   = read_var_s32(s, true);
                 path.vertices       = read_vertices(s, path.vertex_count, scale);
                 read_f32_array(*path.lengths, s, path.vertex_count / 3, scale);
                 path.color = ifx non_essential then read_color(s);
+                */
                 return path;
 
-            case .POINT;
-                print("TODO: Point\n");
+            case "point";
+                print("@todo: Point\n");
                 return null;
 
-            case .CLIPPING;
+            case "clipping";
                 clipping := New(Attachment_Clipping);
+                /*
                 clipping.end_slot_index = read_var_s32(s, true);
                 clipping.vertices       = read_vertices(s, scale);
                 clipping.color          = ifx non_essential then read_color(s);
+                */
                 return clipping;
-        */
 
             case;
                 log("Unknown attachment type: %", attachment_type_name);
@@ -546,7 +563,7 @@ Skeleton_3_Json_Read :: struct {
 
     read_vertices :: (json_value: JSON_Value, scale: float64) -> (success: bool, result: Vertices) {
         vertex_count := get_number(json_value, "vertexCount");
-        success, result := read_vertices(json_value, xx vertex_count, scale);
+        success, result := read_vertices(json_value, vertex_count.(s32) << 1, scale);
         return success, result;
     }
     
@@ -554,7 +571,7 @@ Skeleton_3_Json_Read :: struct {
         result: Vertices;
         result.vertex_count = vertex_count;
 
-        vertices_count := vertex_count << 1;
+        vertices_count := vertex_count;
         
         vertices_node := get(json_value, "vertices", .ARRAY);
         vertices := vertices_node.array;

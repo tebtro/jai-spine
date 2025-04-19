@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CLionExternalBuildManager">
+    <target id="11b0b967-d374-4048-a71a-98497049aa2a" name="Jai" defaultType="TOOL">
+      <configuration id="bfede5d6-7b1a-4b57-9f27-df6f48cde230" name="Jai">
+        <build type="TOOL">
+          <tool actionId="Tool_External Tools_jai first.jai -very_debug" />
+        </build>
+      </configuration>
+    </target>
+  </component>
+</project>

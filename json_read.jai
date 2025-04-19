@@ -80,12 +80,13 @@ Json_Read :: struct {
         return default;
     }
     
-    get_number_array :: (json_value: JSON_Value, key: string, output: *[..] s32) -> bool {
+    get_number_array :: (json_value: JSON_Value, key: string, output: *[..] s16) -> bool {
     	json_array := get(json_value, key, .ARRAY);
-    	return get_number_array(json_value, output);
+    	return get_number_array(json_array, output);
     }
-    get_number_array :: (json_value: JSON_Value, output: *[..] s32) -> bool {
+    get_number_array :: (json_value: JSON_Value, output: *[..] s16) -> bool {
     	if json_value.type != .ARRAY {
+    		log_error("Json is not an array!");
     		return false;
     	}
     	
@@ -97,7 +98,31 @@ Json_Read :: struct {
     			return false;
     		}
     		
-    		array_add(output, xx it.number);
+    		array_add(output, xx it.number);  // @todo Check range
+    	}
+    	
+    	return true;
+    }
+    
+    get_number_array :: (json_value: JSON_Value, key: string, output: *[..] s32) -> bool {
+    	json_array := get(json_value, key, .ARRAY);
+    	return get_number_array(json_array, output);
+    }
+    get_number_array :: (json_value: JSON_Value, output: *[..] s32) -> bool {
+    	if json_value.type != .ARRAY {
+    		log_error("Json is not an array!");
+    		return false;
+    	}
+    	
+        array_reserve(output, json_value.array.count);
+    
+    	for json_value.array {
+    		if it.type != .NUMBER {
+    			log_error("Is not a number!");
+    			return false;
+    		}
+    		
+    		array_add(output, xx it.number);  // @todo Check range
     	}
     	
     	return true;
@@ -105,10 +130,16 @@ Json_Read :: struct {
     
     get_number_array :: (json_value: JSON_Value, key: string, output: *[..] float64, scale: float64) -> bool {
     	json_array := get(json_value, key, .ARRAY);
-    	return get_number_array(json_value, output, scale);
+    	success := get_number_array(json_array, output, scale);
+    	if !success {
+    		log_error("Error while reading number array: %", key);
+    	}
+    	
+    	return success;
     }
     get_number_array :: (json_value: JSON_Value, output: *[..] float64, scale: float64) -> bool {
     	if json_value.type != .ARRAY {
+    		log_error("Json is not an array!");
     		return false;
     	}
     	

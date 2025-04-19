@@ -155,7 +155,6 @@ Skeleton_3 :: struct {
         width: float64;
         height: float64;
         color: Color;
-        sequence: *Sequence;
     }
 
     Attachment_Bounding_Box :: struct {
@@ -173,7 +172,6 @@ Skeleton_3 :: struct {
         triangles: [..] s16;
         vertices: Vertices;
         hull_length: s32;
-        sequence: *Sequence;
         edges: [..] s16;
         width: float64;
         height: float64;
@@ -185,8 +183,7 @@ Skeleton_3 :: struct {
         color: Color;
         skin_name: String_Reference;
         parent: String_Reference;
-        inherit_timelines: bool;
-        sequence: *Sequence;
+        inherit_deform: bool;
         width:  float64;
         height: float64;
     }
@@ -214,13 +211,6 @@ Skeleton_3 :: struct {
         end_slot_index: Slot_Index;
         vertices: Vertices;
         color: Color;
-    }
-
-    Sequence :: struct {
-        regions_count: s32;
-        start: s32;
-        digits: s32;
-        setup_index: s32;
     }
 
     Vertices :: struct {
