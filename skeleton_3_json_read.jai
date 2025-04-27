@@ -671,96 +671,132 @@ Skeleton_3_Json_Read :: struct {
 							return null;
 						}
 						
-						constraint_index := find_path_constraint_index(skeleton, create_optional(constraint_name));
-						if constraint_index == -1 {
-							log_error("Path constraint not found: '%'!", constraint_name);
-							return null;
-						}
+                        using path_timeline := array_add(*path_timelines);
 						
-						/*
-						// Position
-						if has(constraint_node, "position") {
-							position_node := get(constraint_node, "position", .ARRAY);
+                        path_constraint_index = find_path_constraint_index(skeleton, create_optional(constraint_name));
+                        if path_constraint_index == -1 {
+                            log_error("Path constraint not found: '%'!", constraint_name);
+                            return null;
+                        }
+                        
+                        path_constraint := skeleton.path_constraints[path_constraint_index];
+						
+						for path_timeline_node: constraint_node.object {
+							path_timeline_name := it_index;
 							
-							for frame_node: position_node.array {
-								if frame_node.type != .OBJECT {
-									log_error("Path position frame is not an object!");
-									return null;
-								}
+                            if path_timeline_node.type != .ARRAY {
+                                log_error("Path timeline node is not an array!");
+                                return null;
+                            }
+                            
+                            create_timeline :: ($T: Type) -> *T #expand {
+                                timeline := New(T);
+                                //timeline.frame_count = frame_count;
+                                array_add(*timelines, timeline);
+                                return timeline;
+                            }
+                            
+                            timeline_scale: float64 = 1;
+							
+							if path_timeline_name == "position" {
+                        		timeline := create_timeline(Path_Timeline.Position_Timeline);
+                        		
+                        		if path_constraint.position_mode == .FIXED {
+                        			timeline_scale = scale;
+                        		}
 								
-								frame := array_add(*animation.path_position);
-								frame.constraint = constraint_index;
-								frame.time = get_number(frame_node, "time", 0);
-								frame.position = get_number(frame_node, "position", 0);
+                                success := read_curve_timeline(timeline, path_timeline_node, scale, #code {
+                                    frame.position = get_number(frame_node, "position", 0) * timeline_scale;
+                                }, #code {});
+                                if !success  return null;
+							}
+							else if path_timeline_name == "spacing" {
+                        		timeline := create_timeline(Path_Timeline.Spacing_Timeline);
+                        		
+                        		if path_constraint.spacing_mode == .LENGTH || path_constraint.spacing_mode == .FIXED {
+                        			timeline_scale = scale;
+                        		}
 								
-								read_curve(frame_node, frame, array_count(*animation.path_position) - 1);
+                                success := read_curve_timeline(timeline, path_timeline_node, scale, #code {
+                                    frame.spacing = get_number(frame_node, "spacing", 0) * timeline_scale;
+                                }, #code {});
+                                if !success  return null;
+							}
+							else if path_timeline_name == "mix" {
+                        		timeline := create_timeline(Path_Timeline.Mix_Timeline);
+								
+                                success := read_curve_timeline(timeline, path_timeline_node, scale, #code {
+                                    frame.rotate\  _mix = get_number(frame_node, "rotate_mix",    1);
+                                    frame.translate_mix = get_number(frame_node, "translate_mix", 1);
+                                }, #code {});
+                                if !success  return null;
+							}
+							else {
+								log_error("Unknown path timeline type: %", path_timeline_name);
+								return null;
 							}
 						}
-						
-						// Spacing
-						if has(constraint_node, "spacing") {
-							spacing_node := get(constraint_node, "spacing", .ARRAY);
-							
-							for frame_node: spacing_node.array {
-								if frame_node.type != .OBJECT {
-									log_error("Path spacing frame is not an object!");
-									return null;
-								}
-								
-								frame := array_add(*animation.path_spacing);
-								frame.constraint = constraint_index;
-								frame.time = get_number(frame_node, "time", 0);
-								frame.spacing = get_number(frame_node, "spacing", 0);
-								
-								read_curve(frame_node, frame, array_count(*animation.path_spacing) - 1);
-							}
-						}
-						
-						// Mix
-						if has(constraint_node, "mix") {
-							mix_node := get(constraint_node, "mix", .ARRAY);
-							
-							for frame_node: mix_node.array {
-								if frame_node.type != .OBJECT {
-									log_error("Path mix frame is not an object!");
-									return null;
-								}
-								
-								frame := array_add(*animation.path_mix);
-								frame.constraint = constraint_index;
-								frame.time = get_number(frame_node, "time", 0);
-								frame.rotate_mix = get_number(frame_node, "rotateMix", 1);
-								frame.translate_mix = get_number(frame_node, "translateMix", 1);
-								
-								read_curve(frame_node, frame, array_count(*animation.path_mix) - 1);
-							}
-						}
-						*/
 					}
 				}
 				
-				/*
-				// Events
-				if has(animation_node, "events") {
-					events_node := get(animation_node, "events", .ARRAY);
+				// Deform timeline
+				if has(animation_node, "deform") {
+					deform_node := get(animation_node, "deform", .OBJECT);
 					
-					for frame_node: events_node.array {
-						if frame_node.type != .OBJECT {
-							log_error("Event frame is not an object!");
+					for deform_skin_node: deform_node.object {
+						deform_skin_name := it_index;
+						
+						using deform_timeline := array_add(*deform_timelines);
+						
+						skin_index = find_skin_index(skeleton, deform_skin_name);
+						if skin_index < 0 {
+							log_error("Could not find deform skin: %", deform_skin_name);
 							return null;
 						}
 						
-						frame := array_add(*animation.event);
-						frame.time = get_number(frame_node, "time", 0);
+						if deform_skin_node.type != .OBJECT {
+							log_error("Deform skin is not an object!");
+							return null;
+						}
 						
-						event_name := get_string_reference(frame_node, "name", *shared_strings);
-						frame.event = find_event_index(skeleton, event_name);
-						
-						frame.value_int = xx get_number(frame_node, "int", 0);
-						frame.value_float = get_number(frame_node, "float", 0);
-						frame.value_string = get_optional_string(frame_node, "string");
-						frame.volume = get_number(frame_node, "volume", 1);
-						frame.balance = get_number(frame_node, "balance", 0);
+						for slot_node: deform_skin_node.object {
+							slot_name := it_index;
+							
+                            if slot_node.type != .OBJECT {
+                                log_error("Deform skin slot is not an object!");
+                                return null;
+                            }
+                            
+                            using slot_timeline := array_add(*slot_timelines);
+                            
+                            slot_index = find_slot_index(skeleton, slot_name);
+                            if slot_index < 0 {
+                                log_error("Could not find deform skin slot: %", slot_name);
+                                return null;
+                            }
+                            
+                            for attachment_node: slot_node.object {
+                            	attachment_name := it_index;
+                            	
+                            	attachment_timeline := array_add(*attachment_timelines);
+                            	attachment_timeline.attachment_name = get_string_reference(attachment_name, *shared_strings);
+                            	
+                                if attachment_node.type != .ARRAY {
+                                    log_error("Deform skin slot attachment is not an array!");
+                                    return null;
+                                }
+                                
+                                success := read_curve_timeline(attachment_timeline, attachment_node, scale, #code {
+                                	frame.offset = xx get_number(frame_node, "offset", 0);
+                                	
+                                	if has(frame_node, "vertices") {
+                                        success := get_number_array(frame_node, "vertices", *frame.vertices, scale);
+                                        if !success then return null;
+                                	}
+                                }, #code {});
+                                if !success  return null;
+                            }
+						}
 					}
 				}
 				
@@ -774,25 +810,52 @@ Skeleton_3_Json_Read :: struct {
 							return null;
 						}
 						
-						frame := array_add(*animation.draw_order);
+						frame := array_add(*animation.draw_order_timeline.frames);
 						frame.time = get_number(frame_node, "time", 0);
 						
-						offsets_node := get(frame_node, "offsets", .ARRAY);
-						array_reserve(*frame.offsets, offsets_node.array.count);
+						if has(frame_node, "offsets") {
+                            offsets_node := get(frame_node, "offsets", .ARRAY);
+                            array_reserve(*frame.offsets, offsets_node.array.count);
 						
-						for offset_node: offsets_node.array {
-							if offset_node.type != .OBJECT {
-								log_error("Draw order offset is not an object!");
-								return null;
-							}
+                            for offset_node: offsets_node.array {
+                                if offset_node.type != .OBJECT {
+                                    log_error("Draw order offset is not an object!");
+                                    return null;
+                                }
 							
-							offset := array_add(*frame.offsets);
-							offset.slot = find_slot_index(skeleton, get_optional_string(offset_node, "slot"));
-							offset.order = xx get_number(offset_node, "offset", 0);
+                                slot_name := get_optional_string(offset_node, "slot");
+							
+                                offset := array_add(*frame.offsets);
+                                offset.slot_index = find_slot_index(skeleton, slot_name);
+                                offset.offset = xx get_number(offset_node, "offset", 0);
+                            }
 						}
 					}
 				}
-				*/
+				
+				// Events
+				if has(animation_node, "events") {
+					events_node := get(animation_node, "events", .ARRAY);
+					
+					for frame_node: events_node.array {
+						if frame_node.type != .OBJECT {
+							log_error("Event frame is not an object!");
+							return null;
+						}
+						
+						frame := array_add(*animation.events);
+						frame.time = get_number(frame_node, "time", 0);
+						
+						event_name := get_optional_string(frame_node, "name");
+						frame.event_index = find_event_index(skeleton, event_name);
+						
+						frame.value_int = xx get_number(frame_node, "int", 0);
+						frame.value_float = get_number(frame_node, "float", 0);
+						frame.value_string = get_optional_string(frame_node, "string");
+						frame.volume = get_number(frame_node, "volume", 1);
+						frame.balance = get_number(frame_node, "balance", 0);
+					}
+				}
 			}
 		}
 		

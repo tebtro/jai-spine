@@ -256,8 +256,8 @@ Skeleton_3 :: struct {
         transform_timelines: [..] Transform_Timeline;
         path\    _timelines: [..] Path\    _Timeline;
         deform\  _timelines: [..] Deform\  _Timeline;
-        events: [..] Event;
         draw_order_timeline: Draw_Order_Timeline;
+        events: [..] Event;
     }
 
     Slot_Timeline :: struct {
@@ -418,12 +418,37 @@ Skeleton_3 :: struct {
         Timeline :: struct {
             path_type: Path_Type;
         }
-    }
 
+        Position_Timeline :: struct {
+            #as using _ : Timeline = .{ path_type = .POSITION };
+            #as using _ : Curve_Timeline(Frame);
+            
+            Frame :: struct {
+            	#as using _ : Curve_Frame(1);
+            	position: float64;
+            }
+        }
 
-    Deform_Timeline_Type :: enum u8 {
-        DEFORM   :: 0;
-        SEQUENCE :: 1;
+        Spacing_Timeline :: struct {
+            #as using _ : Timeline = .{ path_type = .SPACING };
+            #as using _ : Curve_Timeline(Frame);
+            
+            Frame :: struct {
+            	#as using _ : Curve_Frame(1);
+            	spacing: float64;
+            }
+        }
+
+        Mix_Timeline :: struct {
+            #as using _ : Timeline = .{ path_type = .MIX };
+            #as using _ : Curve_Timeline(Frame);
+            
+            Frame :: struct {
+            	#as using _ : Curve_Frame(1);
+            	rotate\  _mix: float64;
+            	translate_mix: float64;
+            }
+        }
     }
 
     Deform_Timeline :: struct {
@@ -434,24 +459,17 @@ Skeleton_3 :: struct {
         Slot_Timeline :: struct {
             slot_index: Slot_Index;
 
-            attachment_timelines: [..] *Attachment_Timeline;
+            attachment_timelines: [..] Attachment_Timeline;
 
             Attachment_Timeline :: struct {
-                attachment_name: String_Reference;
-                timeline_type: Deform_Timeline_Type;
-                frame_count: s32;
-            }
-
-            Attachment_Deform_Timeline :: struct {
-                #as using _ : Attachment_Timeline;
                 #as using _ : Curve_Timeline(Frame);
-                bezier_count: s32;
-
+                
+                attachment_name: String_Reference;
+                
                 Frame :: struct {
                     #as using _ : Curve_Frame(1);
-                    deform_length: s32;
                     offset: s32;
-                    deform: [..] float64;
+                    vertices: [..] float64;
                 }
             }
         }
@@ -616,6 +634,25 @@ Skeleton_3 :: struct {
     	
     	return -1;
     }
+    
+    find_skin_index :: (using skeleton: *Skeleton_Data, name: Optional(string)) -> Skin_Index {
+    	if !name.has_value {
+    		return -1;
+    	}
+    	
+    	return find_skin_index(skeleton, name.value);
+    }
+    find_skin_index :: (using skeleton: *Skeleton_Data, name: string) -> Skin_Index {
+    	for *skins {
+    		if !it.name.data.has_value  continue;
+    		
+    		if it.name.data.value == name {
+    			return xx it_index;
+    		}
+    	}
+    	
+    	return -1;
+    }
 
     find_slot_index :: (using skeleton: *Skeleton_Data, name: Optional(string)) -> Slot_Index {
     	if !name.has_value {
@@ -634,6 +671,25 @@ Skeleton_3 :: struct {
         }
 
         return -1;
+    }
+    
+    find_event_index :: (using skeleton: *Skeleton_Data, name: Optional(string)) -> Event_Index {
+    	if !name.has_value {
+    		return -1;
+    	}
+    	
+    	return find_event_index(skeleton, name.value);
+    }
+    find_event_index :: (using skeleton: *Skeleton_Data, name: string) -> Event_Index {
+    	for *events {
+    		if !it.name.data.has_value  continue;
+    		
+    		if it.name.data.value == name {
+    			return xx it_index;
+    		}
+    	}
+    	
+    	return -1;
     }
 
 	/*
