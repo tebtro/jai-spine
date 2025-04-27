@@ -1,3 +1,4 @@
 .build/
 example/atlas.test
 example/skeleton_binary.test
+pixijs-spine

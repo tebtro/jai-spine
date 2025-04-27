@@ -506,8 +506,8 @@ Skeleton_3_Json_Read :: struct {
                 success = get_number_array(attachment_node, "edges", *mesh.edges);
                 if !success then return null;
                 
-                mesh.width    = get_number(attachment_node, "width", 0) * scale;
-                mesh.height   = get_number(attachment_node, "height", 0) * scale;
+                mesh.width  = get_number(attachment_node, "width", 0) * scale;
+                mesh.height = get_number(attachment_node, "height", 0) * scale;
                 
                 return mesh;
 
