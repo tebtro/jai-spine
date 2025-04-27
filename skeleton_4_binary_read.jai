@@ -470,8 +470,19 @@ Skeleton_4_Binary_Read :: struct {
                         return false;
 
                     case .RGBA2;
-                        log("TODO: rgba2 timeline");
-                        return false;
+                        timeline := create_timeline(Slot_Timeline.Rgba2_Timeline);
+                        
+                        timeline.bezier_count = read_var_s32(s, true);
+                        success := read_curve_timeline(timeline, s, frame_count, 1, #code {
+                            frame.r = read_u8(s);
+                            frame.g = read_u8(s);
+                            frame.b = read_u8(s);
+                            frame.a = read_u8(s);
+                            frame.r2 = read_u8(s);
+                            frame.g2 = read_u8(s);
+                            frame.b2 = read_u8(s);
+                        }, #code {});
+                        if !success  return false;
 
                     case .RGB2;
                         log("TODO: rgb2 timeline");
@@ -626,19 +637,41 @@ Skeleton_4_Binary_Read :: struct {
         for 0..path_timelines_count-1 {
             using path_timeline := array_add(*path_timelines);
             path_constraint_index = read_var_s32(s, true);
+            
+            path_constraint := skeleton.path_constraints[path_constraint_index];
 
             timelines_count := read_var_s32(s, true);
             array_reserve(*timelines, timelines_count);
             for 0..timelines_count-1 {
                 path_type := cast(Path_Type) read_u8(s);
+                
                 frame_count := read_var_s32(s, true);
+                bezier_count := read_var_s32(s, true);
 
                 //log("Path timeline type: %", path_type);
+                
+                create_timeline :: ($T: Type) -> *T #expand {
+                    timeline := New(T);
+                    timeline.frame_count = frame_count;
+                    timeline.bezier_count = bezier_count;
+                    array_add(*timelines, timeline);
+                    return timeline;
+                }
+                
+                timeline_scale: float64 = 1;
 
                 if #complete path_type == {
                     case .POSITION;
-                        log("TODO: path timeline");
-                        return false;
+                        timeline := create_timeline(Path_Timeline.Position_Timeline);
+                        
+                        if path_constraint.position_mode == .FIXED {
+                            timeline_scale = scale;
+                        }
+                        
+                        success := read_curve_timeline(timeline, s, frame_count, scale, #code {
+                            frame.position = read_f32(s) * timeline_scale;
+                        }, #code {});
+                        if !success  return false;
 
                     case .SPACING;
                         log("TODO: spacing timeline");
@@ -699,8 +732,18 @@ Skeleton_4_Binary_Read :: struct {
                             if !success  return false;
 
                         case .SEQUENCE;
-                            log("TODO: sequence");
-                            return false;
+                            timeline := create_timeline(Deform_Timeline.Slot_Timeline.Attachment_Sequence_Timeline);
+                            
+                            array_reserve(*timeline.frames, frame_count);
+                            
+                            for 0..frame_count-1 {
+                            	frame := array_add(*timeline.frames);
+                            	frame.time = read_f32(s);
+                            	mode_and_index := read_s32(s);
+                                frame.sequence_mode = xx mode_and_index & 0xf;  // @todo Assert that it is a valid enum value!
+                                frame.index = mode_and_index >> 4;
+                                frame.delay = read_f32(s);
+                            }
 
                         case;
                             log("Unknown deform timeline type: %\n", timeline_type);

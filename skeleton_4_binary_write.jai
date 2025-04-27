@@ -335,7 +335,18 @@ Skeleton_4_Binary_Write :: struct {
                         log("TODO: rgb timeline");
 
                     case .RGBA2;
-                        log("TODO: rgba2 timeline");
+                        timeline := cast(*Slot_Timeline.Rgba2_Timeline) it;
+
+                        write_var_s32(b, timeline.bezier_count, true);
+                        write_curve_timeline(b, timeline, #code {
+                            write_u8(b, frame.r);
+                            write_u8(b, frame.g);
+                            write_u8(b, frame.b);
+                            write_u8(b, frame.a);
+                            write_u8(b, frame.r2);
+                            write_u8(b, frame.g2);
+                            write_u8(b, frame.b2);
+                        }, #code {});
 
                     case .RGB2;
                         log("TODO: rgb2 timeline");
@@ -455,7 +466,30 @@ Skeleton_4_Binary_Write :: struct {
 
             write_var_s32(b, xx it.timelines.count, true);
             for it.timelines {
-                log("TODO: Path constraint timelines");
+            	write_u8(b, xx it.path_type);
+            
+                write_var_s32(b, it.frame_count, true);
+                write_var_s32(b, it.bezier_count, true);
+            
+                if #complete it.path_type == {
+                	case .POSITION;
+                        timeline := cast(*Path_Timeline.Position_Timeline) it;
+                        write_curve_timeline(b, timeline, #code {
+                            write_f32(b, frame.position);
+                        }, #code {});
+
+                    case .SPACING;
+                        log("TODO: spacing timeline");
+                        return;
+
+                    case .MIX;
+                        log("TODO: mix timeline");
+                        return;
+
+                    case;
+                        log("Invalid path type: %\n", it.path_type);
+                        return;
+                }
             }
         }
 
@@ -487,7 +521,12 @@ Skeleton_4_Binary_Write :: struct {
                             });
 
                         case .SEQUENCE;
-                            log("TODO: sequence");
+                            timeline := cast(*Deform_Timeline.Slot_Timeline.Attachment_Sequence_Timeline) it;
+                            for timeline.frames {
+                            	write_f32(b, it.time);
+                            	write_s32(b, it.sequence_mode.(s32) | (it.index << 4));
+                            	write_f32(b, it.delay);
+                            }
 
                         case;
                             log("Unknown deform timeline type: %\n", it.timeline_type);

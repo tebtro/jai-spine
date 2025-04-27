@@ -321,19 +321,28 @@ Skeleton_4 :: struct {
             }
         }
 
-        Rgb_Timline :: struct {
+        Rgb_Timeline :: struct {
             #as using _ : Timeline = .{ type = .RGB };
         }
 
-        Rgba2_Timline :: struct {
+        Rgba2_Timeline :: struct {
             #as using _ : Timeline = .{ type = .RGBA2 };
+            #as using _ : Curve_Timeline(Frame);
+            
+            bezier_count: s32;
+            
+            Frame :: struct {
+                #as using _ : Curve_Frame(4);
+                r, g, b, a: u8;
+                r2, g2, b2: u8;
+            }
         }
 
-        Rgb2_Timline :: struct {
+        Rgb2_Timeline :: struct {
             #as using _ : Timeline = .{ type = .RGB2 };
         }
 
-        Alpha_Timline :: struct {
+        Alpha_Timeline :: struct {
             #as using _ : Timeline = .{ type = .ALPHA };
         }
     }
@@ -510,6 +519,39 @@ Skeleton_4 :: struct {
 
         Timeline :: struct {
             path_type: Path_Type;
+            frame_count: s32;
+            bezier_count: s32;
+        }
+
+        Position_Timeline :: struct {
+            #as using _ : Timeline = .{ path_type = .POSITION };
+            #as using _ : Curve_Timeline(Frame);
+            
+            Frame :: struct {
+            	#as using _ : Curve_Frame(1);
+            	position: float64;
+            }
+        }
+
+        Spacing_Timeline :: struct {
+            #as using _ : Timeline = .{ path_type = .SPACING };
+            #as using _ : Curve_Timeline(Frame);
+            
+            Frame :: struct {
+            	#as using _ : Curve_Frame(1);
+            	spacing: float64;
+            }
+        }
+
+        Mix_Timeline :: struct {
+            #as using _ : Timeline = .{ path_type = .MIX };
+            #as using _ : Curve_Timeline(Frame);
+            
+            Frame :: struct {
+            	#as using _ : Curve_Frame(1);
+            	rotate\  _mix: float64;
+            	translate_mix: float64;
+            }
         }
     }
 
@@ -545,6 +587,19 @@ Skeleton_4 :: struct {
                     deform_length: s32;
                     offset: s32;
                     deform: [..] float64;
+                }
+            }
+
+            Attachment_Sequence_Timeline :: struct {
+                #as using _ : Attachment_Timeline;
+                
+                frames: [..] Frame;
+
+                Frame :: struct {
+                	time: float64;
+                	sequence_mode: Sequence_Mode;
+                	index: s32;
+                	delay: float64;
                 }
             }
         }
@@ -636,6 +691,16 @@ Skeleton_4 :: struct {
         TANGENT     :: 0;
         CHAIN       :: 1;
         CHAIN_SCALE :: 2;
+    }
+    
+    Sequence_Mode :: enum {
+        HOLD :: 0;
+        ONCE :: 1;
+        LOOP :: 2;
+        PING_PONG :: 3;
+        ONCE_REVERSE :: 4;
+        LOOP_REVERSE :: 5;
+        PING_PONG_REVERSE :: 6;
     }
 
     find_slot :: (using skin: *Skin, slot_index: Slot_Index) -> *Slot {
