@@ -7,6 +7,14 @@ Json_Read :: struct {
             return false;
         }
     }
+    
+    get :: (json_val: JSON_Value, key: string) -> JSON_Value {
+        assert(json_val.type == .OBJECT);
+        table := json_val.object;
+        val, success := Hash_Table.table_find(table, key);
+        assert(success);
+        return val;
+    }
 
     get :: (json_val: JSON_Value, key: string, expected_type: JSON_Type) -> JSON_Value {
         assert(json_val.type == .OBJECT);
@@ -38,11 +46,17 @@ Json_Read :: struct {
         table := json_value.object;
         value, success := Hash_Table.table_find(table, key);
         if success {
-            assert(value.type == .STRING);
-            return .{
-                has_value = success,
-                value = value.str,
-            };
+        	if value.type == .NULL {
+                return .{
+                    has_value = false,
+                };
+        	} else {
+                assert(value.type == .STRING);
+                return .{
+                    has_value = success,
+                    value = value.str,
+                };
+        	}
         } else {
             return .{};
         }

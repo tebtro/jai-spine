@@ -141,7 +141,7 @@ Skeleton_3_Json_Read :: struct {
                     return null;
                 }
                 
-                ik.order         = xx get_number(ik_node, "order", 0);
+                ik.order = xx get_number(ik_node, "order", 0);
                 ik.skin_required = get_bool(ik_node, "skin", false);
                 
                 bones_node := get(ik_node, "bones", .ARRAY);
@@ -287,167 +287,519 @@ Skeleton_3_Json_Read :: struct {
 		if has(root, "skins") {
 			skins_node := get(root, "skins", .ARRAY);
 			
-			array_reserve(*skins, skins_node.array.count);
-			
 			for skin_node: skins_node.array {
-                skin := array_add(*skins);
-                success := read_skin(skeleton, skin, skin_node, scale);
-                if !success {
-                    log("Error while loading skin!");
-                    return null;
-                }
+				if skin_node.type != .OBJECT {
+					log_error("Skin is not an object!");
+					return null;
+				}
+				
+				skin := array_add(*skeleton.skins);
+				skin.name = get_string_reference(skin_node, "name", *shared_strings);
+				
+				// Bones
+				if has(skin_node, "bones") {
+					bones_node := get(skin_node, "bones", .ARRAY);
+					array_reserve(*skin.bones, bones_node.array.count);
+					
+					for bone_node: bones_node.array {
+						if bone_node.type != .STRING {
+							log_error("Bone is not a string!");
+							return null;
+						}
+						
+						bone_name := create_optional(bone_node.str);
+						bone_index := find_bone_index(skeleton, bone_name);
+						array_add(*skin.bones, bone_index);
+					}
+				}
+				
+				// IK constraints
+				if has(skin_node, "ik") {
+					ik_node := get(skin_node, "ik", .ARRAY);
+					array_reserve(*skin.ik_constraints, ik_node.array.count);
+					
+					for constraint_node: ik_node.array {
+						if constraint_node.type != .STRING {
+							log_error("IK constraint is not a string!");
+							return null;
+						}
+						
+						constraint_name := create_optional(constraint_node.str);
+						constraint_index := find_ik_constraint_index(skeleton, constraint_name);
+						array_add(*skin.ik_constraints, constraint_index);
+					}
+				}
+				
+				// Transform constraints
+				if has(skin_node, "transform") {
+					transform_node := get(skin_node, "transform", .ARRAY);
+					array_reserve(*skin.transform_constraints, transform_node.array.count);
+					
+					for constraint_node: transform_node.array {
+						if constraint_node.type != .STRING {
+							log_error("Transform constraint is not a string!");
+							return null;
+						}
+						
+						constraint_name := create_optional(constraint_node.str);
+						constraint_index := find_transform_constraint_index(skeleton, constraint_name);
+						array_add(*skin.transform_constraints, constraint_index);
+					}
+				}
+				
+				// Path constraints
+				if has(skin_node, "path") {
+					path_node := get(skin_node, "path", .ARRAY);
+					array_reserve(*skin.path_constraints, path_node.array.count);
+					
+					for constraint_node: path_node.array {
+						if constraint_node.type != .STRING {
+							log_error("Path constraint is not a string!");
+							return null;
+						}
+						
+						constraint_name := create_optional(constraint_node.str);
+						constraint_index := find_path_constraint_index(skeleton, constraint_name);
+						array_add(*skin.path_constraints, constraint_index);
+					}
+				}
+				
+				// Slots
+				if has(skin_node, "slots") {
+					slots_node := get(skin_node, "slots", .OBJECT);
+					
+					for slot_node: slots_node.object {
+						slot_name := it_index;
+						
+						if slot_node.type != .OBJECT {
+							log_error("Slot is not an object!");
+							return null;
+						}
+						
+						slot_index := find_slot_index(skeleton, create_optional(slot_name));
+						if slot_index == -1 {
+							log_error("Slot not found: '%'!", slot_name);
+							return null;
+						}
+						
+						slot := array_add(*skin.slots);
+						slot.index = slot_index;
+						
+						// Attachments
+						for attachment_node: slot_node.object {
+							attachment_name := it_index;
+							
+							if attachment_node.type != .OBJECT {
+								log_error("Attachment is not an object!");
+								return null;
+							}
+							
+							attachment := read_attachment(skeleton, attachment_name, attachment_node, skin, slot.index, scale);
+							if !attachment {
+								return null;
+							}
+							
+							array_add(*slot.attachments, attachment);
+						}
+					}
+				}
 			}
 		}
 		
-		//print("Paths: %\n", path_constraints);
+		// Events
+		if has(root, "events") {
+			events_node := get(root, "events", .OBJECT);
+			
+			for event_node: events_node.object {
+				event_name := it_index;
+				
+				if event_node.type != .OBJECT {
+					log_error("Event is not an object!");
+					return null;
+				}
+				
+				event := array_add(*skeleton.events);
+				event.name = get_string_reference(event_node, "name", *shared_strings);
+				event.value_int = xx get_number(event_node, "int", 0);
+				event.value_float = get_number(event_node, "float", 0);
+				event.value_string = get_optional_string(event_node, "string");
+				event.audio_path = get_optional_string(event_node, "audio");
+				event.volume = get_number(event_node, "volume", 1);
+				event.balance = get_number(event_node, "balance", 0);
+			}
+		}
 		
-		log_error("@todo");
+		// Animations
+		if has(root, "animations") {
+			animations_node := get(root, "animations", .OBJECT);
+			
+			for animation_node: animations_node.object {
+				animation_name := it_index;
+				
+				if animation_node.type != .OBJECT {
+					log_error("Animation is not an object!");
+					return null;
+				}
+				
+				using animation := array_add(*skeleton.animations);
+				animation.name = get_optional_string(animation_node, "name");
+				
+				// Slots
+				if has(animation_node, "slots") {
+					slots_node := get(animation_node, "slots", .OBJECT);
+					
+					for slot_node: slots_node.object {
+						slot_name := it_index;
+						
+						if slot_node.type != .OBJECT {
+							log_error("Slot animation is not an object!");
+							return null;
+						}
+						
+            			using slot_timeline := array_add(*slot_timelines);
+						
+						slot_index = find_slot_index(skeleton, create_optional(slot_name));
+						if slot_index == -1 {
+							log_error("Slot not found: '%'!", slot_name);
+							return null;
+						}
+						
+                        create_timeline :: ($T: Type) -> *T #expand {
+                            timeline := New(T);
+                            //timeline.frame_count = frame_count;
+                            array_add(*timelines, timeline);
+                            return timeline;
+                        }
+						
+						// Attachment
+						if has(slot_node, "attachment") {
+							attachment_node := get(slot_node, "attachment", .ARRAY);
+							
+                        	timeline := create_timeline(Slot_Timeline.Attachment_Timeline);
+							
+							for frame_node: attachment_node.array {
+								if frame_node.type != .OBJECT {
+									log_error("Attachment frame is not an object!");
+									return null;
+								}
+								
+								frame := array_add(*timeline.frames);
+								frame.time = get_number(frame_node, "time", 0);
+								frame.name = get_string_reference(frame_node, "name", *shared_strings);
+							}
+						}
+						
+						// Color
+						if has(slot_node, "color") {
+							color_node := get(slot_node, "color", .ARRAY);
+							
+                        	timeline := create_timeline(Slot_Timeline.Color_Timeline);
+                        	
+                            success = read_curve_timeline(timeline, color_node, 1, #code {
+								success, frame.color = get_color(frame_node, "color", 0xffffffff);
+								if !success then return null;
+                            }, #code {});
+                            if !success then return null;
+						}
+						
+						// Two color
+						if has(slot_node, "twoColor") {
+							two_color_node := get(slot_node, "twoColor", .ARRAY);
+							
+                        	timeline := create_timeline(Slot_Timeline.Two_Color_Timeline);
+                        	
+                            success = read_curve_timeline(timeline, two_color_node, 1, #code {
+								success, frame.light = get_color(frame_node, "light", 0xffffffff);
+								if !success then return null;
+								
+								success, frame.dark = get_color(frame_node, "dark", 0xffffffff);
+								if !success then return null;
+                            }, #code {});
+                            if !success then return null;
+						}
+					}
+				}
+				
+				// Bones
+				if has(animation_node, "bones") {
+					bones_node := get(animation_node, "bones", .OBJECT);
+					
+					for bone_node: bones_node.object {
+						bone_name := it_index;
+						
+						if bone_node.type != .OBJECT {
+							log_error("Bone animation is not an object!");
+							return null;
+						}
+						
+            			using bone_timeline := array_add(*bone_timelines);
+						
+						bone_index = find_bone_index(skeleton, create_optional(bone_name));
+						if bone_index == -1 {
+							log_error("Bone not found: '%'!", bone_name);
+							return null;
+						}
+						
+                        create_timeline :: ($T: Type) -> *T #expand {
+                            timeline := New(T);
+                            array_add(*timelines, timeline);
+                            return timeline;
+                        }
+						
+						// Rotate
+						if has(bone_node, "rotate") {
+							rotate_node := get(bone_node, "rotate", .ARRAY);
+							
+                        	timeline := create_timeline(Bone_Timeline.Rotate_Timeline);
+                        	
+                            success := read_curve_timeline(timeline, rotate_node, 1, #code {
+								frame.angle = get_number(frame_node, "angle", 0);
+                            }, #code {});
+                            if !success  return null;
+						}
+						
+						// Translate
+						if has(bone_node, "translate") {
+							translate_node := get(bone_node, "translate", .ARRAY);
+							
+                        	timeline := create_timeline(Bone_Timeline.Translate_Timeline);
+                        	
+                            success := read_curve_timeline(timeline, translate_node, 1, #code {
+								frame.x = get_number(frame_node, "x", 0) * scale;
+								frame.y = get_number(frame_node, "y", 0) * scale;
+                            }, #code {});
+                            if !success  return null;
+						}
+						
+						// Scale
+						if has(bone_node, "scale") {
+							scale_node := get(bone_node, "scale", .ARRAY);
+							
+                        	timeline := create_timeline(Bone_Timeline.Scale_Timeline);
+                        	
+                            success := read_curve_timeline(timeline, scale_node, 1, #code {
+								frame.scale_x = get_number(frame_node, "x", 1);
+								frame.scale_y = get_number(frame_node, "y", 1);
+                            }, #code {});
+                            if !success  return null;
+						}
+						
+						// Shear
+						if has(bone_node, "shear") {
+							shear_node := get(bone_node, "shear", .ARRAY);
+							
+                        	timeline := create_timeline(Bone_Timeline.Shear_Timeline);
+                        	
+                            success := read_curve_timeline(timeline, shear_node, 1, #code {
+								frame.shear_x = get_number(frame_node, "x", 0);
+								frame.shear_y = get_number(frame_node, "y", 0);
+                            }, #code {});
+                            if !success  return null;
+						}
+					}
+				}
+				
+				// IK
+				if has(animation_node, "ik") {
+					ik_node := get(animation_node, "ik", .OBJECT);
+					
+					for constraint_node: ik_node.object {
+						constraint_name := it_index;
+						
+						if constraint_node.type != .ARRAY {
+							log_error("IK constraint animation is not an array! (%)", constraint_node.type);
+							return null;
+						}
+						
+            			using timeline := array_add(*ik_timelines);
+						ik_constraint_index = find_ik_constraint_index(skeleton, create_optional(constraint_name));
+						if ik_constraint_index == -1 {
+							log_error("IK constraint not found: '%'!", constraint_name);
+							return null;
+						}
+						
+                        success := read_curve_timeline(timeline, constraint_node, scale, #code {
+							frame.mix            = get_number(frame_node, "mix", 1);
+							frame.softness       = get_number(frame_node, "softness", 0) * scale;
+							frame.bend_direction = xx ifx get_bool(frame_node, "bendPositive", true) then 1 else -1;
+							frame.compress       = get_bool(frame_node, "compress", false);
+							frame.stretch        = get_bool(frame_node, "stretch", false);
+                        }, #code {});
+                        if !success  return null;
+					}
+				}
+				
+				// Transform
+				if has(animation_node, "transform") {
+					transform_node := get(animation_node, "transform", .OBJECT);
+					
+					for constraint_node: transform_node.object {
+						constraint_name := it_index;
+						
+						if constraint_node.type != .ARRAY {
+							log_error("Transform constraint animation is not an array!");
+							return null;
+						}
+							
+            			using timeline := array_add(*transform_timelines);
+						
+						transform_constraint_index = find_transform_constraint_index(skeleton, create_optional(constraint_name));
+						if transform_constraint_index == -1 {
+							log_error("Transform constraint not found: '%'!", constraint_name);
+							return null;
+						}
+						
+                        success := read_curve_timeline(timeline, constraint_node, scale, #code {
+							frame.rotate_mix    = get_number(frame_node, "rotateMix", 1);
+							frame.translate_mix = get_number(frame_node, "translateMix", 1);
+							frame.scale_mix     = get_number(frame_node, "scaleMix", 1);
+							frame.shear_mix     = get_number(frame_node, "shearMix", 1);
+                        }, #code {});
+                        if !success  return null;
+					}
+				}
+				
+				// Path
+				if has(animation_node, "path") {
+					path_node := get(animation_node, "path", .OBJECT);
+					
+					for constraint_node: path_node.object {
+						constraint_name := it_index;
+						
+						if constraint_node.type != .OBJECT {
+							log_error("Path constraint animation is not an object!");
+							return null;
+						}
+						
+						constraint_index := find_path_constraint_index(skeleton, create_optional(constraint_name));
+						if constraint_index == -1 {
+							log_error("Path constraint not found: '%'!", constraint_name);
+							return null;
+						}
+						
+						/*
+						// Position
+						if has(constraint_node, "position") {
+							position_node := get(constraint_node, "position", .ARRAY);
+							
+							for frame_node: position_node.array {
+								if frame_node.type != .OBJECT {
+									log_error("Path position frame is not an object!");
+									return null;
+								}
+								
+								frame := array_add(*animation.path_position);
+								frame.constraint = constraint_index;
+								frame.time = get_number(frame_node, "time", 0);
+								frame.position = get_number(frame_node, "position", 0);
+								
+								read_curve(frame_node, frame, array_count(*animation.path_position) - 1);
+							}
+						}
+						
+						// Spacing
+						if has(constraint_node, "spacing") {
+							spacing_node := get(constraint_node, "spacing", .ARRAY);
+							
+							for frame_node: spacing_node.array {
+								if frame_node.type != .OBJECT {
+									log_error("Path spacing frame is not an object!");
+									return null;
+								}
+								
+								frame := array_add(*animation.path_spacing);
+								frame.constraint = constraint_index;
+								frame.time = get_number(frame_node, "time", 0);
+								frame.spacing = get_number(frame_node, "spacing", 0);
+								
+								read_curve(frame_node, frame, array_count(*animation.path_spacing) - 1);
+							}
+						}
+						
+						// Mix
+						if has(constraint_node, "mix") {
+							mix_node := get(constraint_node, "mix", .ARRAY);
+							
+							for frame_node: mix_node.array {
+								if frame_node.type != .OBJECT {
+									log_error("Path mix frame is not an object!");
+									return null;
+								}
+								
+								frame := array_add(*animation.path_mix);
+								frame.constraint = constraint_index;
+								frame.time = get_number(frame_node, "time", 0);
+								frame.rotate_mix = get_number(frame_node, "rotateMix", 1);
+								frame.translate_mix = get_number(frame_node, "translateMix", 1);
+								
+								read_curve(frame_node, frame, array_count(*animation.path_mix) - 1);
+							}
+						}
+						*/
+					}
+				}
+				
+				/*
+				// Events
+				if has(animation_node, "events") {
+					events_node := get(animation_node, "events", .ARRAY);
+					
+					for frame_node: events_node.array {
+						if frame_node.type != .OBJECT {
+							log_error("Event frame is not an object!");
+							return null;
+						}
+						
+						frame := array_add(*animation.event);
+						frame.time = get_number(frame_node, "time", 0);
+						
+						event_name := get_string_reference(frame_node, "name", *shared_strings);
+						frame.event = find_event_index(skeleton, event_name);
+						
+						frame.value_int = xx get_number(frame_node, "int", 0);
+						frame.value_float = get_number(frame_node, "float", 0);
+						frame.value_string = get_optional_string(frame_node, "string");
+						frame.volume = get_number(frame_node, "volume", 1);
+						frame.balance = get_number(frame_node, "balance", 0);
+					}
+				}
+				
+				// Draw order
+				if has(animation_node, "drawOrder") {
+					draw_order_node := get(animation_node, "drawOrder", .ARRAY);
+					
+					for frame_node: draw_order_node.array {
+						if frame_node.type != .OBJECT {
+							log_error("Draw order frame is not an object!");
+							return null;
+						}
+						
+						frame := array_add(*animation.draw_order);
+						frame.time = get_number(frame_node, "time", 0);
+						
+						offsets_node := get(frame_node, "offsets", .ARRAY);
+						array_reserve(*frame.offsets, offsets_node.array.count);
+						
+						for offset_node: offsets_node.array {
+							if offset_node.type != .OBJECT {
+								log_error("Draw order offset is not an object!");
+								return null;
+							}
+							
+							offset := array_add(*frame.offsets);
+							offset.slot = find_slot_index(skeleton, get_optional_string(offset_node, "slot"));
+							offset.order = xx get_number(offset_node, "offset", 0);
+						}
+					}
+				}
+				*/
+			}
+		}
+		
 		return skeleton;
 	}
 	
-    read_skin :: (using skeleton: *Skeleton_Data, skin: *Skin, skin_node: JSON_Value, scale: float64) -> bool #must {
-        skin.name = get_string_reference(skin_node, "name", *shared_strings);
-        if !skin.name.data.has_value || !skin.name.data.value {
-            log("Skin name must not be null!");
-            return false;
-        }
-        
-        //log("Read skin: %", skin.name);
-        if skin.name.data.value == "default" {
-        	default_skin = skin;
-        }
-        
-        names: [..] string;
-        names.allocator = temp;
-        
-        if has(skin_node, "bones") {
-        	success := get_string_array(skin_node, "bones", *names);
-        	if !success then return false;
-        	
-        	array_reserve(*skin.bones, names.count);
-        	
-        	for names {
-        		bone_index := find_bone_index(skeleton, it);
-        		if bone_index < 0 {
-        			log_error("Could not find bone '%'!", it);
-        			return false;
-        		}
-        		
-        		array_add(*skin.bones, bone_index);
-        	}
-        	
-        	names.count = 0;
-        }
-        
-        if has(skin_node, "ik") {
-        	success := get_string_array(skin_node, "ik", *names);
-        	if !success then return false;
-        	
-        	array_reserve(*skin.ik_constraints, names.count);
-        	
-        	for names {
-        		constraint_index := find_ik_constraint_index(skeleton, it);
-        		if constraint_index < 0 {
-        			log_error("Could not find bone '%'!", it);
-        			return false;
-        		}
-        		
-        		array_add(*skin.ik_constraints, constraint_index);
-        	}
-        	
-        	names.count = 0;
-        }
-        
-        if has(skin_node, "transform") {
-        	success := get_string_array(skin_node, "transform", *names);
-        	if !success then return false;
-        	
-        	array_reserve(*skin.transform_constraints, names.count);
-        	
-        	for names {
-        		constraint_index := find_transform_constraint_index(skeleton, it);
-        		if constraint_index < 0 {
-        			log_error("Could not find bone '%'!", it);
-        			return false;
-        		}
-        		
-        		array_add(*skin.transform_constraints, constraint_index);
-        	}
-        	
-        	names.count = 0;
-        }
-        
-        if has(skin_node, "path") {
-        	success := get_string_array(skin_node, "path", *names);
-        	if !success then return false;
-        	
-        	array_reserve(*skin.path_constraints, names.count);
-        	
-        	for names {
-        		constraint_index := find_path_constraint_index(skeleton, it);
-        		if constraint_index < 0 {
-        			log_error("Could not find bone '%'!", it);
-        			return false;
-        		}
-        		
-        		array_add(*skin.path_constraints, constraint_index);
-        	}
-        	
-        	names.count = 0;
-        }
-        
-        if has(skin_node, "attachments") {
-        	attachments_node := get(skin_node, "attachments", .OBJECT);
-        	
-        	array_reserve(*skin.slots, attachments_node.object.count);
-        	
-        	for attachments_node.object {
-        		slot_name := it_index;
-        		slot_node := it;
-        	
-                if slot_node.type != .OBJECT {
-                    log_error("Slot is not an object!");
-                    return false;
-                }
-        	
-                slot := array_add(*skin.slots);
-                slot.index = find_slot_index(skeleton, slot_name);
-                
-                array_reserve(*slot.attachments, slot_node.object.count);
-                
-                for slot_node.object {
-                	attachment_name := it_index;
-                	attachment_node := it;
-                	
-                    if attachment_node.type != .OBJECT {
-                        log_error("Attachment is not an object!");
-                        return false;
-                    }
-
-                    //log("Read attachment: %", attachment_name);
-
-                    attachment := read_attachment(skeleton, attachment_name, attachment_node, skin, slot.index, scale);
-                    if !attachment {
-                        log("Error while loading attachment!");
-                        return false;
-                    }
-                    
-                    attachment.name = get_string_reference(attachment_name, *shared_strings);
-        
-                    if has(attachment_node, "name") {
-                        name_override_node := get(attachment_node, "name", .STRING);
-                        attachment.name = get_string_reference(name_override_node.str, *shared_strings);
-                    }
-
-                    array_add(*slot.attachments, attachment);
-                }
-        	}
-        }
-        
-        return true;
-    }
-    
-    read_attachment :: (using skeleton: *Skeleton_Data, attachment_name: string, attachment_node: JSON_Value, skin: *Skin, slot_index: Slot_Index, scale: float64) -> *Attachment #must {
+	read_attachment :: (using skeleton: *Skeleton_Data, attachment_name: string, attachment_node: JSON_Value, skin: *Skin, slot_index: Slot_Index, scale: float64) -> *Attachment #must {
     	attachment_type_name := get_string(attachment_node, "type", "region");
     	
         success: bool;
@@ -461,8 +813,8 @@ Skeleton_3_Json_Read :: struct {
                 region.scale_x  = get_number(attachment_node, "scaleX", 1);
                 region.scale_y  = get_number(attachment_node, "scaleY", 1);
                 region.rotation = get_number(attachment_node, "rotation", 0);
-                region.width    = get_number(attachment_node, "width") * scale;
-                region.height   = get_number(attachment_node, "height") * scale;
+                region.width    = get_number(attachment_node, "width", 0) * scale;
+                region.height   = get_number(attachment_node, "height", 0) * scale;
                 
                 success, region.color = get_color(attachment_node, "color", 0xffffffff);
                 if !success {
@@ -501,7 +853,7 @@ Skeleton_3_Json_Read :: struct {
                 success, mesh.vertices = read_vertices(attachment_node, mesh.vertex_count, scale);
                 if !success then return null;
                 
-                mesh.hull_length = get_number(attachment_node, "hull", 0).(s32);  // @todo Check range
+                mesh.hull_length = xx get_number(attachment_node, "hull", 0);
                 
                 success = get_number_array(attachment_node, "edges", *mesh.edges);
                 if !success then return null;
@@ -519,8 +871,7 @@ Skeleton_3_Json_Read :: struct {
                 if !success then return null;
                 
                 mesh.skin_name = get_string_reference(attachment_node, "skin", *shared_strings);
-                mesh.parent    = get_string_reference(attachment_node, "parent", *shared_strings);
-                
+                mesh.parent = get_string_reference(attachment_node, "parent", *shared_strings);
                 mesh.inherit_deform = get_bool(attachment_node, "deform", true);
                 
                 mesh.width  = get_number(attachment_node, "width", 0) * scale;
@@ -530,32 +881,47 @@ Skeleton_3_Json_Read :: struct {
 
             case "path";
                 path := New(Attachment_Path);
-                log("Path: %", path.*);
-                /*
-                path.closed         = read_bool(s);
-                path.constant_speed = read_bool(s);
-                path.vertex_count   = read_var_s32(s, true);
-                path.vertices       = read_vertices(s, path.vertex_count, scale);
-                read_f32_array(*path.lengths, s, path.vertex_count / 3, scale);
-                path.color = ifx non_essential then read_color(s);
-                */
+                path.closed = get_bool(attachment_node, "closed", false);
+                path.constant_speed = get_bool(attachment_node, "constantSpeed", true);
+                path.vertex_count = xx get_number(attachment_node, "vertexCount", 0);
+                
+                success, path.vertices = read_vertices(attachment_node, path.vertex_count, scale);
+                if !success then return null;
+                
+                success = get_number_array(attachment_node, "lengths", *path.lengths, scale);
+                if !success then return null;
+                
+                success, path.color = get_color(attachment_node, "color", 0xffffffff);
+                if !success then return null;
+                
                 return path;
 
             case "point";
-                print("@todo: Point\n");
-                return null;
+                point := New(Attachment_Point);
+                point.x = get_number(attachment_node, "x", 0) * scale;
+                point.y = get_number(attachment_node, "y", 0) * scale;
+                point.rotation = get_number(attachment_node, "rotation", 0);
+                
+                success, point.color = get_color(attachment_node, "color", 0xffffffff);
+                if !success then return null;
+                
+                return point;
 
             case "clipping";
                 clipping := New(Attachment_Clipping);
-                /*
-                clipping.end_slot_index = read_var_s32(s, true);
-                clipping.vertices       = read_vertices(s, scale);
-                clipping.color          = ifx non_essential then read_color(s);
-                */
+                clipping.end_slot_index = find_slot_index(skeleton, get_optional_string(attachment_node, "end"));
+                
+                success, clipping.vertices = read_vertices(attachment_node, scale);
+                if !success then return null;
+                
+                success, clipping.color = get_color(attachment_node, "color", 0xffffffff);
+                if !success then return null;
+                
                 return clipping;
 
             case;
-                log("Unknown attachment type: %", attachment_type_name);
+                log_error("Unknown attachment type: '%'!", attachment_type_name);
+                return null;
         }
 
         return null;
@@ -604,6 +970,65 @@ Skeleton_3_Json_Read :: struct {
         }
         
         return true, result;
+    }
+
+    read_curve_timeline :: (using timeline: *Curve_Timeline($Frame), json_array: JSON_Value, scale: float64, code_before_bezier: Code, code_after_bezier: Code) -> bool #must #expand {
+    	if json_array.type != .ARRAY {
+    		return false;
+    	}
+    	
+    	success := true;
+    	
+    	frame_count := json_array.array.count;
+    	
+        array_reserve(*frames, frame_count);
+        
+        for `frame_node: json_array.array {
+            if frame_node.type != .OBJECT {
+                log_error("Frame is not an object!");
+                return false;
+            }
+        
+            `frame := array_add(*frames);
+            
+			frame.time = get_number(frame_node, "time", 0);
+
+            #insert code_before_bezier;
+
+            if it_index > 0 {
+            	if has(frame_node, "curve") {
+                    curve_node := get(frame_node, "curve");
+                    if curve_node.type == .NUMBER {
+                        frame.type = .BEZIER;
+                    } else {
+                        success, frame.type = curve_type_from_string(get_string(frame_node, "curve", "linear"));
+                        if !success then return false;
+                    }
+            	} else {
+            		frame.type = .LINEAR;
+            	}
+
+                if #complete frame.type == {
+                    case .LINEAR;
+                    case .STEPPED;
+                    case .BEZIER;
+                        for * frame.beziers {
+                            it.cx1 = get_number(frame_node, "curve");
+                            it.cy1 = get_number(frame_node, "c2", 0);
+                            it.cx2 = get_number(frame_node, "c3", 1);
+                            it.cy2 = get_number(frame_node, "c4", 1);
+                        }
+
+                    case;
+                        assert(false, "Unknown curve type: %\n", frame.type);
+                        return false;
+                }
+            }
+
+            #insert code_after_bezier;
+        }
+
+        return success;
     }
 	
 	transform_mode_from_string :: (original_name: string) -> (success: bool, mode: Transform_Mode) {
@@ -661,6 +1086,17 @@ Skeleton_3_Json_Read :: struct {
         }
 		
         return false, xx -1;
+	}
+	
+	curve_type_from_string :: (original_name: string) -> (success: bool, mode: Curve_Type) {
+		name := to_lower_copy(original_name);
+		if name == {
+            case "linear";   return true, .LINEAR;
+            case "stepped";  return true, .STEPPED;
+            case "bezier";   return true, .BEZIER;
+        }
+		
+        return false, xx 255;
 	}
 }
 

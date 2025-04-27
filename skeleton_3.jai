@@ -267,11 +267,8 @@ Skeleton_3 :: struct {
 
         Timeline_Type :: enum u8 {
             ATTACHMENT :: 0;
-            RGBA       :: 1;
-            RGB        :: 2;
-            RGBA2      :: 3;
-            RGB2       :: 4;
-            ALPHA      :: 5;
+            COLOR      :: 1;
+            TWO_COLOR  :: 2;
         }
 
         Timeline :: struct {
@@ -290,32 +287,29 @@ Skeleton_3 :: struct {
             }
         }
 
-        Rgba_Timeline :: struct {
-            #as using _ : Timeline = .{ type = .RGBA };
+        Color_Timeline :: struct {
+            #as using _ : Timeline = .{ type = .COLOR };
             #as using _ : Curve_Timeline(Frame);
 
             bezier_count: s32;
 
             Frame :: struct {
                 #as using _ : Curve_Frame(4);
-                r, g, b, a: u8;
+                color: Color;
             }
         }
 
-        Rgb_Timline :: struct {
-            #as using _ : Timeline = .{ type = .RGB };
-        }
+        Two_Color_Timeline :: struct {
+            #as using _ : Timeline = .{ type = .TWO_COLOR };
+            #as using _ : Curve_Timeline(Frame);
 
-        Rgba2_Timline :: struct {
-            #as using _ : Timeline = .{ type = .RGBA2 };
-        }
+            bezier_count: s32;
 
-        Rgb2_Timline :: struct {
-            #as using _ : Timeline = .{ type = .RGB2 };
-        }
-
-        Alpha_Timline :: struct {
-            #as using _ : Timeline = .{ type = .ALPHA };
+            Frame :: struct {
+                #as using _ : Curve_Frame(4);
+                light: Color;
+                dark: Color;
+            }
         }
     }
 
@@ -327,14 +321,8 @@ Skeleton_3 :: struct {
         Timeline_Type :: enum u8 {
             ROTATE      :: 0;
             TRANSLATE   :: 1;
-            TRANSLATE_X :: 2;
-            TRANSLATE_Y :: 3;
-            SCALE       :: 4;
-            SCALE_X     :: 5;
-            SCALE_Y     :: 6;
-            SHEAR       :: 7;
-            SHEAR_X     :: 8;
-            SHEAR_Y     :: 9;
+            SCALE       :: 2;
+            SHEAR       :: 3;
         }
 
         Timeline :: struct {
@@ -351,7 +339,7 @@ Skeleton_3 :: struct {
 
             Frame :: struct {
                 #as using _ : Curve_Frame(1);
-                rotation: float64;
+                angle: float64;
             }
         }
 
@@ -362,26 +350,6 @@ Skeleton_3 :: struct {
             Frame :: struct {
                 #as using _ : Curve_Frame(2);
                 x: float64;
-                y: float64;
-            }
-        }
-
-        Translate_X_Timeline :: struct {
-            #as using _ : Timeline = .{ type = .TRANSLATE_X };
-            #as using _ : Curve_Timeline(Frame);
-
-            Frame :: struct {
-                #as using _ : Curve_Frame(1);
-                x: float64;
-            }
-        }
-
-        Translate_Y_Timeline :: struct {
-            #as using _ : Timeline = .{ type = .TRANSLATE_Y };
-            #as using _ : Curve_Timeline(Frame);
-
-            Frame :: struct {
-                #as using _ : Curve_Frame(1);
                 y: float64;
             }
         }
@@ -397,26 +365,6 @@ Skeleton_3 :: struct {
             }
         }
 
-        Scale_X_Timeline :: struct {
-            #as using _ : Timeline = .{ type = .SCALE_X };
-            #as using _ : Curve_Timeline(Frame);
-
-            Frame :: struct {
-                #as using _ : Curve_Frame(1);
-                scale_x: float64;
-            }
-        }
-
-        Scale_Y_Timeline :: struct {
-            #as using _ : Timeline = .{ type = .SCALE_Y };
-            #as using _ : Curve_Timeline(Frame);
-
-            Frame :: struct {
-                #as using _ : Curve_Frame(1);
-                scale_y: float64;
-            }
-        }
-
         Shear_Timeline :: struct {
             #as using _ : Timeline = .{ type = .SHEAR };
             #as using _ : Curve_Timeline(Frame);
@@ -424,26 +372,6 @@ Skeleton_3 :: struct {
             Frame :: struct {
                 #as using _ : Curve_Frame(2);
                 shear_x: float64;
-                shear_y: float64;
-            }
-        }
-
-        Shear_X_Timeline :: struct {
-            #as using _ : Timeline = .{ type = .SHEAR_X };
-            #as using _ : Curve_Timeline(Frame);
-
-            Frame :: struct {
-                #as using _ : Curve_Frame(1);
-                shear_x: float64;
-            }
-        }
-
-        Shear_Y_Timeline :: struct {
-            #as using _ : Timeline = .{ type = .SHEAR_Y };
-            #as using _ : Curve_Timeline(Frame);
-
-            Frame :: struct {
-                #as using _ : Curve_Frame(1);
                 shear_y: float64;
             }
         }
@@ -475,12 +403,10 @@ Skeleton_3 :: struct {
 
         Frame :: struct {
             #as using _ : Curve_Frame(1);
-            rotate:  float64;
-            mix\ _x: float64;
-            mix\ _y: float64;
-            scale_x: float64;
-            scale_y: float64;
-            shear_y: float64;
+            rotate_mix:    float64;
+            translate_mix: float64;
+            scale_mix:     float64;
+            shear_mix:     float64;
         }
     }
 
@@ -691,6 +617,13 @@ Skeleton_3 :: struct {
     	return -1;
     }
 
+    find_slot_index :: (using skeleton: *Skeleton_Data, name: Optional(string)) -> Slot_Index {
+    	if !name.has_value {
+    		return -1;
+    	}
+    	
+    	return find_slot_index(skeleton, name.value);
+    }
     find_slot_index :: (using skeleton: *Skeleton_Data, name: string) -> Slot_Index {
         for * slots {
         	if !it.name.has_value  continue;
