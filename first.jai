@@ -32,11 +32,89 @@ build_workspace :: (options: *Build_Options, name: string, main_file: string) {
     
     w := compiler_create_workspace();
     
-    plugin_names: [..] string;
-    array_add(*plugin_names, "Check(CHECK_BINDINGS=false)");
+    check_bindings   := true;
+    do_check         := true;  // Import modules/Check if true.
+
+    user_arguments: [..] string;
+
+    index := 0;
+
+    // Handle command-line arguments. Once we see + or -,
+    // we are done looking for our arguments.
+    
+    got_error       := false;
+
+    output_executable_name: string;
+    output_path:            string;
+
+    plugin_start_index := -1;
+    
+    args := get_build_options().compile_time_command_line;
+    
+    while index < args.count {
+        defer index += 1;
+
+        it := args[index];
+
+        if !it continue;  // @Temporary?
+
+        if it[0] == #char "-" {
+            if it == {
+                case "-";
+                    // Everything after this is user arguments.
+                    for i: index+1..args.count-1  array_add(*user_arguments, args[i]);
+                    break;
+
+                case;
+                    log_error("Unknown argument '%'.\nExiting.\n", it);
+                    got_error = true;
+                    break;
+            }
+
+            continue;
+        } else if it[0] == #char "+" {
+            plugin_start_index = index;
+            break;
+        }
+    }
+    
+    plugins_to_create: [..] Plugin_To_Create;
+    
+    if plugin_start_index >= 0 {
+        success:, plugins_to_create = parse_plugin_arguments(args, plugin_start_index);
+        if !success got_error = true;
+    }
+    
+    if got_error {
+        exit(1);
+    }
+    
+    if do_check {
+        p := array_add(*plugins_to_create);
+        if check_bindings  p.name = "Check";
+        else               p.name = "Check(CHECK_BINDINGS=false)";
+    }
     
     // Now that we know what the plugins are, init them.
-    init_plugins(plugin_names, *plugins, w);
+    init_plugins(plugins_to_create, *plugins, w);
+    
+    all_success := true;
+    
+    assert(plugins.count == plugins_to_create.count);
+    for p: plugins {
+        c := *plugins_to_create[it_index];
+        if p.init {
+            success := p.init(p, c.options);
+            all_success &&= success;
+        } else if c.options {
+            log_error("Plugin '%' takes no options, but these options were given: %\n", c.name, c.options);
+        }
+    }
+
+    if !all_success {
+        log_error("A plugin init() failed. Exiting.\n");
+        exit(0);
+    }
     
     intercept_flags: Intercept_Flags;
     

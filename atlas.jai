@@ -66,7 +66,7 @@ Atlas_Region :: struct {
     entries: [..] Atlas_Entry;
 }
 
-load_atlas :: (using atlas: *Atlas, data: string) -> bool #must {
+load_atlas :: (using atlas: *Atlas, data: string) -> bool {
     read_line :: (data: *string) -> string, bool {
         line, found := consume_next_line(data);
         if !found  return "", false;

@@ -9,6 +9,8 @@ Skeleton_3 :: struct {
         y: float64;
         width:  float64;
         height: float64;
+        
+        non_essential: bool;
 
         fps: float64;
         images_path: Optional(string);
@@ -249,7 +251,6 @@ Skeleton_3 :: struct {
 
     Animation_Data :: struct {
         name: Optional(string);
-        total_timelines_count: s32;
         slot\    _timelines: [..] Slot\    _Timeline;
         bone\    _timelines: [..] Bone\    _Timeline;
         ik\      _timelines: [..] Ik\      _Timeline;
@@ -291,10 +292,8 @@ Skeleton_3 :: struct {
             #as using _ : Timeline = .{ type = .COLOR };
             #as using _ : Curve_Timeline(Frame);
 
-            bezier_count: s32;
-
             Frame :: struct {
-                #as using _ : Curve_Frame(4);
+                #as using _ : Curve_Frame(1);
                 color: Color;
             }
         }
@@ -303,10 +302,8 @@ Skeleton_3 :: struct {
             #as using _ : Timeline = .{ type = .TWO_COLOR };
             #as using _ : Curve_Timeline(Frame);
 
-            bezier_count: s32;
-
             Frame :: struct {
-                #as using _ : Curve_Frame(4);
+                #as using _ : Curve_Frame(1);
                 light: Color;
                 dark: Color;
             }
@@ -328,7 +325,6 @@ Skeleton_3 :: struct {
         Timeline :: struct {
             type: Timeline_Type;
             frame_count: s32;
-            bezier_count: s32;
         }
 
         // @todo Thats a bit bloated!
@@ -348,7 +344,7 @@ Skeleton_3 :: struct {
             #as using _ : Curve_Timeline(Frame);
 
             Frame :: struct {
-                #as using _ : Curve_Frame(2);
+                #as using _ : Curve_Frame(1);
                 x: float64;
                 y: float64;
             }
@@ -359,7 +355,7 @@ Skeleton_3 :: struct {
             #as using _ : Curve_Timeline(Frame);
 
             Frame :: struct {
-                #as using _ : Curve_Frame(2);
+                #as using _ : Curve_Frame(1);
                 scale_x: float64;
                 scale_y: float64;
             }
@@ -370,7 +366,7 @@ Skeleton_3 :: struct {
             #as using _ : Curve_Timeline(Frame);
 
             Frame :: struct {
-                #as using _ : Curve_Frame(2);
+                #as using _ : Curve_Frame(1);
                 shear_x: float64;
                 shear_y: float64;
             }
@@ -399,7 +395,6 @@ Skeleton_3 :: struct {
 
         transform_constraint_index: Transform_Constraint_Index;
         frame_count: s32;
-        bezier_count: s32;
 
         Frame :: struct {
             #as using _ : Curve_Frame(1);
@@ -417,6 +412,8 @@ Skeleton_3 :: struct {
 
         Timeline :: struct {
             path_type: Path_Type;
+            frame_count: s32;
+            bezier_count: s32;
         }
 
         Position_Timeline :: struct {
@@ -465,6 +462,8 @@ Skeleton_3 :: struct {
                 #as using _ : Curve_Timeline(Frame);
                 
                 attachment_name: String_Reference;
+                
+                frame_count: s32;
                 
                 Frame :: struct {
                     #as using _ : Curve_Frame(1);
@@ -691,17 +690,5 @@ Skeleton_3 :: struct {
     	
     	return -1;
     }
-
-	/*
-    find_attachment :: (using slot: *Slot, attachment_name: string) -> *Attachment {
-        for attachments {
-            if it.name == attachment_name {
-                return it;
-            }
-        }
-
-        return null;
-    }
-    */
 }
 

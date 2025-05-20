@@ -9,11 +9,6 @@ main :: () {
     	if !contains(it, "export")  continue;
     	if !ends_with(it, ".json") && !ends_with(it, ".skel")  continue;
     	
-    	if contains(it, "3.8") && contains(it, ".skel") {
-    		// @todo: Implement 3.8 binary reader!
-    		continue;
-    	}
-    	
     	if contains(it, "4.1") && contains(it, ".json") {
     		// @todo: Implement 4.1 JSON reader!
     		continue;
@@ -49,6 +44,11 @@ test_skeleton :: (path: string) {
         }
 
         //log("Skeleton: %\n", skeleton);
+    	
+    	if contains(path, "3.8") && contains(path, ".skel") {
+    		log_error("Implement 3.8 binary writer!");
+    		return;
+    	}
 
         new_data := write_skeleton_binary(skeleton, false);
         //write_entire_file("output.skel", new_data);

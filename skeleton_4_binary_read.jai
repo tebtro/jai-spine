@@ -227,7 +227,7 @@ Skeleton_4_Binary_Read :: struct {
         return skeleton;
     }
 
-    read_skin :: (using skeleton: *Skeleton_Data, skin: *Skin, s: *string, scale: float64, is_default_skin: bool) -> bool #must {
+    read_skin :: (using skeleton: *Skeleton_Data, skin: *Skin, s: *string, scale: float64, is_default_skin: bool) -> bool {
         slots_count: s32;
 
         if is_default_skin {
@@ -288,7 +288,7 @@ Skeleton_4_Binary_Read :: struct {
         return true;
     }
 
-    read_attachment :: (using skeleton: *Skeleton_Data, s: *string, skin: *Skin, slot_index: Slot_Index, scale: float64) -> *Attachment #must {
+    read_attachment :: (using skeleton: *Skeleton_Data, s: *string, skin: *Skin, slot_index: Slot_Index, scale: float64) -> *Attachment {
         attachment_type := cast(Attachment_Type) read_u8(s);
         if attachment_type == {
             case .REGION;
@@ -370,7 +370,7 @@ Skeleton_4_Binary_Read :: struct {
         return null;
     }
 
-    read_sequence :: (s: *string, version: Spine_Version) -> *Sequence #must {
+    read_sequence :: (s: *string, version: Spine_Version) -> *Sequence {
         if version < .Version41 || !read_bool(s) {
             return null;
         }
@@ -383,12 +383,12 @@ Skeleton_4_Binary_Read :: struct {
         return result;
     }
 
-    read_vertices :: (s: *string, scale: float64) -> Vertices #must {
+    read_vertices :: (s: *string, scale: float64) -> Vertices {
         vertex_count := read_var_s32(s, true);
         return read_vertices(s, vertex_count, scale);
     }
 
-    read_vertices :: (s: *string, vertex_count: s32, scale: float64) -> Vertices #must {
+    read_vertices :: (s: *string, vertex_count: s32, scale: float64) -> Vertices {
         result: Vertices;
         result.vertex_count = vertex_count;
 
@@ -418,7 +418,7 @@ Skeleton_4_Binary_Read :: struct {
         return result;
     }
 
-    read_animation :: (skeleton: *Skeleton_Data, using animation: *Animation_Data, s: *string, scale: float64) -> bool #must {
+    read_animation :: (skeleton: *Skeleton_Data, using animation: *Animation_Data, s: *string, scale: float64) -> bool {
         total_timelines_count = read_var_s32(s, true);  // timelines_count
 
         // Slot timelines
@@ -790,7 +790,7 @@ Skeleton_4_Binary_Read :: struct {
         return true;
     }
 
-    read_curve_timeline :: (using timeline: *Curve_Timeline($Frame), s: *string, frame_count: s32, scale: float64, code_before_bezier: Code, code_after_bezier: Code) -> bool #must #expand {
+    read_curve_timeline :: (using timeline: *Curve_Timeline($Frame), s: *string, frame_count: s32, scale: float64, code_before_bezier: Code, code_after_bezier: Code) -> bool #expand {
         array_reserve(*frames, frame_count);
         for 0..frame_count-1 {
             `frame := array_add(*frames);

@@ -862,7 +862,7 @@ Skeleton_3_Json_Read :: struct {
 		return skeleton;
 	}
 	
-	read_attachment :: (using skeleton: *Skeleton_Data, attachment_name: string, attachment_node: JSON_Value, skin: *Skin, slot_index: Slot_Index, scale: float64) -> *Attachment #must {
+	read_attachment :: (using skeleton: *Skeleton_Data, attachment_name: string, attachment_node: JSON_Value, skin: *Skin, slot_index: Slot_Index, scale: float64) -> *Attachment {
     	attachment_type_name := get_string(attachment_node, "type", "region");
     	
         success: bool;
@@ -1035,7 +1035,7 @@ Skeleton_3_Json_Read :: struct {
         return true, result;
     }
 
-    read_curve_timeline :: (using timeline: *Curve_Timeline($Frame), json_array: JSON_Value, scale: float64, code_before_bezier: Code, code_after_bezier: Code) -> bool #must #expand {
+    read_curve_timeline :: (using timeline: *Curve_Timeline($Frame), json_array: JSON_Value, scale: float64, code_before_bezier: Code, code_after_bezier: Code) -> bool #expand {
     	if json_array.type != .ARRAY {
     		return false;
     	}
