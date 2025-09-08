@@ -1,0 +1,789 @@
+{
+	"skeleton": {
+		"hash": "LJppLyc3KtS7PVpP29XhA0jM8Lo",
+		"spine": "3.8.55",
+		"x": -190.66,
+		"y": -8,
+		"width": 419.84,
+		"height": 686.08,
+		"images": "./images/",
+		"audio": ""
+	},
+	"bones": [
+		{
+			"name": "root",
+			"rotation": 0.28
+		},
+		{
+			"name": "hip",
+			"parent": "root",
+			"y": 247.27
+		},
+		{
+			"name": "crosshair",
+			"parent": "root",
+			"x": 302.83,
+			"y": 569.45,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "aim-constraint-target",
+			"parent": "hip",
+			"length": 26.24,
+			"x": 1.02,
+			"y": 5.62,
+			"rotation": 19.61,
+			"color": 0xabe323ff
+		},
+		{
+			"name": "rear-foot-target",
+			"parent": "root",
+			"x": 61.91,
+			"y": 0.42,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "rear-leg-target",
+			"parent": "rear-foot-target",
+			"x": -33.91,
+			"y": 37.34,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "rear-thigh",
+			"parent": "hip",
+			"length": 85.72,
+			"x": 8.91,
+			"y": -5.63,
+			"rotation": -72.54,
+			"color": 0xff000dff
+		},
+		{
+			"name": "rear-shin",
+			"parent": "rear-thigh",
+			"length": 121.88,
+			"x": 86.1,
+			"y": -1.33,
+			"rotation": -19.83,
+			"color": 0xff000dff
+		},
+		{
+			"name": "rear-foot",
+			"parent": "rear-shin",
+			"length": 51.58,
+			"x": 121.46,
+			"y": -0.76,
+			"rotation": 45.78,
+			"color": 0xff000dff
+		},
+		{
+			"name": "back-foot-tip",
+			"parent": "rear-foot",
+			"length": 50.3,
+			"x": 51.17,
+			"y": 0.24,
+			"rotation": -0.85,
+			"transform": "norotationorreflection",
+			"color": 0xff000dff
+		},
+		{
+			"name": "board-ik",
+			"parent": "root",
+			"x": -131.78,
+			"y": 69.09,
+			"color": 0x4c56ffff
+		},
+		{
+			"name": "clipping",
+			"parent": "root"
+		},
+		{
+			"name": "hoverboard-controller",
+			"parent": "root",
+			"x": -329.69,
+			"y": 69.82,
+			"rotation": -0.28,
+			"color": 0xff0004ff
+		},
+		{
+			"name": "exhaust1",
+			"parent": "hoverboard-controller",
+			"x": -249.68,
+			"y": 53.39,
+			"rotation": 3.02
+		},
+		{
+			"name": "exhaust2",
+			"parent": "hoverboard-controller",
+			"x": -191.6,
+			"y": -22.92,
+			"rotation": 26.34
+		},
+		{
+			"name": "exhaust3",
+			"parent": "hoverboard-controller",
+			"x": -236.03,
+			"y": 80.54,
+			"rotation": -12.34,
+			"scaleX": 0.7847,
+			"scaleY": 0.7847
+		},
+		{
+			"name": "portal-root",
+			"parent": "root",
+			"x": 12.9,
+			"y": 328.54,
+			"scaleX": 2.0334,
+			"scaleY": 2.0334
+		},
+		{
+			"name": "flare1",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare10",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare2",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare3",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare4",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare5",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare6",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare7",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare8",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "flare9",
+			"parent": "portal-root",
+			"x": -6.34,
+			"y": -161.57
+		},
+		{
+			"name": "torso",
+			"parent": "hip",
+			"length": 42.52,
+			"x": -1.62,
+			"y": 4.9,
+			"rotation": 103.82,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "torso2",
+			"parent": "torso",
+			"length": 42.52,
+			"x": 42.52,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "torso3",
+			"parent": "torso2",
+			"length": 42.52,
+			"x": 42.52,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "front-upper-arm",
+			"parent": "torso3",
+			"length": 69.45,
+			"x": 18.72,
+			"y": 19.33,
+			"rotation": 168.38,
+			"color": 0xff04ff
+		},
+		{
+			"name": "front-bracer",
+			"parent": "front-upper-arm",
+			"length": 40.57,
+			"x": 68.8,
+			"y": -0.68,
+			"rotation": 18.3,
+			"color": 0xff04ff
+		},
+		{
+			"name": "front-fist",
+			"parent": "front-bracer",
+			"length": 65.39,
+			"x": 40.57,
+			"y": 0.2,
+			"rotation": 12.43,
+			"color": 0xff04ff
+		},
+		{
+			"name": "front-foot-target",
+			"parent": "root",
+			"x": -13.53,
+			"y": 0.04,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "front-leg-target",
+			"parent": "front-foot-target",
+			"x": -28.4,
+			"y": 29.06,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "front-thigh",
+			"parent": "hip",
+			"length": 74.81,
+			"x": -17.46,
+			"y": -11.64,
+			"rotation": -95.51,
+			"color": 0xff04ff
+		},
+		{
+			"name": "front-shin",
+			"parent": "front-thigh",
+			"length": 128.77,
+			"x": 78.69,
+			"y": 1.6,
+			"rotation": -2.21,
+			"color": 0xff04ff
+		},
+		{
+			"name": "front-foot",
+			"parent": "front-shin",
+			"length": 41.01,
+			"x": 128.76,
+			"y": -0.34,
+			"rotation": 51.27,
+			"color": 0xff04ff
+		},
+		{
+			"name": "front-foot-tip",
+			"parent": "front-foot",
+			"length": 56.03,
+			"x": 41.42,
+			"y": -0.09,
+			"rotation": -1.68,
+			"transform": "norotationorreflection",
+			"color": 0xff04ff
+		},
+		{
+			"name": "rear-upper-arm",
+			"parent": "torso3",
+			"length": 51.94,
+			"x": 7.32,
+			"y": -19.22,
+			"rotation": -169.56,
+			"color": 0xff000dff
+		},
+		{
+			"name": "rear-bracer",
+			"parent": "rear-upper-arm",
+			"length": 34.56,
+			"x": 51.36,
+			"rotation": 23.15,
+			"color": 0xff000dff
+		},
+		{
+			"name": "gun",
+			"parent": "rear-bracer",
+			"length": 43.11,
+			"x": 34.42,
+			"y": -0.45,
+			"rotation": -5.43,
+			"color": 0xff000dff
+		},
+		{
+			"name": "gun-tip",
+			"parent": "gun",
+			"x": 200.78,
+			"y": 52.5,
+			"rotation": 7.1,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "neck",
+			"parent": "torso3",
+			"length": 25.45,
+			"x": 42.46,
+			"y": -0.31,
+			"rotation": -31.54,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "head",
+			"parent": "neck",
+			"length": 131.79,
+			"x": 27.66,
+			"y": -0.26,
+			"rotation": 26.1,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "hair1",
+			"parent": "head",
+			"length": 47.23,
+			"x": 149.83,
+			"y": -59.77,
+			"rotation": -49.1,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "hair2",
+			"parent": "hair1",
+			"length": 55.57,
+			"x": 47.23,
+			"y": 0.19,
+			"rotation": 50.42,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "hair3",
+			"parent": "head",
+			"length": 62.22,
+			"x": 164.14,
+			"y": 3.68,
+			"rotation": -32.17,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "hair4",
+			"parent": "hair3",
+			"length": 80.28,
+			"x": 62.22,
+			"y": -0.04,
+			"rotation": 83.71,
+			"color": 0xe0da19ff
+		},
+		{
+			"name": "hoverboard-thruster-front",
+			"parent": "hoverboard-controller",
+			"x": 95.77,
+			"y": -2.99,
+			"rotation": -29.2,
+			"transform": "norotationorreflection"
+		},
+		{
+			"name": "hoverboard-thruster-rear",
+			"parent": "hoverboard-controller",
+			"x": -76.47,
+			"y": -4.88,
+			"rotation": -29.2,
+			"transform": "norotationorreflection"
+		},
+		{
+			"name": "hoverglow-front",
+			"parent": "hoverboard-thruster-front",
+			"x": -1.78,
+			"y": -37.79,
+			"rotation": 0.17
+		},
+		{
+			"name": "hoverglow-rear",
+			"parent": "hoverboard-thruster-rear",
+			"x": 1.06,
+			"y": -35.66,
+			"rotation": 0.17
+		},
+		{
+			"name": "muzzle",
+			"parent": "rear-bracer",
+			"x": 242.34,
+			"y": 34.26,
+			"rotation": 3.06,
+			"color": 0xffb900ff
+		},
+		{
+			"name": "muzzle-ring",
+			"parent": "muzzle",
+			"color": 0xffb900ff
+		},
+		{
+			"name": "muzzle-ring2",
+			"parent": "muzzle",
+			"color": 0xffb900ff
+		},
+		{
+			"name": "muzzle-ring3",
+			"parent": "muzzle",
+			"color": 0xffb900ff
+		},
+		{
+			"name": "muzzle-ring4",
+			"parent": "muzzle",
+			"color": 0xffb900ff
+		},
+		{
+			"name": "portal",
+			"parent": "portal-root"
+		},
+		{
+			"name": "portal-shade",
+			"parent": "portal-root"
+		},
+		{
+			"name": "portal-streaks1",
+			"parent": "portal-root"
+		},
+		{
+			"name": "portal-streaks2",
+			"parent": "portal-root"
+		},
+		{
+			"name": "side-glow1",
+			"parent": "hoverboard-controller",
+			"x": -110.56,
+			"y": 2.62,
+			"color": 983039
+		},
+		{
+			"name": "side-glow2",
+			"parent": "hoverboard-controller",
+			"x": -110.56,
+			"y": 2.62,
+			"scaleX": 0.738,
+			"scaleY": 0.738,
+			"color": 983039
+		}
+	],
+	"slots": [
+		{
+			"name": "portal-bg",
+			"bone": "portal",
+			"attachment": ""
+		},
+		{
+			"name": "portal-shade",
+			"bone": "portal-shade",
+			"attachment": ""
+		},
+		{
+			"name": "portal-streaks2",
+			"bone": "portal-streaks2",
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-streaks1",
+			"bone": "portal-streaks1",
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare8",
+			"bone": "flare8",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare9",
+			"bone": "flare9",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare10",
+			"bone": "flare10",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "clipping",
+			"bone": "clipping",
+			"attachment": ""
+		},
+		{
+			"name": "exhaust3",
+			"bone": "exhaust3",
+			"color": 0x5eb4ffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "hoverboard-thruster-rear",
+			"bone": "hoverboard-thruster-rear",
+			"attachment": ""
+		},
+		{
+			"name": "hoverboard-thruster-front",
+			"bone": "hoverboard-thruster-front",
+			"attachment": ""
+		},
+		{
+			"name": "hoverboard-board",
+			"bone": "hoverboard-controller",
+			"attachment": ""
+		},
+		{
+			"name": "side-glow1",
+			"bone": "side-glow1",
+			"color": 0xff8686ff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "side-glow3",
+			"bone": "side-glow1",
+			"color": 0xff8686ff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "side-glow2",
+			"bone": "side-glow2",
+			"color": 0xff8686ff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "hoverglow-front",
+			"bone": "hoverglow-front",
+			"color": 0x5eb4ffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "hoverglow-rear",
+			"bone": "hoverglow-rear",
+			"color": 0x5eb4ffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "exhaust1",
+			"bone": "exhaust2",
+			"color": 0x5eb4ffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "exhaust2",
+			"bone": "exhaust1",
+			"color": 0x5eb4ffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "rear-upper-arm",
+			"bone": "rear-upper-arm",
+			"attachment": "rear-upper-arm"
+		},
+		{
+			"name": "rear-bracer",
+			"bone": "rear-bracer",
+			"attachment": "rear-bracer"
+		},
+		{
+			"name": "gun",
+			"bone": "gun",
+			"attachment": "gun"
+		},
+		{
+			"name": "rear-foot",
+			"bone": "rear-foot",
+			"attachment": "rear-foot"
+		},
+		{
+			"name": "rear-thigh",
+			"bone": "rear-thigh",
+			"attachment": "rear-thigh"
+		},
+		{
+			"name": "rear-shin",
+			"bone": "rear-shin",
+			"attachment": "rear-shin"
+		},
+		{
+			"name": "neck",
+			"bone": "neck",
+			"attachment": "neck"
+		},
+		{
+			"name": "torso",
+			"bone": "torso",
+			"attachment": "torso"
+		},
+		{
+			"name": "front-upper-arm",
+			"bone": "front-upper-arm",
+			"attachment": "front-upper-arm"
+		},
+		{
+			"name": "head",
+			"bone": "head",
+			"attachment": "head"
+		},
+		{
+			"name": "eye",
+			"bone": "head",
+			"attachment": "eye-indifferent"
+		},
+		{
+			"name": "front-thigh",
+			"bone": "front-thigh",
+			"attachment": "front-thigh"
+		},
+		{
+			"name": "front-foot",
+			"bone": "front-foot",
+			"attachment": "front-foot"
+		},
+		{
+			"name": "front-shin",
+			"bone": "front-shin",
+			"attachment": "front-shin"
+		},
+		{
+			"name": "mouth",
+			"bone": "head",
+			"attachment": "mouth-smile"
+		},
+		{
+			"name": "goggles",
+			"bone": "head",
+			"attachment": "goggles"
+		},
+		{
+			"name": "front-bracer",
+			"bone": "front-bracer",
+			"attachment": "front-bracer"
+		},
+		{
+			"name": "front-fist",
+			"bone": "front-fist",
+			"attachment": "front-fist-closed"
+		},
+		{
+			"name": "muzzle",
+			"bone": "muzzle",
+			"attachment": ""
+		},
+		{
+			"name": "head-bb",
+			"bone": "head",
+			"attachment": ""
+		},
+		{
+			"name": "portal-flare1",
+			"bone": "flare1",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare2",
+			"bone": "flare2",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare3",
+			"bone": "flare3",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare4",
+			"bone": "flare4",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare5",
+			"bone": "flare5",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare6",
+			"bone": "flare6",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "portal-flare7",
+			"bone": "flare7",
+			"color": 0xc3cbffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "crosshair",
+			"bone": "crosshair",
+			"attachment": ""
+		},
+		{
+			"name": "muzzle-glow",
+			"bone": "gun-tip",
+			"color": 0xffffff00,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "muzzle-ring",
+			"bone": "muzzle-ring",
+			"color": 0xd8baffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "muzzle-ring2",
+			"bone": "muzzle-ring2",
+			"color": 0xd8baffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "muzzle-ring3",
+			"bone": "muzzle-ring3",
+			"color": 0xd8baffff,
+			"attachment": "",
+			"blend": "additive"
+		},
+		{
+			"name": "muzzle-ring4",
+			"bone": "muzzle-ring4",
+			"color": 0xd8baffff,
+			"attachment": "",
+			"blend": "additive"
+		}
+	]
+}

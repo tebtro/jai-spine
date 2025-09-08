@@ -43,6 +43,7 @@ Skeleton_3 :: struct {
 
     Bone_Data :: struct {
         name: Optional(string);
+        parent_name: Optional(string);
         parent: Bone_Index;
         rotation: float64;
         x: float64;
@@ -59,6 +60,7 @@ Skeleton_3 :: struct {
 
     Slot_Data :: struct {
         name: Optional(string);
+        bone_name: Optional(string);
         bone: Bone_Index;
         color: Color;
         dark_color: Color;

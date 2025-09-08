@@ -9,6 +9,11 @@ main :: () {
     	if !contains(it, "export")  continue;
     	if !ends_with(it, ".json") && !ends_with(it, ".skel")  continue;
     	
+    	if ends_with(it, ".skel") {
+    		log("TODO: Skipping binary for won!");
+    		continue;
+    	}
+    	
     	if contains(it, "4.1") && contains(it, ".json") {
     		// @todo: Implement 4.1 JSON reader!
     		continue;
@@ -33,7 +38,15 @@ test_skeleton :: (path: string) {
             return;
         }
 		
+		new_data := write_skeleton_json(skeleton, false);
+		write_entire_file(tprint("%_new", path), new_data);
+		
+		new_data_optimized := write_skeleton_json(skeleton, true);
+		write_entire_file(tprint("%_new_optimized", path), new_data_optimized);
+		
 		// @todo: Format json somehow and compare
+		// Could just remove all newlines and spaces to compare
+		//
 		// @todo: Could probably also just load both and compare the JSON_Value tree
 	} else {
 		log("Load skeleton binary: %", path);

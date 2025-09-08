@@ -12,10 +12,12 @@ blacklist_patterns = {
 
 load_paths = {
 	.win = {
-		{ .path = ".",        .recursive = false, .relative = true, },
-		{ .path = "src",      .recursive = true , .relative = true, },
-		{ .path = "modules",  .recursive = true , .relative = true, },
-		{ .path = "examples", .recursive = true , .relative = true, },
+		{ .path = ".",                  .recursive = false, .relative = true, },
+		{ .path = "src",                .recursive = true , .relative = true, },
+		{ .path = "modules",            .recursive = true , .relative = true, },
+		{ .path = "examples",           .recursive = true , .relative = true, },
+		{ .path = "../jai/jai/modules", .recursive = true , .relative = true, },
+		{ .path = "../jai/jai/how_to",  .recursive = true , .relative = true, },
 	},
 	.linux = {
 		{ .path = ".",                  .recursive = false, .relative = true, },
@@ -26,10 +28,12 @@ load_paths = {
 		{ .path = "../jai/jai/how_to",  .recursive = true , .relative = true, },
 	},
 	.mac = {
-		{ .path = ".",        .recursive = false, .relative = true, },
-		{ .path = "src",      .recursive = true , .relative = true, },
-		{ .path = "modules",  .recursive = true , .relative = true, },
-		{ .path = "examples", .recursive = true , .relative = true, },
+		{ .path = ".",                  .recursive = false, .relative = true, },
+		{ .path = "src",                .recursive = true , .relative = true, },
+		{ .path = "modules",            .recursive = true , .relative = true, },
+		{ .path = "examples",           .recursive = true , .relative = true, },
+		{ .path = "../jai/jai/modules", .recursive = true , .relative = true, },
+		{ .path = "../jai/jai/how_to",  .recursive = true , .relative = true, },
 	},
 };
 

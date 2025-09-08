@@ -1,0 +1,177 @@
+{
+	"skeleton": {
+		"hash": "kTMBrZOR76DMdB3a7OzHyvIOsWM",
+		"spine": "3.8.55",
+		"x": -87.7,
+		"y": -1.71,
+		"width": 227.65,
+		"height": 841.09,
+		"images": "./images/",
+		"audio": ""
+	},
+	"bones": [
+		{
+			"name": "root"
+		},
+		{
+			"name": "vine-control1",
+			"parent": "root",
+			"length": 296.68,
+			"x": -2.51,
+			"y": 2.55,
+			"rotation": 88.65,
+			"color": 0xff0004ff
+		},
+		{
+			"name": "vine-control2",
+			"parent": "vine-control1",
+			"length": 292.6,
+			"x": 296.68,
+			"rotation": 0.96,
+			"color": 0xff0004ff
+		},
+		{
+			"name": "vine-control3",
+			"parent": "vine-control2",
+			"length": 247.5,
+			"x": 292.6,
+			"rotation": 0.16,
+			"color": 0xff0004ff
+		},
+		{
+			"name": "vine-control4",
+			"parent": "vine-control3",
+			"length": 212.43,
+			"x": 247.5,
+			"rotation": 0.5,
+			"color": 0xff0004ff
+		},
+		{
+			"name": "vine1",
+			"parent": "root",
+			"length": 74,
+			"x": 339.1,
+			"y": -467.15,
+			"rotation": 90,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine10",
+			"parent": "vine1",
+			"length": 74,
+			"x": 608.63,
+			"y": 19.06,
+			"rotation": 48,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine11",
+			"parent": "vine1",
+			"length": 74,
+			"x": 670.66,
+			"y": 66.4,
+			"rotation": 39.71,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine12",
+			"parent": "vine1",
+			"length": 74,
+			"x": 750.1,
+			"y": 80.23,
+			"rotation": 10.73,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine13",
+			"parent": "vine1",
+			"length": 74,
+			"x": 826.07,
+			"y": 56.95,
+			"rotation": -18.44,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine2",
+			"parent": "vine1",
+			"length": 74,
+			"x": 74,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine3",
+			"parent": "vine1",
+			"length": 74,
+			"x": 137.97,
+			"y": 47.51,
+			"rotation": 38.95,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine4",
+			"parent": "vine1",
+			"length": 74,
+			"x": 214.29,
+			"y": 68.52,
+			"rotation": 16.68,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine5",
+			"parent": "vine1",
+			"length": 74,
+			"x": 289.61,
+			"y": 40.93,
+			"rotation": -21.74,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine6",
+			"parent": "vine1",
+			"length": 74,
+			"x": 341.13,
+			"y": -15.58,
+			"rotation": -50.04,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine7",
+			"parent": "vine1",
+			"length": 74,
+			"x": 402.7,
+			"y": -61.82,
+			"rotation": -39.26,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine8",
+			"parent": "vine1",
+			"length": 74,
+			"x": 483.27,
+			"y": -69.84,
+			"rotation": -6.18,
+			"color": 0xf700ffff
+		},
+		{
+			"name": "vine9",
+			"parent": "vine1",
+			"length": 74,
+			"x": 554.26,
+			"y": -36.44,
+			"rotation": 27.11,
+			"color": 0xf700ffff
+		}
+	],
+	"slots": [
+		{
+			"name": "vine-path",
+			"bone": "root",
+			"attachment": "vine-path"
+		},
+		{
+			"name": "vine",
+			"bone": "vine1",
+			"attachment": "vine"
+		}
+	]
+}

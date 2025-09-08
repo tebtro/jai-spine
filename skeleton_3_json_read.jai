@@ -4,6 +4,7 @@ Skeleton_3_Json_Read :: struct {
 
 	load :: (root: JSON_Value, scale: float64, spine_version: Spine_Version) -> *Skeleton_Data {
         using skeleton := New(Skeleton_Data);
+        skeleton.loader_version = spine_version;
         
         success: bool;
         
@@ -54,8 +55,8 @@ Skeleton_3_Json_Read :: struct {
                     return null;
                 }
                 
-                parent_name := get_optional_string(bone_node, "parent");
-                bone.parent = find_bone_index(skeleton, parent_name);
+                bone.parent_name = get_optional_string(bone_node, "parent");
+                bone.parent = find_bone_index(skeleton, bone.parent_name);
                 bone.length         = get_number(bone_node, "length", 0) * scale;
                 bone.x              = get_number(bone_node, "x", 0) * scale;
                 bone.y              = get_number(bone_node, "y", 0) * scale;
@@ -99,8 +100,8 @@ Skeleton_3_Json_Read :: struct {
                     return null;
                 }
                 
-                bone_name := get_optional_string(slot_node, "bone");
-                slot.bone = find_bone_index(skeleton, bone_name);
+                slot.bone_name = get_optional_string(slot_node, "bone");
+                slot.bone = find_bone_index(skeleton, slot.bone_name);
                 
                 success, slot.color = get_color(slot_node, "color", 0xffffffff);
                 if !success {

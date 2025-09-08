@@ -1,0 +1,253 @@
+{
+	"skeleton": {
+		"hash": "GKlLtUkXkXrplEF0opVpUHvO7E4",
+		"spine": "3.8.76",
+		"x": -87.83,
+		"y": -0.03,
+		"width": 319.3,
+		"height": 337,
+		"images": "./images/",
+		"audio": ""
+	},
+	"bones": [
+		{
+			"name": "root"
+		},
+		{
+			"name": "hip",
+			"parent": "root",
+			"y": 94.89
+		},
+		{
+			"name": "body",
+			"parent": "hip",
+			"length": 60.79,
+			"x": 4.09,
+			"y": 3.18,
+			"rotation": 96.39
+		},
+		{
+			"name": "thigh1",
+			"parent": "hip",
+			"length": 23.95,
+			"x": -17.52,
+			"y": -5.23,
+			"rotation": -107.07
+		},
+		{
+			"name": "shin1",
+			"parent": "thigh1",
+			"length": 28.24,
+			"x": 29.77,
+			"y": -0.91,
+			"rotation": 10.27
+		},
+		{
+			"name": "thigh2",
+			"parent": "hip",
+			"length": 23.66,
+			"x": 21.86,
+			"y": -5.87,
+			"rotation": -85.46
+		},
+		{
+			"name": "shin2",
+			"parent": "thigh2",
+			"length": 25.35,
+			"x": 31.99,
+			"y": 2.97,
+			"rotation": -2.25
+		},
+		{
+			"name": "head",
+			"parent": "body",
+			"length": 24.35,
+			"x": 74.55,
+			"y": -4.84,
+			"rotation": -92.69
+		},
+		{
+			"name": "mantles",
+			"parent": "body",
+			"x": 48.48,
+			"y": -9,
+			"rotation": -2.25
+		},
+		{
+			"name": "upperarm1",
+			"parent": "body",
+			"length": 19.36,
+			"x": 52.5,
+			"y": 41.85,
+			"rotation": 130.11
+		},
+		{
+			"name": "upperarm2",
+			"parent": "body",
+			"length": 25.99,
+			"x": 57.95,
+			"y": -38.94,
+			"rotation": -178.96
+		},
+		{
+			"name": "foot1",
+			"parent": "shin1",
+			"length": 27.08,
+			"x": 28.17,
+			"y": -0.49,
+			"rotation": -90.96,
+			"transform": "norotationorreflection"
+		},
+		{
+			"name": "foot2",
+			"parent": "shin2",
+			"length": 22.29,
+			"x": 25.55,
+			"y": 0.28,
+			"rotation": -90.42,
+			"transform": "norotationorreflection"
+		},
+		{
+			"name": "forearm1",
+			"parent": "upperarm1",
+			"length": 22.06,
+			"x": 23.97,
+			"y": 5.16,
+			"rotation": 30.56
+		},
+		{
+			"name": "forearm2",
+			"parent": "upperarm2",
+			"length": 15.3,
+			"x": 28.74,
+			"y": -0.9,
+			"rotation": 6.8
+		},
+		{
+			"name": "hand1",
+			"parent": "forearm1",
+			"length": 28.01,
+			"x": 27.54,
+			"y": 0.45,
+			"rotation": 16.24
+		},
+		{
+			"name": "hand2",
+			"parent": "forearm2",
+			"length": 23.77,
+			"x": 22.8,
+			"y": -0.22,
+			"rotation": 1.35
+		},
+		{
+			"name": "weapon",
+			"parent": "hand2",
+			"length": 157.4,
+			"x": 15.98,
+			"y": 1.43,
+			"rotation": 77.91
+		}
+	],
+	"slots": [
+		{
+			"name": "upperarm2",
+			"bone": "upperarm2",
+			"attachment": "upper-arm2"
+		},
+		{
+			"name": "sword",
+			"bone": "root",
+			"attachment": ""
+		},
+		{
+			"name": "hand2",
+			"bone": "hand2",
+			"attachment": "hand2"
+		},
+		{
+			"name": "weapon",
+			"bone": "weapon",
+			"attachment": "sword"
+		},
+		{
+			"name": "fingers",
+			"bone": "hand2",
+			"attachment": "fingers"
+		},
+		{
+			"name": "forearm2",
+			"bone": "forearm2",
+			"attachment": "forearm2"
+		},
+		{
+			"name": "thigh2",
+			"bone": "thigh2",
+			"attachment": "thigh2"
+		},
+		{
+			"name": "foot2",
+			"bone": "foot2",
+			"attachment": "foot2"
+		},
+		{
+			"name": "shin2",
+			"bone": "shin2",
+			"attachment": "shin2"
+		},
+		{
+			"name": "thigh1",
+			"bone": "thigh1",
+			"attachment": "thigh1"
+		},
+		{
+			"name": "foot1",
+			"bone": "foot1",
+			"attachment": "foot1"
+		},
+		{
+			"name": "body",
+			"bone": "body",
+			"attachment": "body"
+		},
+		{
+			"name": "shin1",
+			"bone": "shin1",
+			"attachment": "shin1"
+		},
+		{
+			"name": "upperarm1",
+			"bone": "upperarm1",
+			"attachment": "upper-arm1"
+		},
+		{
+			"name": "mantles",
+			"bone": "mantles",
+			"attachment": "mantles"
+		},
+		{
+			"name": "head",
+			"bone": "head",
+			"attachment": "head"
+		},
+		{
+			"name": "mouth",
+			"bone": "head",
+			"attachment": "mouth"
+		},
+		{
+			"name": "eyes",
+			"bone": "head",
+			"attachment": "eyes"
+		},
+		{
+			"name": "forearm1",
+			"bone": "forearm1",
+			"attachment": "forearm1"
+		},
+		{
+			"name": "hand1",
+			"bone": "hand1",
+			"attachment": "hand1"
+		}
+	]
+}

@@ -4,6 +4,3 @@ Skeleton_3_Binary_Write :: struct {
     write :: (builder: *String_Builder, base_skeleton: *Base_Skeleton_Data, optimize: bool) {
     }
 }
-
-
-#import "Basic";

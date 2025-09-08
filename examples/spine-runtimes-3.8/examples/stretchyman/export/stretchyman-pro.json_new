@@ -1,0 +1,532 @@
+{
+	"skeleton": {
+		"hash": "AlfxN1teZCWqIn/MVb0ZV8W4A9c",
+		"spine": "3.8.55",
+		"x": -100.47,
+		"y": -9.21,
+		"width": 260.65,
+		"height": 573.31,
+		"images": "./images/",
+		"audio": ""
+	},
+	"bones": [
+		{
+			"name": "root"
+		},
+		{
+			"name": "back-arm-ik-target",
+			"parent": "root",
+			"x": 103.52,
+			"y": 345.27,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "hip",
+			"parent": "root",
+			"x": 28.61,
+			"y": 289.9,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "spine1",
+			"parent": "hip",
+			"length": 34.66,
+			"x": -4.48,
+			"y": 12.66,
+			"rotation": 86.69,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "spine2",
+			"parent": "spine1",
+			"length": 41.42,
+			"x": 34.66,
+			"rotation": 16.48,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "spine3",
+			"parent": "spine2",
+			"length": 34.45,
+			"x": 41.42,
+			"y": 0.01,
+			"rotation": 16.17,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "spine4",
+			"parent": "spine3",
+			"length": 37.53,
+			"x": 34.45,
+			"y": 0.01,
+			"rotation": -13.63,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "back-arm-ik1",
+			"parent": "spine4",
+			"length": 66.57,
+			"x": 16.34,
+			"y": -4.46,
+			"rotation": -152.7,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-arm-ik2",
+			"parent": "back-arm-ik1",
+			"length": 66.01,
+			"x": 66.57,
+			"rotation": 19.36,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-arm1",
+			"parent": "spine4",
+			"length": 32.43,
+			"x": 16,
+			"y": -4.58,
+			"rotation": -154.36,
+			"transform": "noscale",
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-arm2",
+			"parent": "back-arm1",
+			"length": 34.16,
+			"x": 31.88,
+			"y": 0.02,
+			"rotation": 3.11,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-arm3",
+			"parent": "back-arm2",
+			"length": 31.27,
+			"x": 34.16,
+			"rotation": 9.59,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-arm4",
+			"parent": "back-arm3",
+			"length": 33.3,
+			"x": 32.04,
+			"y": 0.82,
+			"rotation": 14.61,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-arm5",
+			"parent": "back-arm4",
+			"length": 37.41,
+			"x": 33.82,
+			"y": 0.02,
+			"rotation": 11.31,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-foot1",
+			"parent": "hip",
+			"length": 33.24,
+			"x": -34.01,
+			"y": -279.68,
+			"rotation": -6.56,
+			"transform": "onlytranslation",
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-foot2",
+			"parent": "back-foot1",
+			"length": 32.29,
+			"x": 33.24,
+			"rotation": 4.34,
+			"transform": "noscale",
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-foot3",
+			"parent": "back-foot2",
+			"length": 15.87,
+			"x": 32.29,
+			"rotation": 10.06,
+			"transform": "noscale",
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg-ik-target",
+			"parent": "root",
+			"x": 46.15,
+			"y": 8.68,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "back-leg-ik1",
+			"parent": "hip",
+			"length": 140.17,
+			"x": 9.63,
+			"y": -0.38,
+			"rotation": -88.1,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg-ik2",
+			"parent": "back-leg-ik1",
+			"length": 148.96,
+			"x": 140.17,
+			"y": -0.01,
+			"rotation": -21.32,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg1",
+			"parent": "hip",
+			"length": 41,
+			"x": 10.41,
+			"y": 1.04,
+			"rotation": -83.66,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg2",
+			"parent": "back-leg1",
+			"length": 41,
+			"x": 34.57,
+			"rotation": -4.07,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg3",
+			"parent": "back-leg1",
+			"length": 41,
+			"x": 81.79,
+			"y": -2.29,
+			"rotation": -5.24,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg4",
+			"parent": "back-leg1",
+			"length": 41,
+			"x": 121.21,
+			"y": -11.27,
+			"rotation": -16.6,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg5",
+			"parent": "back-leg1",
+			"length": 41,
+			"x": 160.16,
+			"y": -24.86,
+			"rotation": -32.36,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg6",
+			"parent": "back-leg1",
+			"length": 41,
+			"x": 197.04,
+			"y": -39.98,
+			"rotation": -30.76,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg7",
+			"parent": "back-leg1",
+			"length": 41,
+			"x": 233.19,
+			"y": -57.32,
+			"rotation": -30.63,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "back-leg8",
+			"parent": "back-leg1",
+			"length": 41,
+			"x": 267.29,
+			"y": -77.39,
+			"rotation": -33.79,
+			"color": 0xff0000ff
+		},
+		{
+			"name": "belly",
+			"parent": "spine1",
+			"x": 35.94,
+			"y": -37.69,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "butt",
+			"parent": "hip",
+			"x": -32.67,
+			"y": -1.88,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "front-arm-ik-target",
+			"parent": "root",
+			"x": -92.44,
+			"y": 331.78,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "front-arm-ik1",
+			"parent": "spine4",
+			"length": 69.56,
+			"x": 27.36,
+			"y": 4.22,
+			"rotation": 117.86,
+			"color": 0x50ff00ff
+		},
+		{
+			"name": "front-arm-ik2",
+			"parent": "front-arm-ik1",
+			"length": 66.72,
+			"x": 69.56,
+			"rotation": 20.13,
+			"color": 0x50ff00ff
+		},
+		{
+			"name": "front-arm1",
+			"parent": "spine4",
+			"length": 38.33,
+			"x": 27.13,
+			"y": 4.9,
+			"rotation": 118.58,
+			"transform": "noscale",
+			"color": 0x4eff00ff
+		},
+		{
+			"name": "front-arm2",
+			"parent": "front-arm1",
+			"length": 35.67,
+			"x": 38.33,
+			"y": 0.01,
+			"rotation": -0.44,
+			"color": 0x4eff00ff
+		},
+		{
+			"name": "front-arm3",
+			"parent": "front-arm2",
+			"length": 32.65,
+			"x": 35.67,
+			"y": -0.02,
+			"rotation": 14.45,
+			"color": 0x4eff00ff
+		},
+		{
+			"name": "front-arm4",
+			"parent": "front-arm3",
+			"length": 29.18,
+			"x": 32.65,
+			"rotation": 13.89,
+			"color": 0x4eff00ff
+		},
+		{
+			"name": "front-arm5",
+			"parent": "front-arm4",
+			"length": 46.32,
+			"x": 29.18,
+			"rotation": 16.09,
+			"transform": "noscale",
+			"color": 0x4eff00ff
+		},
+		{
+			"name": "front-foot1",
+			"parent": "hip",
+			"length": 26.3,
+			"x": -77.05,
+			"y": -285.04,
+			"rotation": -10.98,
+			"transform": "onlytranslation",
+			"color": 0x50ff00ff
+		},
+		{
+			"name": "front-foot2",
+			"parent": "front-foot1",
+			"length": 29.12,
+			"x": 26.3,
+			"rotation": 9.61,
+			"color": 0x50ff00ff
+		},
+		{
+			"name": "front-foot3",
+			"parent": "front-foot2",
+			"length": 23.49,
+			"x": 29.12,
+			"rotation": 8.91,
+			"color": 0x50ff00ff
+		},
+		{
+			"name": "front-leg-ik-target",
+			"parent": "root",
+			"x": -37.74,
+			"y": 5.03,
+			"color": 0xff3f00ff
+		},
+		{
+			"name": "front-leg-ik1",
+			"parent": "hip",
+			"length": 140.67,
+			"x": -23.99,
+			"y": 1.89,
+			"rotation": -89.23,
+			"color": 0x50ff00ff
+		},
+		{
+			"name": "front-leg-ik2",
+			"parent": "front-leg-ik1",
+			"length": 155.95,
+			"x": 140.67,
+			"y": 0.03,
+			"rotation": -21.5,
+			"color": 0x50ff00ff
+		},
+		{
+			"name": "front-leg1",
+			"parent": "hip",
+			"length": 37.2,
+			"x": -23.57,
+			"y": -2,
+			"rotation": -88.97,
+			"color": 0x4fff00ff
+		},
+		{
+			"name": "front-leg2",
+			"parent": "front-leg1",
+			"length": 37.2,
+			"x": 33.75,
+			"y": 0.01,
+			"rotation": 3.45,
+			"color": 0x4fff00ff
+		},
+		{
+			"name": "front-leg3",
+			"parent": "front-leg1",
+			"length": 37.2,
+			"x": 74.4,
+			"y": -1.08,
+			"rotation": -6.12,
+			"color": 0x4fff00ff
+		},
+		{
+			"name": "front-leg4",
+			"parent": "front-leg1",
+			"length": 37.2,
+			"x": 111.4,
+			"y": -5.28,
+			"rotation": -10.02,
+			"color": 0x4fff00ff
+		},
+		{
+			"name": "front-leg5",
+			"parent": "front-leg1",
+			"length": 37.2,
+			"x": 147.76,
+			"y": -14.99,
+			"rotation": -28.4,
+			"color": 0x4fff00ff
+		},
+		{
+			"name": "front-leg6",
+			"parent": "front-leg1",
+			"length": 37.2,
+			"x": 182.41,
+			"y": -27.57,
+			"rotation": -24.33,
+			"color": 0x4fff00ff
+		},
+		{
+			"name": "front-leg7",
+			"parent": "front-leg1",
+			"length": 37.2,
+			"x": 216.44,
+			"y": -42.55,
+			"rotation": -23,
+			"color": 0x4fff00ff
+		},
+		{
+			"name": "front-leg8",
+			"parent": "front-leg1",
+			"length": 37.2,
+			"x": 248.61,
+			"y": -61.03,
+			"rotation": -31.81,
+			"color": 0x4fff00ff
+		},
+		{
+			"name": "neck1",
+			"parent": "spine4",
+			"length": 13.45,
+			"x": 38.97,
+			"y": -0.83,
+			"rotation": -30.66,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "neck2",
+			"parent": "neck1",
+			"length": 14.13,
+			"x": 13.45,
+			"rotation": -11.41,
+			"color": 0xffbd00ff
+		},
+		{
+			"name": "head",
+			"parent": "neck2",
+			"length": 89.06,
+			"x": 15.82,
+			"y": 0.22,
+			"rotation": 6.98,
+			"transform": "noscale",
+			"color": 0xffbd00ff
+		}
+	],
+	"slots": [
+		{
+			"name": "back-arm",
+			"bone": "root",
+			"attachment": "back-arm"
+		},
+		{
+			"name": "back-leg",
+			"bone": "root",
+			"attachment": "back-leg"
+		},
+		{
+			"name": "body",
+			"bone": "root",
+			"attachment": "body"
+		},
+		{
+			"name": "head",
+			"bone": "head",
+			"attachment": "head"
+		},
+		{
+			"name": "front-arm",
+			"bone": "root",
+			"attachment": "front-arm"
+		},
+		{
+			"name": "back-leg-path",
+			"bone": "hip",
+			"attachment": "back-leg-path"
+		},
+		{
+			"name": "front-leg-path",
+			"bone": "hip",
+			"attachment": "front-leg-path"
+		},
+		{
+			"name": "front-arm-path",
+			"bone": "spine4",
+			"attachment": "front-arm-path"
+		},
+		{
+			"name": "back-arm-path",
+			"bone": "spine4",
+			"attachment": "back-arm-path"
+		}
+	]
+}

@@ -1,0 +1,1556 @@
+{
+	"skeleton": {
+		"hash": "VNoFEyWKJW8wisvGpyn64JhjEjQ",
+		"spine": "3.8.55",
+		"x": -240.58,
+		"y": -3.38,
+		"width": 410.36,
+		"height": 806.78,
+		"images": "./images/",
+		"audio": ""
+	},
+	"bones": [
+		{
+			"name": "root"
+		},
+		{
+			"name": "skeleton-control",
+			"parent": "root",
+			"x": -0.43,
+			"y": 257.36,
+			"color": 0xff1111ff
+		},
+		{
+			"name": "hips",
+			"parent": "skeleton-control",
+			"x": 3.06,
+			"y": 29.29,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "body-down",
+			"parent": "hips",
+			"length": 68.46,
+			"x": -3.13,
+			"y": -1.59,
+			"rotation": 92.39,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "body-up",
+			"parent": "body-down",
+			"length": 113.37,
+			"x": 66.64,
+			"y": 1.98,
+			"rotation": 1.94,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "neck",
+			"parent": "body-up",
+			"length": 43.86,
+			"x": 98.36,
+			"y": 3.04,
+			"rotation": -2.99,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "head",
+			"parent": "neck",
+			"length": 156.89,
+			"x": 31.54,
+			"y": 7.82,
+			"rotation": -3.77,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "arm-front-control",
+			"parent": "body-up",
+			"x": 82.42,
+			"y": 46.82,
+			"rotation": -94.33,
+			"color": 0xff3636ff
+		},
+		{
+			"name": "arm-front-up",
+			"parent": "arm-front-control",
+			"length": 102.6,
+			"x": 0.28,
+			"y": -0.01,
+			"rotation": -90,
+			"color": 0xff3636ff
+		},
+		{
+			"name": "arm-front-down",
+			"parent": "arm-front-up",
+			"length": 102.6,
+			"x": 102.6,
+			"color": 0xff3636ff
+		},
+		{
+			"name": "hand-front",
+			"parent": "arm-front-down",
+			"length": 30.54,
+			"x": 97.35,
+			"y": -2,
+			"color": 0xff1c1cff
+		},
+		{
+			"name": "arm-front-up-2",
+			"parent": "arm-front-control",
+			"length": 33.49,
+			"x": 0.28,
+			"y": -0.01,
+			"rotation": -90,
+			"color": 0x9a1c1cff
+		},
+		{
+			"name": "arm-front-up-3",
+			"parent": "arm-front-up-2",
+			"length": 33.49,
+			"x": 132.36,
+			"y": -0.3,
+			"rotation": -0.88,
+			"color": 0x9a1c1cff
+		},
+		{
+			"name": "arm-front-up-4",
+			"parent": "arm-front-up-3",
+			"length": 33.49,
+			"x": 33.49,
+			"color": 0x9a1c1cff
+		},
+		{
+			"name": "arm-front-up-5",
+			"parent": "arm-front-up-4",
+			"length": 33.49,
+			"x": 33.49,
+			"color": 0x9a1c1cff
+		},
+		{
+			"name": "arm-front-up-6",
+			"parent": "arm-front-up-5",
+			"length": 33.49,
+			"x": 33.49,
+			"color": 0x9a1c1cff
+		},
+		{
+			"name": "arm-front-up-7",
+			"parent": "arm-front-up-6",
+			"length": 33.49,
+			"x": 133.92,
+			"y": -0.76,
+			"rotation": -0.01,
+			"color": 0x9a1c1cff
+		},
+		{
+			"name": "leg-control-front",
+			"parent": "hips",
+			"x": -29.98,
+			"y": -1.61,
+			"color": 0xd130ffff
+		},
+		{
+			"name": "foot-front-IK",
+			"parent": "skeleton-control",
+			"x": -51.95,
+			"y": -259.13,
+			"rotation": -90.56,
+			"transform": "norotationorreflection",
+			"color": 0xd130ffff
+		},
+		{
+			"name": "leg-up",
+			"parent": "leg-control-front",
+			"length": 144.38,
+			"y": 0.45,
+			"rotation": -99.42,
+			"color": 0xd130ffff
+		},
+		{
+			"name": "leg-down",
+			"parent": "leg-up",
+			"length": 144.38,
+			"x": 144.38,
+			"rotation": 8.86,
+			"color": 0xd130ffff
+		},
+		{
+			"name": "leg-front-1",
+			"parent": "leg-control-front",
+			"length": 35.95,
+			"y": 0.45,
+			"rotation": -90,
+			"color": 0x65127cff
+		},
+		{
+			"name": "leg-front-2",
+			"parent": "leg-front-1",
+			"length": 35.95,
+			"x": 35.95,
+			"color": 0x65127cff
+		},
+		{
+			"name": "leg-front-3",
+			"parent": "leg-front-2",
+			"length": 35.95,
+			"x": 35.95,
+			"color": 0x65127cff
+		},
+		{
+			"name": "leg-front-4",
+			"parent": "leg-front-3",
+			"length": 35.95,
+			"x": 35.95,
+			"color": 0x65127cff
+		},
+		{
+			"name": "leg-front-5",
+			"parent": "leg-front-4",
+			"length": 35.95,
+			"x": 35.95,
+			"color": 0x65127cff
+		},
+		{
+			"name": "leg-front-6",
+			"parent": "leg-front-5",
+			"length": 35.95,
+			"x": 35.95,
+			"color": 0x65127cff
+		},
+		{
+			"name": "leg-front-7",
+			"parent": "leg-front-6",
+			"length": 35.95,
+			"x": 35.95,
+			"color": 0x65127cff
+		},
+		{
+			"name": "leg-front-8",
+			"parent": "leg-front-7",
+			"length": 35.95,
+			"x": 35.95,
+			"color": 0x65127cff
+		},
+		{
+			"name": "head-control",
+			"parent": "head",
+			"x": 71.99,
+			"y": -39.68,
+			"rotation": -87.57,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "head-back-control",
+			"parent": "head",
+			"x": 68.52,
+			"y": 49.17,
+			"rotation": -87.57,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "features-control",
+			"parent": "head",
+			"x": 88.9,
+			"y": -37.83,
+			"rotation": -87.57,
+			"color": 0xff5826ff
+		},
+		{
+			"name": "eye-front",
+			"parent": "features-control",
+			"x": -52.2,
+			"y": -35.32,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "eye-front-iris",
+			"parent": "eye-front",
+			"x": -2.45,
+			"y": 18.5,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "eye-front-up-eyelid-holder",
+			"parent": "eye-front",
+			"x": -23.12,
+			"y": 25.84,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "eye-front-up-eyelid",
+			"parent": "eye-front-up-eyelid-holder",
+			"length": 24.39,
+			"rotation": 12.94,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "eye-front-low-eyelid-holder",
+			"parent": "eye-front",
+			"x": -14.14,
+			"y": 5.98,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "eye-front-low-eyelid",
+			"parent": "eye-front-low-eyelid-holder",
+			"length": 17.4,
+			"rotation": -9.9,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "eye-front-eyebrow",
+			"parent": "eye-front",
+			"length": 29.37,
+			"x": -14.96,
+			"y": 46.78,
+			"rotation": 3.58,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "eye-back",
+			"parent": "features-control",
+			"x": 35.89,
+			"y": -33.38,
+			"color": 0xf64379ff
+		},
+		{
+			"name": "eye-back-up-eyelid-holder",
+			"parent": "eye-back",
+			"x": 13.06,
+			"y": 27.2,
+			"color": 0xf64379ff
+		},
+		{
+			"name": "eye-back-up-eyelid",
+			"parent": "eye-back-up-eyelid-holder",
+			"length": 20.8,
+			"rotation": 168.69,
+			"color": 0xf64379ff
+		},
+		{
+			"name": "eye-back-low-eyelid-holder",
+			"parent": "eye-back",
+			"x": 12.51,
+			"y": 5.71,
+			"color": 0xf64379ff
+		},
+		{
+			"name": "eye-back-low-eyelid",
+			"parent": "eye-back-low-eyelid-holder",
+			"length": 16.37,
+			"rotation": -164.58,
+			"color": 0xf64379ff
+		},
+		{
+			"name": "eye-back-iris",
+			"parent": "eye-back",
+			"x": -4.9,
+			"y": 17.41,
+			"color": 0xf64379ff
+		},
+		{
+			"name": "eye-back-eyebrow",
+			"parent": "eye-back",
+			"length": 22.32,
+			"x": 6.26,
+			"y": 45.7,
+			"rotation": 177.9,
+			"color": 0xf64379ff
+		},
+		{
+			"name": "hair-side-front",
+			"parent": "head",
+			"length": 117.55,
+			"x": 97.12,
+			"y": 56.27,
+			"rotation": -168.46,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "hair-side-back",
+			"parent": "head",
+			"length": 130.16,
+			"x": 118.76,
+			"y": -73.3,
+			"rotation": -145.86,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "hair-bangs-front",
+			"parent": "head",
+			"length": 77.62,
+			"x": 141.51,
+			"y": 5.35,
+			"rotation": 147.72,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "hair-bangs-back",
+			"parent": "head",
+			"length": 113.25,
+			"x": 144.28,
+			"y": -7.09,
+			"rotation": -108.68,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "hat-base",
+			"parent": "head",
+			"x": 136.74,
+			"y": 38.65,
+			"color": 0xb131ffff
+		},
+		{
+			"name": "hat",
+			"parent": "hat-base",
+			"length": 150.37,
+			"x": -8.47,
+			"y": -4.44,
+			"rotation": 8.06,
+			"color": 0xb131ffff
+		},
+		{
+			"name": "hat-control",
+			"parent": "hat",
+			"x": 65.29,
+			"y": -6.95,
+			"color": 0xb131ffff
+		},
+		{
+			"name": "pompom-control",
+			"parent": "hat",
+			"x": 150.97,
+			"y": 0.35,
+			"color": 0xb131ffff
+		},
+		{
+			"name": "end-arm-control",
+			"parent": "arm-front-down",
+			"length": 26.6,
+			"x": 74.55,
+			"y": 0.24,
+			"color": 0xff3636ff
+		},
+		{
+			"name": "backpack",
+			"parent": "body-up",
+			"length": 120.69,
+			"x": 114.16,
+			"y": 90.94,
+			"rotation": -178.76,
+			"color": 0xb57dd9ff
+		},
+		{
+			"name": "backpack-control",
+			"parent": "backpack",
+			"x": 53.83,
+			"y": -119.3,
+			"color": 0xb57dd9ff
+		},
+		{
+			"name": "bag",
+			"parent": "body-up",
+			"length": 68.52,
+			"x": -62.49,
+			"y": 69.37,
+			"rotation": 79.16,
+			"color": 0xe8afe7ff
+		},
+		{
+			"name": "bag-control",
+			"parent": "bag",
+			"x": 84.37,
+			"y": 53.1,
+			"color": 0xe8afe7ff
+		},
+		{
+			"name": "bag-flap",
+			"parent": "bag",
+			"length": 64.04,
+			"x": 23,
+			"y": 89.94,
+			"rotation": -1.51,
+			"color": 0xe8afe7ff
+		},
+		{
+			"name": "scarf-back",
+			"parent": "neck",
+			"length": 115.61,
+			"x": 28.76,
+			"y": 92.8,
+			"rotation": 90.68,
+			"color": 0x69ff53ff
+		},
+		{
+			"name": "bag-strap-back",
+			"parent": "arm-front-control",
+			"x": -0.31,
+			"y": 10.97,
+			"color": 0xe8afe7ff
+		},
+		{
+			"name": "bag-back-down",
+			"parent": "bag-control",
+			"x": -31.08,
+			"y": -10.86,
+			"rotation": -173.48,
+			"color": 0xe8afe7ff
+		},
+		{
+			"name": "bag-strap-front",
+			"parent": "arm-front-control",
+			"x": 2.82,
+			"y": -11.88,
+			"color": 0xe8afe7ff
+		},
+		{
+			"name": "bag-back-front",
+			"parent": "bag",
+			"x": -18.37,
+			"y": 34.05,
+			"rotation": -173.48,
+			"color": 0xe8afe7ff
+		},
+		{
+			"name": "zip-girl",
+			"parent": "body-up",
+			"length": 40.75,
+			"x": 79.28,
+			"y": -23.28,
+			"rotation": -174.98,
+			"color": 0x75f057ff
+		},
+		{
+			"name": "zip-boy",
+			"parent": "neck",
+			"length": 33.9,
+			"x": 31.78,
+			"y": -23.85,
+			"rotation": -173.57,
+			"color": 0xff4cf5ff
+		},
+		{
+			"name": "hair-holder-front",
+			"parent": "body-up",
+			"x": 100.57,
+			"y": 80.62,
+			"color": 0x6b8d8ff
+		},
+		{
+			"name": "hair-strand-front-1",
+			"parent": "hair-holder-front",
+			"length": 155.7,
+			"x": -6.72,
+			"y": -5.97,
+			"rotation": 174.65,
+			"color": 0x6b7d875
+		},
+		{
+			"name": "hair-strand-front-3",
+			"parent": "hair-holder-front",
+			"length": 142.3,
+			"x": 6.14,
+			"y": 25.81,
+			"rotation": 136.62,
+			"color": 0x6b7d875
+		},
+		{
+			"name": "hair-holder-back",
+			"parent": "body-up",
+			"x": 105.21,
+			"y": -48.86,
+			"color": 714524415
+		},
+		{
+			"name": "hair-strand-back-1",
+			"parent": "hair-holder-back",
+			"length": 136.84,
+			"x": -1.27,
+			"y": -10.38,
+			"rotation": -155.81,
+			"color": 0x6b7d875
+		},
+		{
+			"name": "hair-strand-back-2",
+			"parent": "hair-holder-back",
+			"length": 125.26,
+			"x": -10.45,
+			"y": -2.72,
+			"rotation": -121.03,
+			"color": 0x6b7d875
+		},
+		{
+			"name": "hair-strand-back-3",
+			"parent": "hair-holder-back",
+			"length": 162.33,
+			"x": -5.97,
+			"y": -7.94,
+			"rotation": -149.61,
+			"color": 0x6b7d875
+		},
+		{
+			"name": "hair-strand-front-2",
+			"parent": "hair-holder-front",
+			"length": 133.58,
+			"x": -0.73,
+			"y": 17.97,
+			"rotation": 163.66,
+			"color": 0x6b7d875
+		},
+		{
+			"name": "hair-strand-front-4",
+			"parent": "hair-holder-front",
+			"length": 110.33,
+			"x": -2.97,
+			"y": 25.11,
+			"rotation": 103.65,
+			"color": 0x6b7d875
+		},
+		{
+			"name": "eye-front-pupil",
+			"parent": "eye-front",
+			"x": -3.44,
+			"y": 17.51,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "eye-back-pupil",
+			"parent": "eye-back",
+			"x": -5.89,
+			"y": 16.42,
+			"color": 0xf64379ff
+		},
+		{
+			"name": "eyelid-skin",
+			"parent": "eye-front",
+			"x": 1.06,
+			"y": 41.21,
+			"color": 0xff2e2eff
+		},
+		{
+			"name": "arm-back-control",
+			"parent": "body-up",
+			"x": 73.75,
+			"y": -67.88,
+			"rotation": -94.33,
+			"color": 840735487
+		},
+		{
+			"name": "arm-back-up",
+			"parent": "arm-back-control",
+			"length": 102.6,
+			"x": 0.28,
+			"y": -0.01,
+			"rotation": -90,
+			"color": 840735487
+		},
+		{
+			"name": "arm-back-down",
+			"parent": "arm-back-up",
+			"length": 102.6,
+			"x": 102.6,
+			"color": 840735487
+		},
+		{
+			"name": "hand-back",
+			"parent": "arm-back-down",
+			"length": 30.54,
+			"x": 97.35,
+			"y": -2,
+			"color": 840735487
+		},
+		{
+			"name": "end-arm-control-back",
+			"parent": "arm-back-down",
+			"length": 26.6,
+			"x": 74.55,
+			"y": 0.24,
+			"color": 840735487
+		},
+		{
+			"name": "arm-back-up-2",
+			"parent": "arm-back-control",
+			"length": 33.49,
+			"x": 0.33,
+			"rotation": -90,
+			"color": 840735487
+		},
+		{
+			"name": "arm-back-up-3",
+			"parent": "arm-back-up-2",
+			"length": 33.49,
+			"x": 166.24,
+			"y": -0.24,
+			"rotation": 0.17,
+			"color": 840735487
+		},
+		{
+			"name": "arm-back-up-4",
+			"parent": "arm-back-up-3",
+			"length": 33.49,
+			"x": -32.9,
+			"y": 0.42,
+			"rotation": -0.88,
+			"color": 840735487
+		},
+		{
+			"name": "arm-back-up-5",
+			"parent": "arm-back-up-4",
+			"length": 33.49,
+			"x": -33.3,
+			"y": -0.25,
+			"rotation": 0.14,
+			"color": 840735487
+		},
+		{
+			"name": "arm-back-up-6",
+			"parent": "arm-back-up-5",
+			"length": 33.49,
+			"x": -33.16,
+			"y": -0.37,
+			"rotation": 0.3,
+			"color": 840735487
+		},
+		{
+			"name": "arm-back-up-7",
+			"parent": "arm-back-up-6",
+			"length": 33.49,
+			"x": -33.13,
+			"y": -0.26,
+			"rotation": 0.34,
+			"color": 840735487
+		},
+		{
+			"name": "leg-control-back",
+			"parent": "hips",
+			"x": 41.56,
+			"y": -0.92,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "foot-back-IK",
+			"parent": "skeleton-control",
+			"x": 38.54,
+			"y": -259.75,
+			"rotation": -90.56,
+			"transform": "norotationorreflection",
+			"color": 0xd130ffff
+		},
+		{
+			"name": "leg-up-back",
+			"parent": "leg-control-back",
+			"length": 144.38,
+			"y": 0.45,
+			"rotation": -92.95,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "leg-down-back",
+			"parent": "leg-up-back",
+			"length": 144.38,
+			"x": 144.38,
+			"rotation": 3.48,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "leg-back-1",
+			"parent": "leg-control-back",
+			"length": 35.95,
+			"x": 0.56,
+			"y": -0.12,
+			"rotation": -90,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "leg-back-2",
+			"parent": "leg-back-1",
+			"length": 35.95,
+			"x": 36.23,
+			"y": -0.19,
+			"rotation": -0.31,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "leg-back-3",
+			"parent": "leg-back-2",
+			"length": 35.95,
+			"x": 35.71,
+			"y": -0.01,
+			"rotation": -0.01,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "leg-back-4",
+			"parent": "leg-back-3",
+			"length": 35.95,
+			"x": 36.23,
+			"y": 0.02,
+			"rotation": 0.03,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "leg-back-5",
+			"parent": "leg-back-4",
+			"length": 35.95,
+			"x": 35.63,
+			"y": 0.08,
+			"rotation": 0.12,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "leg-back-6",
+			"parent": "leg-back-5",
+			"length": 35.95,
+			"x": 35.64,
+			"y": 0.14,
+			"rotation": 0.22,
+			"color": 0x8f0c5bff
+		},
+		{
+			"name": "leg-back-7",
+			"parent": "leg-back-6",
+			"length": 35.95,
+			"x": 36.22,
+			"y": 0.13,
+			"rotation": 0.2,
+			"color": 0x65127cff
+		},
+		{
+			"name": "leg-back-8",
+			"parent": "leg-back-7",
+			"length": 35.95,
+			"x": 35.68,
+			"y": 0.07,
+			"rotation": 0.11,
+			"color": 0x65127cff
+		},
+		{
+			"name": "foot-front",
+			"parent": "foot-front-IK",
+			"length": 34.32,
+			"x": -1.86,
+			"y": -0.32,
+			"rotation": 90.56,
+			"color": 0xd130ffff
+		},
+		{
+			"name": "foot-back",
+			"parent": "foot-back-IK",
+			"length": 34.32,
+			"x": -2.9,
+			"y": -1.91,
+			"rotation": 90.56,
+			"color": 0xd130ffff
+		},
+		{
+			"name": "skirt-control",
+			"parent": "skeleton-control",
+			"x": 4.35,
+			"y": -26.24,
+			"rotation": 90,
+			"color": 0x8dff00ff
+		},
+		{
+			"name": "skirt-control-up",
+			"parent": "skirt-control",
+			"x": -15.87,
+			"y": -0.12,
+			"color": 0x9d627ff
+		},
+		{
+			"name": "skirt-rotation-back",
+			"parent": "body-up",
+			"length": 150.48,
+			"x": 3.77,
+			"y": -67.52,
+			"rotation": -119.15,
+			"color": 0x9d627ff
+		},
+		{
+			"name": "skirt-rotation-front",
+			"parent": "body-up",
+			"length": 140.39,
+			"x": 8.14,
+			"y": 30.47,
+			"rotation": 113.07,
+			"color": 0x9d627ff
+		},
+		{
+			"name": "skirt-control-middle",
+			"parent": "skirt-control-up",
+			"x": -19.76,
+			"color": 0x9d627ff
+		},
+		{
+			"name": "skirt-control-back",
+			"parent": "skirt-rotation-back",
+			"x": 148.43,
+			"y": -0.72,
+			"rotation": 114.82,
+			"color": 0x9d627ff
+		},
+		{
+			"name": "skirt-control-front",
+			"parent": "skirt-rotation-front",
+			"x": 141.99,
+			"y": 2.23,
+			"rotation": -117.4,
+			"color": 0x9d627ff
+		},
+		{
+			"name": "skirt-control-front-down",
+			"parent": "skirt-control-front",
+			"x": -45.51,
+			"y": -13.62,
+			"color": 0x9d627ff
+		},
+		{
+			"name": "skirt-control-back-down",
+			"parent": "skirt-control-back",
+			"x": -47.46,
+			"y": 29.56,
+			"color": 0x9d627ff
+		},
+		{
+			"name": "cape-red-front-inside",
+			"parent": "body-up",
+			"x": 32.8,
+			"y": -12.11,
+			"color": 0xff539eff
+		},
+		{
+			"name": "cape-front-rotator",
+			"parent": "arm-front-up",
+			"length": 47.18,
+			"x": 4.09,
+			"y": -7.54,
+			"rotation": -20.19,
+			"color": 0xff3eafff
+		},
+		{
+			"name": "cape-red-front-outside",
+			"parent": "cape-front-rotator",
+			"x": 47.43,
+			"y": -0.24,
+			"rotation": 20.19,
+			"color": 0xff539eff
+		},
+		{
+			"name": "shouder-front-transform",
+			"parent": "body-up",
+			"x": 93.23,
+			"y": 0.49,
+			"rotation": -94.33,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "shoulder-front",
+			"parent": "shouder-front-transform",
+			"x": -43.57,
+			"y": -0.76,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "cape-back-rotator",
+			"parent": "arm-back-up",
+			"length": 47.3,
+			"x": 1.09,
+			"y": 4.74,
+			"rotation": 33.51,
+			"color": 0x93006dff
+		},
+		{
+			"name": "cape-red-back-outside",
+			"parent": "cape-back-rotator",
+			"x": 45.94,
+			"y": 0.9,
+			"rotation": 56.49,
+			"color": 0x93006dff
+		},
+		{
+			"name": "cape-red-back-inside",
+			"parent": "body-up",
+			"x": 37.71,
+			"y": -42.92,
+			"color": 0x93006dff
+		},
+		{
+			"name": "shoulder-back-transform",
+			"parent": "body-up",
+			"x": 84.44,
+			"y": -34.31,
+			"rotation": -4.33,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "shoulder-back",
+			"parent": "shoulder-back-transform",
+			"x": 1.09,
+			"y": -39.44,
+			"color": 0xffce12ff
+		},
+		{
+			"name": "dress-control-leg-up-back",
+			"parent": "skeleton-control",
+			"x": 86.24,
+			"y": -100.16,
+			"rotation": -89.47,
+			"color": 0xff7a45ff
+		},
+		{
+			"name": "dress-control-leg-down-back",
+			"parent": "skeleton-control",
+			"x": 86.81,
+			"y": -134.93,
+			"rotation": -92.95,
+			"color": 0xff7a45ff
+		},
+		{
+			"name": "dress-control-leg-up-front",
+			"parent": "skeleton-control",
+			"x": -81.34,
+			"y": -100.16,
+			"rotation": -91.9,
+			"color": 0xff7a45ff
+		},
+		{
+			"name": "dress-control-leg-down-front",
+			"parent": "skeleton-control",
+			"x": -83.05,
+			"y": -132.65,
+			"rotation": -98.06,
+			"color": 0xff7a45ff
+		},
+		{
+			"name": "dress-control-foot-front",
+			"parent": "skeleton-control",
+			"x": -112.69,
+			"y": -254.06,
+			"rotation": -98.06,
+			"color": 0xff7a45ff
+		},
+		{
+			"name": "dress-control-foot-back",
+			"parent": "skeleton-control",
+			"x": 97.07,
+			"y": -251.21,
+			"rotation": -92.95,
+			"color": 0xff7a45ff
+		},
+		{
+			"name": "dress-control-middle",
+			"parent": "skeleton-control",
+			"x": -5.53,
+			"y": -254.06,
+			"color": 0xff7a45ff
+		},
+		{
+			"name": "sleeve-control-front",
+			"parent": "arm-front-up-7",
+			"length": 97.31,
+			"x": 37.64,
+			"y": -41.32,
+			"rotation": 90.71,
+			"color": 0x5e0202ff
+		},
+		{
+			"name": "sleeve-control-back",
+			"parent": "end-arm-control-back",
+			"length": 97.31,
+			"x": 25.63,
+			"y": 55.1,
+			"rotation": -90,
+			"color": 33840895
+		},
+		{
+			"name": "cape-blue-up",
+			"parent": "body-up",
+			"length": 175.73,
+			"x": 92.56,
+			"y": 4.87,
+			"rotation": 177.83,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-down",
+			"parent": "cape-blue-up",
+			"length": 116.65,
+			"x": 175.73,
+			"rotation": 0.09,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-down-middle",
+			"parent": "cape-blue-down",
+			"x": 168.33,
+			"y": -1.52,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-down-front",
+			"parent": "cape-blue-down-middle",
+			"x": -19.01,
+			"y": -133.73,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-down-back",
+			"parent": "cape-blue-down-middle",
+			"x": -10.01,
+			"y": 121.12,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-middle-front",
+			"parent": "cape-blue-down",
+			"x": 41.13,
+			"y": -101.46,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-middle-back",
+			"parent": "cape-blue-down",
+			"x": 33.12,
+			"y": 96.5,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-up-front",
+			"parent": "cape-front-rotator",
+			"x": 98.31,
+			"y": 4.67,
+			"rotation": 22.44,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-up-back",
+			"parent": "cape-back-rotator",
+			"x": 69.6,
+			"y": -16.89,
+			"rotation": -31.35,
+			"color": 288423800
+		},
+		{
+			"name": "cape-blue-control",
+			"parent": "head",
+			"x": 179.82,
+			"y": -1.71,
+			"rotation": 2.43,
+			"color": 0xff11b6ff
+		},
+		{
+			"name": "mouth",
+			"parent": "features-control",
+			"x": -0.72,
+			"y": -41.96,
+			"color": 630128639
+		}
+	],
+	"slots": [
+		{
+			"name": "sleeve-inner-back",
+			"bone": "arm-back-down",
+			"attachment": "sleeve-inner-back"
+		},
+		{
+			"name": "cape-back",
+			"bone": "body-up",
+			"attachment": "cape-back"
+		},
+		{
+			"name": "hand-back",
+			"bone": "hand-back",
+			"color": 0xe8d5ebff,
+			"attachment": "hand-back-fingers"
+		},
+		{
+			"name": "arm-back",
+			"bone": "arm-back-up",
+			"color": 0xe8d5ebff,
+			"attachment": "arm-back"
+		},
+		{
+			"name": "cape-up-back",
+			"bone": "head",
+			"attachment": "cape-up-back"
+		},
+		{
+			"name": "leg-back",
+			"bone": "leg-control-back",
+			"attachment": "leg-back"
+		},
+		{
+			"name": "backpack-up",
+			"bone": "backpack",
+			"attachment": "backpack-up"
+		},
+		{
+			"name": "backpack",
+			"bone": "backpack",
+			"attachment": "backpack"
+		},
+		{
+			"name": "boot-ribbon-back",
+			"bone": "leg-back-5",
+			"attachment": "boot-ribbon-back"
+		},
+		{
+			"name": "leg-back-path",
+			"bone": "leg-control-back",
+			"attachment": "leg-back-path"
+		},
+		{
+			"name": "hair-back",
+			"bone": "head",
+			"attachment": "hair-back"
+		},
+		{
+			"name": "arm-back-path",
+			"bone": "arm-back-control",
+			"attachment": "arm-back-path"
+		},
+		{
+			"name": "scarf-back",
+			"bone": "scarf-back",
+			"attachment": "scarf-back"
+		},
+		{
+			"name": "backpack-pocket",
+			"bone": "backpack",
+			"attachment": "backpack-pocket"
+		},
+		{
+			"name": "hair-strand-back-3",
+			"bone": "hair-strand-back-3",
+			"attachment": "hair-strand-back-3"
+		},
+		{
+			"name": "hair-strand-back-2",
+			"bone": "hair-strand-back-2",
+			"attachment": "hair-strand-back-2"
+		},
+		{
+			"name": "hair-strand-front-2",
+			"bone": "hair-strand-front-2",
+			"attachment": "hair-strand-front-2"
+		},
+		{
+			"name": "hair-strand-front-4",
+			"bone": "hair-strand-front-4",
+			"attachment": "hair-strand-front-4"
+		},
+		{
+			"name": "backpack-strap-back",
+			"bone": "backpack",
+			"attachment": "backpack-strap-back"
+		},
+		{
+			"name": "neck",
+			"bone": "neck",
+			"attachment": "neck"
+		},
+		{
+			"name": "leg-front",
+			"bone": "leg-control-front",
+			"attachment": "leg-front"
+		},
+		{
+			"name": "boot-ribbon-front",
+			"bone": "leg-front-5",
+			"attachment": "boot-ribbon-front"
+		},
+		{
+			"name": "hair-strand-front-3",
+			"bone": "hair-strand-front-3",
+			"attachment": "hair-strand-front-3"
+		},
+		{
+			"name": "bag-strap-back",
+			"bone": "bag",
+			"attachment": "bag-strap-back"
+		},
+		{
+			"name": "body",
+			"bone": "body-down",
+			"attachment": "body"
+		},
+		{
+			"name": "hair-side-back",
+			"bone": "hair-side-back",
+			"attachment": "hair-side-back"
+		},
+		{
+			"name": "base-head",
+			"bone": "head",
+			"attachment": "base-head"
+		},
+		{
+			"name": "hair-patch",
+			"bone": "head",
+			"attachment": "hair-patch"
+		},
+		{
+			"name": "body-dress",
+			"bone": "hips",
+			"attachment": "body-dress"
+		},
+		{
+			"name": "collar",
+			"bone": "body-up",
+			"attachment": "collar"
+		},
+		{
+			"name": "mouth",
+			"bone": "mouth",
+			"attachment": "mouth-smile"
+		},
+		{
+			"name": "ear",
+			"bone": "head",
+			"attachment": "ear"
+		},
+		{
+			"name": "eye-back-white",
+			"bone": "eye-back",
+			"attachment": "eye-back-white"
+		},
+		{
+			"name": "eye-back-iris",
+			"bone": "eye-back-iris",
+			"attachment": "eye-back-iris"
+		},
+		{
+			"name": "eye-back-up-eyelid-back",
+			"bone": "eye-back-up-eyelid",
+			"attachment": "eye-back-up-eyelid-back"
+		},
+		{
+			"name": "underskirt",
+			"bone": "body-up",
+			"attachment": "underskirt"
+		},
+		{
+			"name": "skirt",
+			"bone": "body-up",
+			"attachment": "skirt"
+		},
+		{
+			"name": "bag-base",
+			"bone": "bag",
+			"attachment": "bag-base"
+		},
+		{
+			"name": "eye-back-pupil",
+			"bone": "eye-back-pupil",
+			"attachment": "eye-back-pupil"
+		},
+		{
+			"name": "bag-top",
+			"bone": "bag",
+			"attachment": "bag-top"
+		},
+		{
+			"name": "eye-front-white",
+			"bone": "eye-front",
+			"attachment": "eye-front-white"
+		},
+		{
+			"name": "eye-front-iris",
+			"bone": "eye-front-iris",
+			"attachment": "eye-front-iris"
+		},
+		{
+			"name": "eye-front-pupil",
+			"bone": "eye-front-pupil",
+			"attachment": "eye-front-pupil"
+		},
+		{
+			"name": "backpack-strap-front",
+			"bone": "backpack",
+			"attachment": "backpack-strap-front"
+		},
+		{
+			"name": "bag-strap-front",
+			"bone": "bag",
+			"attachment": "bag-strap-front"
+		},
+		{
+			"name": "body-up",
+			"bone": "body-up",
+			"attachment": "body-up"
+		},
+		{
+			"name": "hand-front",
+			"bone": "hand-front",
+			"attachment": "hand-front-fingers"
+		},
+		{
+			"name": "ribbon-body",
+			"bone": "body-up",
+			"attachment": "ribbon-body"
+		},
+		{
+			"name": "arm-front",
+			"bone": "arm-front-control",
+			"attachment": "arm-front"
+		},
+		{
+			"name": "sleeve-inner-front",
+			"bone": "arm-front-control",
+			"attachment": "sleeve-inner-front"
+		},
+		{
+			"name": "sleeve-front",
+			"bone": "arm-front-up",
+			"attachment": "sleeve-front"
+		},
+		{
+			"name": "cape-red-down",
+			"bone": "body-up",
+			"attachment": "cape-red-down"
+		},
+		{
+			"name": "cape-red-up",
+			"bone": "body-up",
+			"attachment": "cape-red-up"
+		},
+		{
+			"name": "hair-strand-back-1",
+			"bone": "hair-strand-back-1",
+			"attachment": "hair-strand-back-1"
+		},
+		{
+			"name": "zip-girl",
+			"bone": "zip-girl",
+			"attachment": "zip-girl"
+		},
+		{
+			"name": "hair-strand-front-1",
+			"bone": "hair-strand-front-1",
+			"attachment": "hair-strand-front-1"
+		},
+		{
+			"name": "ribbon-shoulder",
+			"bone": "body-up",
+			"attachment": "ribbon-shoulder"
+		},
+		{
+			"name": "zip-boy",
+			"bone": "zip-boy",
+			"attachment": "zip-boy"
+		},
+		{
+			"name": "scarf",
+			"bone": "neck",
+			"attachment": "scarf"
+		},
+		{
+			"name": "eye-front-up-eyelid-back",
+			"bone": "eye-front-up-eyelid",
+			"attachment": "eye-front-up-eyelid-back"
+		},
+		{
+			"name": "hair-side-front",
+			"bone": "head",
+			"attachment": "hair-side-front"
+		},
+		{
+			"name": "hair-side-transparent",
+			"bone": "hair-side-front",
+			"color": 0xffffff81,
+			"attachment": "hair-side"
+		},
+		{
+			"name": "hair-side",
+			"bone": "hair-side-front",
+			"attachment": "hair-side"
+		},
+		{
+			"name": "hair-bangs",
+			"bone": "hair-bangs-front",
+			"attachment": "hair-bangs"
+		},
+		{
+			"name": "eye-back-eyebrow",
+			"bone": "eye-back-eyebrow",
+			"attachment": "eye-back-eyebrow"
+		},
+		{
+			"name": "eye-front-eyebrow",
+			"bone": "eye-front-eyebrow",
+			"attachment": "eye-front-eyebrow"
+		},
+		{
+			"name": "eye-back-low-eyelid",
+			"bone": "eye-back-low-eyelid",
+			"attachment": "eye-back-low-eyelid"
+		},
+		{
+			"name": "nose",
+			"bone": "head-control",
+			"attachment": "nose"
+		},
+		{
+			"name": "eye-back-up-eyelid",
+			"bone": "eye-back-up-eyelid",
+			"attachment": "eye-back-up-eyelid"
+		},
+		{
+			"name": "eye-front-low-eyelid",
+			"bone": "eye-front-low-eyelid",
+			"attachment": "eye-front-low-eyelid"
+		},
+		{
+			"name": "eye-front-up-eyelid",
+			"bone": "eye-front-up-eyelid",
+			"attachment": "eye-front-up-eyelid"
+		},
+		{
+			"name": "hair-bangs-transparent",
+			"bone": "hair-bangs-front",
+			"color": 0xffffff81,
+			"attachment": "hair-bangs-transparent"
+		},
+		{
+			"name": "hat",
+			"bone": "hat-base",
+			"attachment": "hat"
+		},
+		{
+			"name": "pompom",
+			"bone": "pompom-control",
+			"attachment": "pompom"
+		},
+		{
+			"name": "arm-front-path",
+			"bone": "arm-front-control",
+			"attachment": "arm-front-path"
+		},
+		{
+			"name": "leg-front-path",
+			"bone": "leg-control-front",
+			"attachment": "leg-front-path"
+		},
+		{
+			"name": "cape-blue-shoulder-back",
+			"bone": "body-up",
+			"attachment": "cape-blue-shoulder-back"
+		},
+		{
+			"name": "cape-blue-shoulder-front",
+			"bone": "body-up",
+			"attachment": "cape-blue-shoulder-front"
+		},
+		{
+			"name": "cape-blue-up-front",
+			"bone": "head",
+			"attachment": "cape-blue-up-front"
+		},
+		{
+			"name": "cape-ribbon",
+			"bone": "body-up",
+			"attachment": "cape-ribbon"
+		}
+	]
+}
