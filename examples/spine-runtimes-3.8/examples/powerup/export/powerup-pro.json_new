@@ -230,5 +230,107 @@
 			"bone": "token",
 			"attachment": "token"
 		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"star1": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"right-wing": {
+					"wing": {
+						"type": "mesh"
+					}
+				},
+				"star6": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"star3": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"star8": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"star5": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"star": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"star7": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"token": {
+					"token": {
+						"type": "mesh"
+					}
+				},
+				"left-wing": {
+					"wing": {
+						"type": "mesh"
+					}
+				},
+				"star2": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"star9": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				},
+				"star4": {
+					"star": {
+						"type": "region",
+						"path": "",
+						"width": 76,
+						"height": 72
+					}
+				}
+			}
+		}
 	]
 }

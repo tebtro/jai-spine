@@ -498,5 +498,359 @@
 			"bone": "hand1",
 			"attachment": "hand1"
 		}
+	],
+	"ik": [
+		{
+			"name": "left-leg",
+			"bones": [
+				"thigh1",
+				"shin1"
+			],
+			"target": "left-ankle",
+			"bendPositive": false
+		},
+		{
+			"name": "look-constraint",
+			"order": 1,
+			"bones": [
+				"head"
+			],
+			"target": "look-constraint-goal",
+			"mix": 0
+		},
+		{
+			"name": "right-leg",
+			"order": 2,
+			"bones": [
+				"thigh2",
+				"shin2"
+			],
+			"target": "right-ankle",
+			"bendPositive": false
+		}
+	],
+	"path": [
+		{
+			"name": "weapon-morningstar",
+			"order": 3,
+			"skin": true,
+			"bones": [
+				"chain1",
+				"chain2",
+				"chain3",
+				"chain4",
+				"chain5",
+				"chain6",
+				"chain7",
+				"chain8"
+			],
+			"target": "weapon-morningstar-path",
+			"rotateMode": "chain"
+		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"hand1": {
+					"hand1": {
+						"type": "region",
+						"path": "",
+						"x": 11.93,
+						"y": -0.7,
+						"rotation": 90.37,
+						"width": 37,
+						"height": 48
+					}
+				},
+				"chain-flat2": {
+					"chain-flat": {
+						"type": "region",
+						"path": "",
+						"x": 7.5,
+						"width": 16,
+						"height": 5
+					}
+				},
+				"thigh2": {
+					"thigh2": {
+						"type": "region",
+						"path": "",
+						"x": 15.71,
+						"y": -4.62,
+						"rotation": 85.46,
+						"width": 57,
+						"height": 64
+					}
+				},
+				"shin2": {
+					"shin2": {
+						"type": "region",
+						"path": "",
+						"x": 2.25,
+						"y": -2.94,
+						"rotation": 87.72,
+						"width": 51,
+						"height": 54
+					}
+				},
+				"forearm1": {
+					"forearm1": {
+						"type": "region",
+						"path": "",
+						"x": 11.88,
+						"y": -5.04,
+						"rotation": 106.62,
+						"width": 41,
+						"height": 49
+					}
+				},
+				"eyes": {
+					"eyes": {
+						"type": "mesh"
+					}
+				},
+				"chain-round": {
+					"chain-round": {
+						"type": "region",
+						"path": "",
+						"x": 8,
+						"width": 17,
+						"height": 14
+					}
+				},
+				"handle": {
+					"handle": {
+						"type": "region",
+						"path": "",
+						"x": 38.91,
+						"width": 134,
+						"height": 14
+					}
+				},
+				"upper-arm2": {
+					"upper-arm2": {
+						"type": "region",
+						"path": "",
+						"x": 13.33,
+						"y": -2.22,
+						"rotation": 90.45,
+						"width": 39,
+						"height": 59
+					}
+				},
+				"forearm2": {
+					"forearm2": {
+						"type": "region",
+						"path": "",
+						"x": 13.09,
+						"y": -0.64,
+						"rotation": 83.72,
+						"width": 31,
+						"height": 32
+					}
+				},
+				"foot1": {
+					"foot1": {
+						"type": "region",
+						"path": "",
+						"x": 12.55,
+						"y": 0.12,
+						"rotation": 90.96,
+						"width": 50,
+						"height": 42
+					}
+				},
+				"weapon-morningstar-path": {
+					"weapon-morningstar-path": {
+						"type": "path"
+					}
+				},
+				"fingers": {
+					"fingers": {
+						"type": "region",
+						"path": "",
+						"x": 16.22,
+						"y": 1.37,
+						"rotation": 82.36,
+						"width": 31,
+						"height": 33
+					}
+				},
+				"chain-flat": {
+					"chain-flat": {
+						"type": "region",
+						"path": "",
+						"x": 7.5,
+						"width": 16,
+						"height": 5
+					}
+				},
+				"chain-flat4": {
+					"chain-flat": {
+						"type": "region",
+						"path": "",
+						"x": 7.5,
+						"width": 16,
+						"height": 5
+					}
+				},
+				"chain-ball": {
+					"chain-ball": {
+						"type": "region",
+						"path": "",
+						"x": 34.46,
+						"scaleX": 1.0961,
+						"scaleY": 1.0961,
+						"width": 64,
+						"height": 68
+					}
+				},
+				"head": {
+					"head": {
+						"type": "mesh"
+					}
+				},
+				"upper-arm1": {
+					"upper-arm1": {
+						"type": "region",
+						"path": "",
+						"x": 6.6,
+						"y": 0.06,
+						"rotation": 137.18,
+						"width": 50,
+						"height": 56
+					}
+				},
+				"chain-round2": {
+					"chain-round": {
+						"type": "region",
+						"path": "",
+						"x": 8,
+						"width": 17,
+						"height": 14
+					}
+				},
+				"weapon-sword": {
+					"sword": {
+						"type": "region",
+						"path": "",
+						"x": 76,
+						"rotation": 0.19,
+						"width": 216,
+						"height": 69
+					}
+				},
+				"shin1": {
+					"shin1": {
+						"type": "region",
+						"path": "",
+						"x": 8.96,
+						"y": 0.67,
+						"rotation": 96.81,
+						"width": 53,
+						"height": 57
+					}
+				},
+				"foot2": {
+					"foot2": {
+						"type": "region",
+						"path": "",
+						"x": 8.83,
+						"y": 2.92,
+						"rotation": 90.42,
+						"width": 53,
+						"height": 38
+					}
+				},
+				"chain-round3": {
+					"chain-round": {
+						"type": "region",
+						"path": "",
+						"x": 8,
+						"width": 17,
+						"height": 14
+					}
+				},
+				"body": {
+					"body": {
+						"type": "mesh"
+					}
+				},
+				"hand2": {
+					"hand2": {
+						"type": "region",
+						"path": "",
+						"x": 14.24,
+						"y": 1.64,
+						"rotation": 82.36,
+						"width": 31,
+						"height": 37
+					}
+				},
+				"chain-flat3": {
+					"chain-flat": {
+						"type": "region",
+						"path": "",
+						"x": 7.5,
+						"width": 16,
+						"height": 5
+					}
+				},
+				"cape": {
+					"cape": {
+						"type": "mesh"
+					}
+				},
+				"thigh1": {
+					"thigh1": {
+						"type": "region",
+						"path": "",
+						"x": 11.99,
+						"y": -1.02,
+						"rotation": 107.07,
+						"width": 60,
+						"height": 63
+					}
+				},
+				"mouth": {
+					"mouth": {
+						"type": "mesh"
+					}
+				},
+				"mantles": {
+					"mantles": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "weapon/morningstar",
+			"bones": [
+				"chain1",
+				"chain2",
+				"chain3",
+				"chain4",
+				"chain5",
+				"chain6",
+				"chain7",
+				"chain8",
+				"weapon-morningstar",
+				"weapon-morningstar-physics1",
+				"weapon-morningstar-physics2",
+				"weapon-morningstar-physics3",
+				"weapon-morningstar-physics4"
+			],
+			"path": [
+				"weapon-morningstar"
+			]
+		},
+		{
+			"name": "weapon/sword",
+			"bones": [
+				"weapon-sword"
+			]
+		}
 	]
 }

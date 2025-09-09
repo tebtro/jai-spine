@@ -72,8 +72,10 @@ Skeleton_3 :: struct {
         name: Optional(string);
         order: s32;
         skin_required: bool;
-        bones: [..] Bone_Index;
-        target: Bone_Index;
+        bone_names: [..] Optional(string);
+        bone_indices: [..] Bone_Index;
+        target_bone_name: Optional(string);
+        target_bone_index: Bone_Index;
         mix: float64;
         softness: float64;
         bend_direction: s8;
@@ -86,8 +88,10 @@ Skeleton_3 :: struct {
         name: Optional(string);
         order: s32;
         skin_required: bool;
-        bones: [..] Bone_Index;
-        target: Bone_Index;
+        bone_names: [..] Optional(string);
+        bone_indices: [..] Bone_Index;
+        target_bone_name: Optional(string);
+        target_bone_index: Bone_Index;
         local: bool;
         relative: bool;
         offset_rotation: float64;
@@ -106,8 +110,10 @@ Skeleton_3 :: struct {
         name: Optional(string);
         order: s32;
         skin_required: bool;
-        bones: [..] Bone_Index;
-        target: Bone_Index;
+        bone_names: [..] Optional(string);
+        bone_indices: [..] Bone_Index;
+        target_bone_name: Optional(string);
+        target_bone_index: Bone_Index;
         position_mode: Path_Position_Mode;
         spacing_mode:  Path_Spacing_Mode;
         rotate_mode:   Path_Rotate_Mode;
@@ -120,14 +126,24 @@ Skeleton_3 :: struct {
 
     Skin :: struct {
         name: String_Reference;
-        bones: [..] Bone_Index;
-        ik\      _constraints: [..] Ik\      _Constraint_Index;
-        transform_constraints: [..] Transform_Constraint_Index;
-        path\    _constraints: [..] Path\    _Constraint_Index;
+        
+        bone_names: [..] Optional(string);
+        bone_indices: [..] Bone_Index;
+        
+        ik_constraint_names: [..] Optional(string);
+        ik_constraint_indices: [..] Ik_Constraint_Index;
+        
+        transform_constraint_names: [..] Optional(string);
+        transform_constraint_indices: [..] Transform_Constraint_Index;
+        
+        path_constraint_names: [..] Optional(string);
+        path_constraint_indices: [..] Path_Constraint_Index;
+        
         slots: [..] Slot;
     }
 
     Slot :: struct {
+    	name: string;
         index: Slot_Index;
         attachments: [..] *Attachment;
     }

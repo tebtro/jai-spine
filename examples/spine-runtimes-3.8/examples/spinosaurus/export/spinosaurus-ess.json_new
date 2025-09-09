@@ -78,5 +78,54 @@
 			"color": 0xfff99dff,
 			"attachment": "settings"
 		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"play": {
+					"play": {
+						"type": "region",
+						"path": "",
+						"width": 218,
+						"height": 77
+					}
+				},
+				"settings": {
+					"settings": {
+						"type": "region",
+						"path": "",
+						"width": 446,
+						"height": 76
+					}
+				},
+				"leaves": {
+					"leaves": {
+						"type": "region",
+						"path": "",
+						"y": -28.54,
+						"width": 1042,
+						"height": 522
+					}
+				},
+				"quit": {
+					"quit": {
+						"type": "region",
+						"path": "",
+						"width": 216,
+						"height": 77
+					}
+				},
+				"logo": {
+					"logo": {
+						"type": "region",
+						"path": "",
+						"y": -20.4,
+						"width": 917,
+						"height": 323
+					}
+				}
+			}
+		}
 	]
 }

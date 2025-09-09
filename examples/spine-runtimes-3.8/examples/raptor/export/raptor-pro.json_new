@@ -832,5 +832,445 @@
 			"color": 0,
 			"attachment": ""
 		}
+	],
+	"ik": [
+		{
+			"name": "back-foot-ik",
+			"order": 3,
+			"bones": [
+				"back-leg3",
+				"back-foot1"
+			],
+			"target": "back-foot-target"
+		},
+		{
+			"name": "back-leg-ik",
+			"order": 2,
+			"bones": [
+				"back-leg1",
+				"back-leg2"
+			],
+			"target": "back-leg-target",
+			"bendPositive": false
+		},
+		{
+			"name": "front-foot-ik",
+			"order": 1,
+			"bones": [
+				"front-leg3",
+				"front-foot1"
+			],
+			"target": "front-foot-target"
+		},
+		{
+			"name": "front-leg-ik",
+			"bones": [
+				"front-leg1",
+				"front-leg2"
+			],
+			"target": "front-leg-target",
+			"bendPositive": false
+		},
+		{
+			"name": "spineboy-back-arm-ik",
+			"order": 8,
+			"bones": [
+				"back-arm",
+				"back-bracer"
+			],
+			"target": "spineboy-back-arm-target"
+		},
+		{
+			"name": "spineboy-back-leg-ik",
+			"order": 5,
+			"bones": [
+				"back-thigh",
+				"back-knee"
+			],
+			"target": "spineboy-back-foot-target",
+			"bendPositive": false
+		},
+		{
+			"name": "spineboy-front-arm-ik",
+			"order": 7,
+			"bones": [
+				"front-arm",
+				"front-bracer"
+			],
+			"target": "spineboy-front-arm-target"
+		},
+		{
+			"name": "spineboy-front-leg-ik",
+			"order": 4,
+			"bones": [
+				"front-thigh",
+				"lower-leg"
+			],
+			"target": "spineboy-front-foot-target",
+			"bendPositive": false
+		},
+		{
+			"name": "stirrup",
+			"order": 6,
+			"bones": [
+				"stirrup-strap1",
+				"stirrup-strap2"
+			],
+			"target": "stirrup"
+		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"raptor-front-arm": {
+					"raptor-front-arm": {
+						"type": "mesh"
+					}
+				},
+				"visor": {
+					"visor": {
+						"type": "region",
+						"path": "",
+						"x": 99.13,
+						"y": 6.51,
+						"rotation": -70.58,
+						"width": 261,
+						"height": 168
+					}
+				},
+				"tail-shadow": {
+					"raptor-tail-shadow": {
+						"type": "mesh"
+					}
+				},
+				"raptor-saddle": {
+					"raptor-saddle-w-shadow": {
+						"type": "mesh"
+					}
+				},
+				"raptor-tongue": {
+					"raptor-tongue": {
+						"type": "mesh"
+					}
+				},
+				"raptor-front-leg": {
+					"raptor-front-leg": {
+						"type": "mesh"
+					}
+				},
+				"stirrup-strap": {
+					"stirrup-strap": {
+						"type": "mesh"
+					}
+				},
+				"raptor-body": {
+					"raptor-body": {
+						"type": "mesh"
+					}
+				},
+				"back-arm": {
+					"back-arm": {
+						"type": "region",
+						"path": "",
+						"x": 28.57,
+						"y": -12.03,
+						"rotation": 16.76,
+						"width": 91,
+						"height": 49
+					}
+				},
+				"raptor-jaw": {
+					"raptor-jaw": {
+						"type": "mesh"
+					}
+				},
+				"raptor-horn": {
+					"raptor-horn": {
+						"type": "region",
+						"path": "",
+						"x": 156.21,
+						"y": 74.11,
+						"rotation": -137.26,
+						"width": 363,
+						"height": 159
+					}
+				},
+				"neck": {
+					"neck": {
+						"type": "region",
+						"path": "",
+						"x": 15.1,
+						"y": -1.67,
+						"rotation": -58.92,
+						"width": 36,
+						"height": 41
+					}
+				},
+				"raptor-back-arm": {
+					"raptor-back-arm": {
+						"type": "mesh"
+					}
+				},
+				"mouth-smile": {
+					"mouth-grind": {
+						"type": "region",
+						"path": "",
+						"x": 27.66,
+						"y": -31.33,
+						"rotation": -70.58,
+						"width": 93,
+						"height": 59
+					},
+					"mouth-smile": {
+						"type": "region",
+						"path": "",
+						"x": 27.66,
+						"y": -31.33,
+						"rotation": -70.58,
+						"width": 93,
+						"height": 59
+					}
+				},
+				"front-bracer": {
+					"front-bracer": {
+						"type": "region",
+						"path": "",
+						"x": 11.68,
+						"y": -1.37,
+						"rotation": -6.28,
+						"width": 81,
+						"height": 58
+					}
+				},
+				"back-hand": {
+					"back-hand": {
+						"type": "region",
+						"path": "",
+						"x": 18.61,
+						"y": 4.24,
+						"rotation": -10.99,
+						"width": 72,
+						"height": 68
+					}
+				},
+				"stirrup-front": {
+					"stirrup-front": {
+						"type": "region",
+						"path": "",
+						"x": 36.14,
+						"y": 20.39,
+						"rotation": -21.13,
+						"width": 89,
+						"height": 100
+					}
+				},
+				"eyes-open": {
+					"eyes-open": {
+						"type": "region",
+						"path": "",
+						"x": 93.24,
+						"y": -25.45,
+						"rotation": -70.58,
+						"width": 93,
+						"height": 89
+					}
+				},
+				"raptow-jaw-tooth": {
+					"raptor-jaw-tooth": {
+						"type": "region",
+						"path": "",
+						"x": 215.7,
+						"y": 103.86,
+						"scaleX": 0.8674,
+						"scaleY": 0.8317,
+						"rotation": 56.5,
+						"width": 73,
+						"height": 96
+					}
+				},
+				"front-arm": {
+					"front-arm": {
+						"type": "region",
+						"path": "",
+						"x": 33.68,
+						"y": -1.53,
+						"rotation": 14.02,
+						"width": 96,
+						"height": 51
+					}
+				},
+				"raptor-horn-back": {
+					"raptor-horn-back": {
+						"type": "region",
+						"path": "",
+						"x": 121.43,
+						"y": 83.01,
+						"rotation": -132.22,
+						"width": 351,
+						"height": 153
+					}
+				},
+				"front-thigh": {
+					"front-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 45.7,
+						"y": -3.1,
+						"rotation": 16.66,
+						"width": 114,
+						"height": 58
+					}
+				},
+				"raptor-saddle-strap-front": {
+					"raptor-saddle-strap-front": {
+						"type": "region",
+						"path": "",
+						"x": 128.83,
+						"y": -4.72,
+						"rotation": 61.29,
+						"width": 114,
+						"height": 189
+					}
+				},
+				"head": {
+					"head": {
+						"type": "mesh"
+					}
+				},
+				"spineboy-torso": {
+					"torso": {
+						"type": "region",
+						"path": "",
+						"x": 55.88,
+						"y": 4.87,
+						"rotation": -104.14,
+						"width": 108,
+						"height": 182
+					}
+				},
+				"gun": {
+					"gun-nohand": {
+						"type": "region",
+						"path": "",
+						"x": 54.65,
+						"y": -24.93,
+						"rotation": 55.2,
+						"width": 210,
+						"height": 203
+					}
+				},
+				"front-hand": {
+					"gun": {
+						"type": "region",
+						"path": "",
+						"x": 98.91,
+						"y": 22.98,
+						"rotation": 56.35,
+						"width": 213,
+						"height": 206
+					},
+					"front-hand": {
+						"type": "region",
+						"path": "",
+						"x": 35.7,
+						"y": 7.84,
+						"rotation": -13.97,
+						"width": 82,
+						"height": 75
+					},
+					"front-open-hand": {
+						"type": "region",
+						"path": "",
+						"x": 42.55,
+						"y": 4.62,
+						"rotation": 62.19,
+						"width": 86,
+						"height": 87
+					}
+				},
+				"lower-leg": {
+					"lower-leg": {
+						"type": "region",
+						"path": "",
+						"x": 76.2,
+						"y": 22.21,
+						"rotation": 66.28,
+						"width": 146,
+						"height": 195
+					}
+				},
+				"back-knee": {
+					"back-knee": {
+						"type": "region",
+						"path": "",
+						"x": 45.77,
+						"y": 20.47,
+						"rotation": 74.23,
+						"width": 97,
+						"height": 134
+					}
+				},
+				"back-thigh": {
+					"back-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 37.85,
+						"y": -4.37,
+						"rotation": 19.25,
+						"width": 78,
+						"height": 47
+					}
+				},
+				"raptor-hindleg-back": {
+					"raptor-hindleg-back": {
+						"type": "mesh"
+					}
+				},
+				"stirrup-back": {
+					"stirrup-back": {
+						"type": "region",
+						"path": "",
+						"x": 53.2,
+						"y": 31.34,
+						"rotation": -21.13,
+						"width": 87,
+						"height": 69
+					}
+				},
+				"back-bracer": {
+					"back-bracer": {
+						"type": "region",
+						"path": "",
+						"x": 13.2,
+						"y": -4.28,
+						"rotation": -0.73,
+						"width": 77,
+						"height": 55
+					}
+				},
+				"raptor-jaw-inside": {
+					"raptor-jaw2": {
+						"type": "mesh"
+					}
+				},
+				"raptor-saddle-strap-back": {
+					"raptor-saddle-strap-back": {
+						"type": "region",
+						"path": "",
+						"x": 78.45,
+						"y": -4.2,
+						"rotation": 120.24,
+						"width": 108,
+						"height": 148
+					}
+				},
+				"raptor-mouth-inside": {
+					"raptor-mouth-inside": {
+						"type": "mesh"
+					}
+				}
+			}
+		}
 	]
 }

@@ -146,7 +146,8 @@ Skeleton_3_Json_Read :: struct {
                 ik.skin_required = get_bool(ik_node, "skin", false);
                 
                 bones_node := get(ik_node, "bones", .ARRAY);
-                array_reserve(*ik.bones, bones_node.array.count);
+                array_reserve(*ik.bone_names, bones_node.array.count);
+                array_reserve(*ik.bone_indices, bones_node.array.count);
                 for bone_node: bones_node.array {
                     if bone_node.type != .STRING {
                         log_error("Bone is not a string!");
@@ -155,11 +156,13 @@ Skeleton_3_Json_Read :: struct {
                 	
                     bone_name := create_optional(bone_node.str);
                     bone_index := find_bone_index(skeleton, bone_name);
-                    array_add(*ik.bones, bone_index);
+                    
+                    array_add(*ik.bone_names, bone_name);
+                    array_add(*ik.bone_indices, bone_index);
                 }
                 
-                target_name := get_optional_string(ik_node, "target");
-                ik.target = find_bone_index(skeleton, target_name);
+                ik.target_bone_name = get_optional_string(ik_node, "target");
+                ik.target_bone_index = find_bone_index(skeleton, ik.target_bone_name);
                 
                 ik.mix            = get_number(ik_node, "mix", 1);
                 ik.softness       = get_number(ik_node, "softness", 0) * scale;
@@ -192,7 +195,7 @@ Skeleton_3_Json_Read :: struct {
                 constraint.skin_required = get_bool(constraint_node, "skin", false);
                 
                 bones_node := get(constraint_node, "bones", .ARRAY);
-                array_reserve(*constraint.bones, bones_node.array.count);
+                array_reserve(*constraint.bone_indices, bones_node.array.count);
                 for bone_node: bones_node.array {
                     if bone_node.type != .STRING {
                         log_error("Bone is not a string!");
@@ -201,11 +204,13 @@ Skeleton_3_Json_Read :: struct {
                 	
                     bone_name := create_optional(bone_node.str);
                     bone_index := find_bone_index(skeleton, bone_name);
-                    array_add(*constraint.bones, bone_index);
+                    
+                    array_add(*constraint.bone_names, bone_name);
+                    array_add(*constraint.bone_indices, bone_index);
                 }
                 
-                target_name := get_optional_string(constraint_node, "target");
-                constraint.target = find_bone_index(skeleton, target_name);
+                constraint.target_bone_name = get_optional_string(constraint_node, "target");
+                constraint.target_bone_index = find_bone_index(skeleton, constraint.target_bone_name);
                 
                 constraint.local           = get_bool(constraint_node, "local", false);
                 constraint.relative        = get_bool(constraint_node, "relative", false);
@@ -239,7 +244,8 @@ Skeleton_3_Json_Read :: struct {
                 constraint.skin_required = get_bool(constraint_node, "skin", false);
                 
                 bones_node := get(constraint_node, "bones", .ARRAY);
-                array_reserve(*constraint.bones, bones_node.array.count);
+                array_reserve(*constraint.bone_names, bones_node.array.count);
+                array_reserve(*constraint.bone_indices, bones_node.array.count);
                 for bone_node: bones_node.array {
                     if bone_node.type != .STRING {
                         log_error("Bone is not a string!");
@@ -248,11 +254,13 @@ Skeleton_3_Json_Read :: struct {
                 	
                     bone_name := create_optional(bone_node.str);
                     bone_index := find_bone_index(skeleton, bone_name);
-                    array_add(*constraint.bones, bone_index);
+                    
+                    array_add(*constraint.bone_names, bone_name);
+                    array_add(*constraint.bone_indices, bone_index);
                 }
                 
-                target_name := get_optional_string(constraint_node, "target");
-                constraint.target = find_bone_index(skeleton, target_name);
+                constraint.target_bone_name = get_optional_string(constraint_node, "target");
+                constraint.target_bone_index = find_bone_index(skeleton, constraint.target_bone_name);
                 
                 position_mode_string := get_string(constraint_node, "positionMode", "percent");
                 success, constraint.position_mode = path_position_mode_from_string(position_mode_string);
@@ -300,7 +308,9 @@ Skeleton_3_Json_Read :: struct {
 				// Bones
 				if has(skin_node, "bones") {
 					bones_node := get(skin_node, "bones", .ARRAY);
-					array_reserve(*skin.bones, bones_node.array.count);
+					
+					array_reserve(*skin.bone_names, bones_node.array.count);
+					array_reserve(*skin.bone_indices, bones_node.array.count);
 					
 					for bone_node: bones_node.array {
 						if bone_node.type != .STRING {
@@ -310,14 +320,18 @@ Skeleton_3_Json_Read :: struct {
 						
 						bone_name := create_optional(bone_node.str);
 						bone_index := find_bone_index(skeleton, bone_name);
-						array_add(*skin.bones, bone_index);
+						
+						array_add(*skin.bone_names, bone_name);
+						array_add(*skin.bone_indices, bone_index);
 					}
 				}
 				
 				// IK constraints
 				if has(skin_node, "ik") {
 					ik_node := get(skin_node, "ik", .ARRAY);
-					array_reserve(*skin.ik_constraints, ik_node.array.count);
+					
+					array_reserve(*skin.ik_constraint_names, ik_node.array.count);
+					array_reserve(*skin.ik_constraint_indices, ik_node.array.count);
 					
 					for constraint_node: ik_node.array {
 						if constraint_node.type != .STRING {
@@ -327,14 +341,18 @@ Skeleton_3_Json_Read :: struct {
 						
 						constraint_name := create_optional(constraint_node.str);
 						constraint_index := find_ik_constraint_index(skeleton, constraint_name);
-						array_add(*skin.ik_constraints, constraint_index);
+						
+						array_add(*skin.ik_constraint_names, constraint_name);
+						array_add(*skin.ik_constraint_indices, constraint_index);
 					}
 				}
 				
 				// Transform constraints
 				if has(skin_node, "transform") {
 					transform_node := get(skin_node, "transform", .ARRAY);
-					array_reserve(*skin.transform_constraints, transform_node.array.count);
+					
+					array_reserve(*skin.transform_constraint_names, transform_node.array.count);
+					array_reserve(*skin.transform_constraint_indices, transform_node.array.count);
 					
 					for constraint_node: transform_node.array {
 						if constraint_node.type != .STRING {
@@ -344,14 +362,18 @@ Skeleton_3_Json_Read :: struct {
 						
 						constraint_name := create_optional(constraint_node.str);
 						constraint_index := find_transform_constraint_index(skeleton, constraint_name);
-						array_add(*skin.transform_constraints, constraint_index);
+						
+						array_add(*skin.transform_constraint_names, constraint_name);
+						array_add(*skin.transform_constraint_indices, constraint_index);
 					}
 				}
 				
 				// Path constraints
 				if has(skin_node, "path") {
 					path_node := get(skin_node, "path", .ARRAY);
-					array_reserve(*skin.path_constraints, path_node.array.count);
+					
+					array_reserve(*skin.path_constraint_names, path_node.array.count);
+					array_reserve(*skin.path_constraint_indices, path_node.array.count);
 					
 					for constraint_node: path_node.array {
 						if constraint_node.type != .STRING {
@@ -361,13 +383,15 @@ Skeleton_3_Json_Read :: struct {
 						
 						constraint_name := create_optional(constraint_node.str);
 						constraint_index := find_path_constraint_index(skeleton, constraint_name);
-						array_add(*skin.path_constraints, constraint_index);
+						
+						array_add(*skin.path_constraint_names, constraint_name);
+						array_add(*skin.path_constraint_indices, constraint_index);
 					}
 				}
 				
 				// Slots
-				if has(skin_node, "slots") {
-					slots_node := get(skin_node, "slots", .OBJECT);
+				if has(skin_node, "attachments") {
+					slots_node := get(skin_node, "attachments", .OBJECT);
 					
 					for slot_node: slots_node.object {
 						slot_name := it_index;
@@ -384,6 +408,7 @@ Skeleton_3_Json_Read :: struct {
 						}
 						
 						slot := array_add(*skin.slots);
+						slot.name = slot_name;
 						slot.index = slot_index;
 						
 						// Attachments
@@ -399,6 +424,11 @@ Skeleton_3_Json_Read :: struct {
 							if !attachment {
 								return null;
 							}
+							
+							attachment.name = .{
+                                original_index = 0,
+                                data = create_optional(attachment_name),
+                            };
 							
 							array_add(*slot.attachments, attachment);
 						}

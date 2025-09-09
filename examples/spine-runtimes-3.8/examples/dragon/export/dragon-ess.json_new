@@ -458,5 +458,498 @@
 			"bone": "root",
 			"attachment": "thiagobrayner"
 		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"tail5": {
+					"tail05": {
+						"type": "region",
+						"path": "",
+						"x": 15.06,
+						"y": -3.57,
+						"rotation": 155,
+						"width": 52,
+						"height": 59
+					}
+				},
+				"tail2": {
+					"tail02": {
+						"type": "region",
+						"path": "",
+						"x": 18.12,
+						"y": -1.75,
+						"rotation": 151.85,
+						"width": 95,
+						"height": 120
+					}
+				},
+				"thiagobrayner": {
+					"thiagobrayner": {
+						"type": "region",
+						"path": "",
+						"y": -95,
+						"width": 350,
+						"height": 31
+					}
+				},
+				"right-rear-leg": {
+					"right-rear-leg": {
+						"type": "region",
+						"path": "",
+						"x": 60.88,
+						"y": -5.73,
+						"rotation": -127.67,
+						"width": 116,
+						"height": 100
+					}
+				},
+				"right-rear-toe1": {
+					"right-rear-toe": {
+						"type": "region",
+						"path": "",
+						"x": 54.76,
+						"y": -5.72,
+						"rotation": 134.79,
+						"width": 109,
+						"height": 77
+					}
+				},
+				"right-front-toe3": {
+					"front-toe-b": {
+						"type": "region",
+						"path": "",
+						"x": 30.67,
+						"y": -0.07,
+						"rotation": 112.3,
+						"width": 56,
+						"height": 57
+					}
+				},
+				"tail6": {
+					"tail06": {
+						"type": "region",
+						"path": "",
+						"x": 28.02,
+						"y": -16.83,
+						"rotation": -175.45,
+						"width": 95,
+						"height": 68
+					}
+				},
+				"tail3": {
+					"tail03": {
+						"type": "region",
+						"path": "",
+						"x": 16.94,
+						"y": -2.01,
+						"rotation": 150.04,
+						"width": 73,
+						"height": 92
+					}
+				},
+				"chin": {
+					"chin": {
+						"type": "region",
+						"path": "",
+						"x": 66.55,
+						"y": 7.32,
+						"rotation": 30.01,
+						"width": 214,
+						"height": 146
+					}
+				},
+				"left-front-toe1": {
+					"front-toe-a": {
+						"type": "region",
+						"path": "",
+						"x": 31.93,
+						"y": 0.61,
+						"rotation": 109.56,
+						"width": 29,
+						"height": 50
+					}
+				},
+				"right-front-leg": {
+					"right-front-leg": {
+						"type": "region",
+						"path": "",
+						"x": 17.8,
+						"y": 4.23,
+						"rotation": 37.63,
+						"width": 101,
+						"height": 89
+					}
+				},
+				"right-rear-toe2": {
+					"right-rear-toe": {
+						"type": "region",
+						"path": "",
+						"x": 57.03,
+						"y": -7.23,
+						"rotation": 134.43,
+						"width": 109,
+						"height": 77
+					}
+				},
+				"left-wing": {
+					"left-wing08": {
+						"type": "region",
+						"path": "",
+						"x": 50.15,
+						"y": -15.71,
+						"rotation": -86.19,
+						"width": 164,
+						"height": 181
+					},
+					"left-wing04": {
+						"type": "region",
+						"path": "",
+						"x": -61.62,
+						"y": -83.27,
+						"rotation": -86.19,
+						"width": 188,
+						"height": 135
+					},
+					"left-wing06": {
+						"type": "region",
+						"path": "",
+						"x": -143.77,
+						"y": -83.72,
+						"rotation": -86.19,
+						"width": 192,
+						"height": 331
+					},
+					"left-wing01": {
+						"type": "region",
+						"path": "",
+						"x": 129.21,
+						"y": -45.49,
+						"rotation": -83.7,
+						"width": 191,
+						"height": 256
+					},
+					"left-wing03": {
+						"type": "region",
+						"path": "",
+						"x": 110.27,
+						"y": -90.89,
+						"rotation": -86.19,
+						"width": 186,
+						"height": 207
+					},
+					"left-wing09": {
+						"type": "region",
+						"path": "",
+						"x": 85.94,
+						"y": -11.33,
+						"rotation": -86.19,
+						"width": 204,
+						"height": 167
+					},
+					"left-wing05": {
+						"type": "region",
+						"path": "",
+						"x": -90.02,
+						"y": -78.14,
+						"rotation": -86.19,
+						"width": 218,
+						"height": 213
+					},
+					"left-wing07": {
+						"type": "region",
+						"path": "",
+						"x": -133.05,
+						"y": -33.9,
+						"rotation": -86.19,
+						"width": 159,
+						"height": 255
+					},
+					"left-wing02": {
+						"type": "region",
+						"path": "",
+						"x": 126.38,
+						"y": -31.69,
+						"rotation": -86.19,
+						"width": 179,
+						"height": 269
+					}
+				},
+				"right-front-toe2": {
+					"front-toe-b": {
+						"type": "region",
+						"path": "",
+						"x": 26.39,
+						"y": 1.17,
+						"rotation": 104.58,
+						"width": 56,
+						"height": 57
+					}
+				},
+				"left-rear-leg": {
+					"left-rear-leg": {
+						"type": "region",
+						"path": "",
+						"x": 67.29,
+						"y": 12.63,
+						"rotation": -162.65,
+						"width": 206,
+						"height": 177
+					}
+				},
+				"left-front-toe2": {
+					"front-toe-b": {
+						"type": "region",
+						"path": "",
+						"x": 26.84,
+						"y": -4.95,
+						"rotation": 109.51,
+						"width": 56,
+						"height": 57
+					}
+				},
+				"back": {
+					"back": {
+						"type": "region",
+						"path": "",
+						"x": 35.85,
+						"y": 19.99,
+						"rotation": -151.83,
+						"width": 190,
+						"height": 185
+					}
+				},
+				"right-wing": {
+					"right-wing02": {
+						"type": "region",
+						"path": "",
+						"x": 171.15,
+						"y": -19.33,
+						"rotation": -130.34,
+						"width": 203,
+						"height": 305
+					},
+					"right-wing08": {
+						"type": "region",
+						"path": "",
+						"x": 48.02,
+						"y": 28.76,
+						"rotation": -130.34,
+						"width": 234,
+						"height": 254
+					},
+					"right-wing04": {
+						"type": "region",
+						"path": "",
+						"x": 42.94,
+						"y": 134.06,
+						"rotation": -130.34,
+						"width": 279,
+						"height": 144
+					},
+					"right-wing01": {
+						"type": "region",
+						"path": "",
+						"x": 170.08,
+						"y": -23.68,
+						"rotation": -130.34,
+						"width": 219,
+						"height": 310
+					},
+					"right-wing06": {
+						"type": "region",
+						"path": "",
+						"x": -123.33,
+						"y": 111.22,
+						"rotation": -130.34,
+						"width": 200,
+						"height": 366
+					},
+					"right-wing03": {
+						"type": "region",
+						"path": "",
+						"x": 166.46,
+						"y": 29.24,
+						"rotation": -130.34,
+						"width": 272,
+						"height": 247
+					},
+					"right-wing09": {
+						"type": "region",
+						"path": "",
+						"x": 128.1,
+						"y": 21.13,
+						"rotation": -130.34,
+						"width": 248,
+						"height": 204
+					},
+					"right-wing05": {
+						"type": "region",
+						"path": "",
+						"x": -8.84,
+						"y": 142.59,
+						"rotation": -130.34,
+						"width": 251,
+						"height": 229
+					},
+					"right-wing07": {
+						"type": "region",
+						"path": "",
+						"x": -40.17,
+						"y": 118.03,
+						"rotation": -130.34,
+						"width": 200,
+						"height": 263
+					}
+				},
+				"right-rear-toe3": {
+					"right-rear-toe": {
+						"type": "region",
+						"path": "",
+						"x": 47.46,
+						"y": -7.64,
+						"rotation": 134.34,
+						"width": 109,
+						"height": 77
+					}
+				},
+				"right-front-thigh": {
+					"right-front-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 35.29,
+						"y": 2.11,
+						"rotation": 130.33,
+						"width": 108,
+						"height": 108
+					}
+				},
+				"head": {
+					"head": {
+						"type": "region",
+						"path": "",
+						"x": 76.69,
+						"y": 32.21,
+						"rotation": -47.13,
+						"width": 296,
+						"height": 260
+					}
+				},
+				"left-front-toe3": {
+					"front-toe-b": {
+						"type": "region",
+						"path": "",
+						"x": 18.22,
+						"y": -7.22,
+						"scaleX": 0.8811,
+						"scaleY": 0.9409,
+						"rotation": 99.71,
+						"width": 56,
+						"height": 57
+					}
+				},
+				"right-rear-thigh": {
+					"right-rear-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 53.25,
+						"y": 12.58,
+						"rotation": 103.29,
+						"width": 91,
+						"height": 149
+					}
+				},
+				"left-rear-thigh": {
+					"left-rear-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 56.03,
+						"y": 27.39,
+						"rotation": 74.94,
+						"width": 91,
+						"height": 149
+					}
+				},
+				"right-front-toe1": {
+					"front-toe-b": {
+						"type": "region",
+						"path": "",
+						"x": 24.5,
+						"y": -2.61,
+						"rotation": 104.18,
+						"width": 56,
+						"height": 57
+					}
+				},
+				"tail4": {
+					"tail04": {
+						"type": "region",
+						"path": "",
+						"x": 15.35,
+						"y": -2.18,
+						"rotation": 151.85,
+						"width": 56,
+						"height": 71
+					}
+				},
+				"chest": {
+					"chest": {
+						"type": "region",
+						"path": "",
+						"x": -14.6,
+						"y": 24.79,
+						"rotation": -161.7,
+						"width": 136,
+						"height": 122
+					}
+				},
+				"tail1": {
+					"tail01": {
+						"type": "region",
+						"path": "",
+						"x": 22.6,
+						"y": -4.5,
+						"rotation": 163.85,
+						"width": 120,
+						"height": 153
+					}
+				},
+				"left-front-toe4": {
+					"front-toe-b": {
+						"type": "region",
+						"path": "",
+						"x": 23.21,
+						"y": -11.69,
+						"scaleX": 0.8811,
+						"rotation": 79.89,
+						"width": 56,
+						"height": 57
+					}
+				},
+				"left-front-leg": {
+					"left-front-leg": {
+						"type": "region",
+						"path": "",
+						"x": 14.69,
+						"y": 0.49,
+						"rotation": 16,
+						"width": 84,
+						"height": 57
+					}
+				},
+				"left-front-thigh": {
+					"left-front-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 27.66,
+						"y": -11.59,
+						"rotation": 58.66,
+						"width": 84,
+						"height": 72
+					}
+				}
+			}
+		}
 	]
 }

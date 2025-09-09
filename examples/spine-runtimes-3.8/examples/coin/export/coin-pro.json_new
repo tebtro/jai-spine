@@ -78,5 +78,74 @@
 			"attachment": "shine",
 			"blend": "additive"
 		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"coin-front-shine": {
+					"coin-front-shine-spineboy": {
+						"type": "region",
+						"path": "",
+						"width": 282,
+						"height": 282
+					},
+					"coin-front-shine-logo": {
+						"type": "region",
+						"path": "",
+						"width": 282,
+						"height": 282
+					}
+				},
+				"coin-side": {
+					"coin-side-straight": {
+						"type": "region",
+						"path": "",
+						"x": 0.5,
+						"width": 17,
+						"height": 282
+					}
+				},
+				"shine": {
+					"shine": {
+						"type": "region",
+						"path": "",
+						"y": 0.5,
+						"scaleX": 1.6004,
+						"scaleY": 1.6004,
+						"width": 72,
+						"height": 245
+					}
+				},
+				"coin-front-texture": {
+					"coin-front-logo": {
+						"type": "region",
+						"path": "",
+						"width": 305,
+						"height": 302
+					},
+					"coin-front-spineboy": {
+						"type": "region",
+						"path": "",
+						"width": 305,
+						"height": 302
+					}
+				},
+				"clipping": {
+					"clipping": {
+						"type": "clipping"
+					}
+				},
+				"coin-side-round": {
+					"coin-side-round": {
+						"type": "region",
+						"path": "",
+						"x": -69.43,
+						"width": 144,
+						"height": 282
+					}
+				}
+			}
+		}
 	]
 }

@@ -1313,5 +1313,1314 @@
 			"bone": "rooster",
 			"attachment": "rooster"
 		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"flower-leaf-back15": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower12": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-leaf-front6": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-front8": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-shadow3": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"flower-shadow10": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"tree1-leaves2": {
+					"tree1-leaves2": {
+						"type": "region",
+						"path": "",
+						"x": 45.6,
+						"y": -4.99,
+						"rotation": -102.15,
+						"width": 95,
+						"height": 99
+					}
+				},
+				"flower-stem5": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower15": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-leaf-back7": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-front15": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower7": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"bush2": {
+					"bush2": {
+						"type": "region",
+						"path": "",
+						"x": 33.9,
+						"y": -4.6,
+						"rotation": -88.96,
+						"width": 133,
+						"height": 90
+					}
+				},
+				"flower-leaf-back12": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-shadow13": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"heat2": {
+					"heat": {
+						"type": "region",
+						"path": "",
+						"x": 0.38,
+						"y": 0.46,
+						"width": 96,
+						"height": 103
+					}
+				},
+				"flower-leaf-back11": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower8": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-leaf-front2": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower2": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-stem13": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"tree2-trunk": {
+					"tree2-trunk": {
+						"type": "region",
+						"path": "",
+						"x": 235.9,
+						"y": 145.4,
+						"width": 77,
+						"height": 190
+					}
+				},
+				"flower-leaf-back4": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-front10": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-shadow9": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"flower-shadow7": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"tree2-leaves1": {
+					"tree2-leaves1": {
+						"type": "region",
+						"path": "",
+						"x": 48.58,
+						"y": -4.06,
+						"rotation": -52.82,
+						"width": 99,
+						"height": 106
+					}
+				},
+				"flower-shadow14": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"flower-stem3": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-stem9": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-leaf-back14": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower13": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-leaf-front7": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-stem10": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-leaf-front9": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-back": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"tree1-leaves3": {
+					"tree1-leaves3": {
+						"type": "region",
+						"path": "",
+						"x": 38.15,
+						"y": 0.32,
+						"rotation": -87.95,
+						"width": 85,
+						"height": 84
+					}
+				},
+				"flower-stem4": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-leaf-front": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-front4": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-front14": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower6": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"tree1-trunk": {
+					"tree1-trunk": {
+						"type": "region",
+						"path": "",
+						"x": -438.7,
+						"y": 60.3,
+						"width": 127,
+						"height": 165
+					}
+				},
+				"flower-shadow12": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"tree2-leaves5": {
+					"tree2-leaves5": {
+						"type": "region",
+						"path": "",
+						"x": -13.41,
+						"y": -0.39,
+						"rotation": -52.93,
+						"width": 84,
+						"height": 84
+					}
+				},
+				"heat3": {
+					"heat": {
+						"type": "region",
+						"path": "",
+						"x": 0.38,
+						"y": 0.46,
+						"width": 96,
+						"height": 103
+					}
+				},
+				"flower-stem7": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-leaf-back5": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-back10": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-front3": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower5": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-stem14": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-leaf-front13": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"windmill-blades": {
+					"windmill-blades": {
+						"type": "region",
+						"path": "",
+						"x": -0.43,
+						"y": -0.99,
+						"width": 542,
+						"height": 540
+					}
+				},
+				"flower-shadow4": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"flower-shadow": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"flower-stem2": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-stem8": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-leaf-back8": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-back2": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower10": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-stem11": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"rooster": {
+					"rooster": {
+						"type": "region",
+						"path": "",
+						"x": 16.59,
+						"y": -0.13,
+						"rotation": -88.96,
+						"width": 54,
+						"height": 49
+					}
+				},
+				"tree2-leaves3": {
+					"tree2-leaves3": {
+						"type": "region",
+						"path": "",
+						"x": 51.94,
+						"y": -1.47,
+						"rotation": -83.85,
+						"width": 87,
+						"height": 84
+					}
+				},
+				"tree1-leaves4": {
+					"tree1-leaves4": {
+						"type": "region",
+						"path": "",
+						"x": 38.88,
+						"y": -1.73,
+						"rotation": -156.54,
+						"width": 85,
+						"height": 84
+					}
+				},
+				"heat": {
+					"heat": {
+						"type": "region",
+						"path": "",
+						"x": 0.38,
+						"y": 0.46,
+						"width": 96,
+						"height": 103
+					}
+				},
+				"flower-leaf-front5": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"windmill-blades-wood-v": {
+					"windmill-blades-wood-v": {
+						"type": "region",
+						"path": "",
+						"x": -0.43,
+						"y": -0.99,
+						"width": 26,
+						"height": 540
+					}
+				},
+				"flower-shadow2": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"flower-shadow11": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"tree2-leaves4": {
+					"tree2-leaves4": {
+						"type": "region",
+						"path": "",
+						"x": 38.96,
+						"y": 3.96,
+						"rotation": -52.93,
+						"width": 85,
+						"height": 84
+					}
+				},
+				"tree1-leaves1": {
+					"tree1-leaves1": {
+						"type": "region",
+						"path": "",
+						"x": 46.78,
+						"y": 1.49,
+						"rotation": -57.46,
+						"width": 97,
+						"height": 106
+					}
+				},
+				"flower-stem": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"windmill-base": {
+					"windmill-base": {
+						"type": "region",
+						"path": "",
+						"x": 5.6,
+						"y": 126.6,
+						"width": 1108,
+						"height": 924
+					}
+				},
+				"flower-stem6": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower14": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-leaf-front12": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower4": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-stem15": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower-leaf-back6": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"bush1": {
+					"bush1": {
+						"type": "region",
+						"path": "",
+						"x": 29.84,
+						"y": -4.5,
+						"rotation": -91.22,
+						"width": 112,
+						"height": 76
+					}
+				},
+				"flower-leaf-back13": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-shadow5": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"flower": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-leaf-back9": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower-leaf-back3": {
+					"flower-leaf-back": {
+						"type": "region",
+						"path": "",
+						"x": 10.62,
+						"y": -3.03,
+						"rotation": -143.81,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower9": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-leaf-front11": {
+					"flower-leaf-front": {
+						"type": "region",
+						"path": "",
+						"x": 10.75,
+						"y": 2.94,
+						"rotation": -32.47,
+						"width": 32,
+						"height": 22
+					}
+				},
+				"flower11": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"flower-stem12": {
+					"flower-stem": {
+						"type": "region",
+						"path": "",
+						"x": 23.29,
+						"y": 0.13,
+						"rotation": -91.26,
+						"width": 10,
+						"height": 53
+					}
+				},
+				"flower3": {
+					"flower3": {
+						"type": "region",
+						"path": "",
+						"x": 12.11,
+						"y": -0.27,
+						"rotation": -90.78,
+						"width": 30,
+						"height": 31
+					},
+					"flower1": {
+						"type": "region",
+						"path": "",
+						"x": 16.81,
+						"y": -0.13,
+						"rotation": -90.78,
+						"width": 44,
+						"height": 38
+					},
+					"flower2": {
+						"type": "region",
+						"path": "",
+						"x": 16.62,
+						"y": 0.57,
+						"rotation": -90.78,
+						"width": 39,
+						"height": 34
+					}
+				},
+				"windmill-blades-wood-h": {
+					"windmill-blades-wood-h": {
+						"type": "region",
+						"path": "",
+						"x": -0.43,
+						"y": -0.49,
+						"width": 542,
+						"height": 25
+					}
+				},
+				"flower-shadow8": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"flower-shadow6": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				},
+				"tree2-leaves2": {
+					"tree2-leaves2": {
+						"type": "region",
+						"path": "",
+						"x": 44.48,
+						"y": -5.49,
+						"rotation": -113.78,
+						"width": 95,
+						"height": 99
+					}
+				},
+				"flower-shadow15": {
+					"flower-shadow": {
+						"type": "region",
+						"path": "",
+						"x": 1.76,
+						"y": -0.12,
+						"width": 46,
+						"height": 17
+					}
+				}
+			}
+		}
 	]
 }

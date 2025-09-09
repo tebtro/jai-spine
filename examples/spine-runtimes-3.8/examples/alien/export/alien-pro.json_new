@@ -359,5 +359,292 @@
 			"bone": "front-lower-arm",
 			"attachment": "front-lower-arm"
 		}
+	],
+	"transform": [
+		{
+			"name": "eye",
+			"order": 2,
+			"bones": [
+				"eye"
+			],
+			"target": "head",
+			"x": 91.94,
+			"y": -84.12
+		},
+		{
+			"name": "eye-root",
+			"bones": [
+				"eye-root"
+			],
+			"target": "head",
+			"rotation": -63.5,
+			"x": -143,
+			"y": -143.95,
+			"rotateMix": 0,
+			"scaleMix": 0
+		},
+		{
+			"name": "jaw",
+			"order": 1,
+			"bones": [
+				"metaljaw"
+			],
+			"target": "head",
+			"rotation": -138.36,
+			"x": 47,
+			"y": -7.76,
+			"rotateMix": 0,
+			"scaleMix": 0
+		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"splat-fg": {
+					"splat03": {
+						"type": "mesh"
+					},
+					"splat01-fg": {
+						"type": "region",
+						"path": "",
+						"x": 134.75,
+						"y": 95.12,
+						"scaleX": 1.7236,
+						"scaleY": 1.7236,
+						"rotation": 8.63,
+						"width": 406,
+						"height": 264
+					}
+				},
+				"metaljaw-bg": {
+					"metaljaw": {
+						"type": "region",
+						"path": "",
+						"x": 101.82,
+						"y": 83.41,
+						"scaleX": 0.693,
+						"scaleY": 0.9431,
+						"rotation": 66.62,
+						"width": 243,
+						"height": 172,
+						"color": 2054847231
+					}
+				},
+				"backarmor": {
+					"backarmor": {
+						"type": "region",
+						"path": "",
+						"x": 121.41,
+						"y": -18.48,
+						"rotation": -99.84,
+						"width": 162,
+						"height": 182
+					}
+				},
+				"upper-back-arm": {
+					"upper-back-arm": {
+						"type": "region",
+						"path": "",
+						"x": 38.71,
+						"y": 2.9,
+						"rotation": 68.76,
+						"width": 60,
+						"height": 86
+					}
+				},
+				"front-shin": {
+					"front-shin": {
+						"type": "region",
+						"path": "",
+						"x": 10.32,
+						"y": 1.86,
+						"rotation": 101.12,
+						"width": 49,
+						"height": 56
+					}
+				},
+				"eyeball": {
+					"eye": {
+						"type": "mesh"
+					}
+				},
+				"metaljaw": {
+					"metaljaw": {
+						"type": "region",
+						"path": "",
+						"x": 85.12,
+						"y": 55.13,
+						"rotation": 64.15,
+						"width": 243,
+						"height": 172
+					}
+				},
+				"burst-bg": {
+					"burst03-bg": {
+						"type": "mesh"
+					}
+				},
+				"eye-pupil": {
+					"eye-pupil": {
+						"type": "mesh"
+					}
+				},
+				"back-foot": {
+					"back-foot": {
+						"type": "region",
+						"path": "",
+						"x": 4.53,
+						"y": 2.76,
+						"rotation": 12.42,
+						"width": 16,
+						"height": 11
+					}
+				},
+				"front-upper-arm": {
+					"front-upper-arm": {
+						"type": "region",
+						"path": "",
+						"x": 35.92,
+						"y": 6.58,
+						"rotation": 174.62,
+						"width": 113,
+						"height": 55
+					}
+				},
+				"eye-highlight": {
+					"eye-highlight": {
+						"type": "region",
+						"path": "",
+						"width": 43,
+						"height": 43
+					}
+				},
+				"front-foot": {
+					"front-foot": {
+						"type": "region",
+						"path": "",
+						"x": 5.11,
+						"y": 2.54,
+						"rotation": 14.27,
+						"width": 19,
+						"height": 12
+					}
+				},
+				"eye-splat": {
+					"splat03": {
+						"type": "mesh"
+					}
+				},
+				"front-thigh": {
+					"front-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 26.99,
+						"y": 0.4,
+						"rotation": 55.89,
+						"width": 54,
+						"height": 54
+					}
+				},
+				"head": {
+					"burst02": {
+						"type": "mesh"
+					},
+					"head": {
+						"type": "mesh"
+					},
+					"burst01": {
+						"type": "mesh"
+					},
+					"burst03-fg": {
+						"type": "mesh"
+					}
+				},
+				"back-thigh": {
+					"back-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 21.8,
+						"y": -0.35,
+						"rotation": 54.08,
+						"width": 47,
+						"height": 47
+					}
+				},
+				"back-shin": {
+					"back-shin": {
+						"type": "region",
+						"path": "",
+						"x": 9.6,
+						"y": 0.84,
+						"rotation": 104.23,
+						"width": 42,
+						"height": 48
+					}
+				},
+				"front-lower-arm": {
+					"front-lower-arm": {
+						"type": "region",
+						"path": "",
+						"x": 52.88,
+						"y": 5.47,
+						"rotation": 102.64,
+						"width": 110,
+						"height": 125
+					}
+				},
+				"splat-bg": {
+					"splat02": {
+						"type": "region",
+						"path": "",
+						"x": 75.9,
+						"y": 342.4,
+						"scaleX": 1.7457,
+						"scaleY": 1.7457,
+						"width": 734,
+						"height": 511
+					},
+					"splat01": {
+						"type": "region",
+						"path": "",
+						"x": 109.41,
+						"y": 290.86,
+						"scaleX": 1.702,
+						"scaleY": 1.702,
+						"rotation": 7.05,
+						"width": 514,
+						"height": 503
+					}
+				},
+				"body": {
+					"body": {
+						"type": "region",
+						"path": "",
+						"x": 96.07,
+						"y": -9.51,
+						"rotation": -99.84,
+						"width": 196,
+						"height": 235
+					}
+				},
+				"eye-stalk": {
+					"eye-stalk": {
+						"type": "mesh"
+					}
+				},
+				"lower-back-arm": {
+					"lower-back-arm": {
+						"type": "region",
+						"path": "",
+						"x": 42.34,
+						"y": 10.93,
+						"rotation": -5.4,
+						"width": 101,
+						"height": 91
+					}
+				}
+			}
+		}
 	]
 }

@@ -306,5 +306,242 @@
 			"bone": "leaf-1",
 			"attachment": "leaf-1"
 		}
+	],
+	"transform": [
+		{
+			"name": "control-back",
+			"bones": [
+				"control-back"
+			],
+			"target": "control",
+			"rotateMix": 0,
+			"translateMix": -1,
+			"scaleMix": 0,
+			"shearMix": 0
+		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"leaf-3": {
+					"leaf-3": {
+						"type": "region",
+						"path": "",
+						"x": 115.81,
+						"y": 28.41,
+						"rotation": 32.57,
+						"width": 263,
+						"height": 154
+					}
+				},
+				"R_eye-pupil": {
+					"R_eye-pupil": {
+						"type": "region",
+						"path": "",
+						"x": -123.5,
+						"y": -38.81,
+						"width": 125,
+						"height": 119
+					}
+				},
+				"L_eye-pupil": {
+					"L_eye-pupil": {
+						"type": "region",
+						"path": "",
+						"x": 122.5,
+						"y": -38.81,
+						"width": 125,
+						"height": 119
+					}
+				},
+				"wood": {
+					"wood": {
+						"type": "mesh"
+					}
+				},
+				"beak": {
+					"beak": {
+						"type": "mesh"
+					}
+				},
+				"feather-1": {
+					"feather-1": {
+						"type": "region",
+						"path": "",
+						"x": 66.77,
+						"y": 51.32,
+						"rotation": 90.51,
+						"width": 117,
+						"height": 119
+					}
+				},
+				"leaf-7": {
+					"leaf-7": {
+						"type": "region",
+						"path": "",
+						"x": 83.07,
+						"y": -8.64,
+						"rotation": -58.07,
+						"width": 108,
+						"height": 172
+					}
+				},
+				"leaf-2": {
+					"leaf-2": {
+						"type": "region",
+						"path": "",
+						"x": 84.31,
+						"y": 7.56,
+						"rotation": 65.1,
+						"width": 130,
+						"height": 189
+					}
+				},
+				"L_wing": {
+					"L_wing": {
+						"type": "mesh"
+					}
+				},
+				"feather-2": {
+					"feather-2": {
+						"type": "region",
+						"path": "",
+						"x": 70.22,
+						"y": -56.15,
+						"rotation": 90.51,
+						"width": 124,
+						"height": 130
+					}
+				},
+				"leaf-6": {
+					"leaf-6": {
+						"type": "region",
+						"path": "",
+						"x": 107.78,
+						"y": 6.61,
+						"rotation": -109.98,
+						"width": 176,
+						"height": 231
+					}
+				},
+				"L_eye-iris": {
+					"L_eye-iris": {
+						"type": "mesh"
+					}
+				},
+				"leaf-1": {
+					"leaf-1": {
+						"type": "region",
+						"path": "",
+						"x": 93.08,
+						"y": -14.9,
+						"rotation": -86.78,
+						"width": 152,
+						"height": 202
+					}
+				},
+				"R_foot": {
+					"R_foot": {
+						"type": "region",
+						"path": "",
+						"x": -3.72,
+						"y": 15.78,
+						"rotation": 16.02,
+						"width": 128,
+						"height": 95
+					}
+				},
+				"L_foot": {
+					"L_foot": {
+						"type": "region",
+						"path": "",
+						"x": 289.24,
+						"y": 23.18,
+						"rotation": -4.56,
+						"width": 128,
+						"height": 95
+					}
+				},
+				"L_eye-light": {
+					"L_eye-light": {
+						"type": "mesh"
+					}
+				},
+				"feather-3": {
+					"feather-3": {
+						"type": "region",
+						"path": "",
+						"x": 83.66,
+						"y": 7.47,
+						"rotation": 90.51,
+						"width": 111,
+						"height": 152
+					}
+				},
+				"R_eye-iris": {
+					"R_eye-iris": {
+						"type": "mesh"
+					}
+				},
+				"leaf-5": {
+					"leaf-5": {
+						"type": "region",
+						"path": "",
+						"x": 89.18,
+						"y": 24.8,
+						"rotation": -81.12,
+						"width": 106,
+						"height": 211
+					}
+				},
+				"head-base": {
+					"head-base": {
+						"type": "mesh"
+					}
+				},
+				"beak-down": {
+					"beak-down": {
+						"type": "mesh"
+					}
+				},
+				"L_eye-closed": {
+					"L_eye-closed": {
+						"type": "mesh"
+					}
+				},
+				"R_wing": {
+					"R_wing": {
+						"type": "mesh"
+					}
+				},
+				"R_eye-light": {
+					"R_eye-light": {
+						"type": "mesh"
+					}
+				},
+				"leaf-4": {
+					"leaf-4": {
+						"type": "region",
+						"path": "",
+						"x": 70.16,
+						"y": -4.79,
+						"rotation": 174.22,
+						"width": 178,
+						"height": 98
+					}
+				},
+				"body": {
+					"body": {
+						"type": "mesh"
+					}
+				},
+				"R_eye-closed": {
+					"R_eye-closed": {
+						"type": "mesh"
+					}
+				}
+			}
+		}
 	]
 }

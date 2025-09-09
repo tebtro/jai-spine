@@ -1,17 +1,15 @@
 // raddbg 0.9.20 project file
 
-recent_file: path: "skeleton_3_json_read.jai"
-recent_file: path: "skeleton_json_read.jai"
-recent_file: path: "examples/skeleton.test.jai"
+recent_file: path: "json_write.jai"
+recent_file: path: "skeleton_3_json_write.jai"
+recent_file: path: "D:/_sync/projects/jai/jai/modules/runtime_support.jai"
 recent_file: path: "skeleton_json_write.jai"
+recent_file: path: "skeleton_3_json_read.jai"
+recent_file: path: "examples/skeleton.test.jai"
+recent_file: path: "skeleton_json_read.jai"
 target:
 {
   executable: "examples/skeleton.test.exe"
-  working_directory: "examples/"
+  working_directory: examples
   enabled: 1
-}
-breakpoint:
-{
-  source_location: "examples/skeleton.test.jai:35:1"
-  hit_count: 1
 }

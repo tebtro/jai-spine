@@ -271,5 +271,247 @@
 			"bone": "front-lower-arm",
 			"attachment": "front-lower-arm"
 		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"front-thigh": {
+					"front-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 26.99,
+						"y": 0.4,
+						"rotation": 55.89,
+						"width": 54,
+						"height": 54
+					}
+				},
+				"head": {
+					"burst02": {
+						"type": "region",
+						"path": "",
+						"x": 124.78,
+						"y": -27.35,
+						"rotation": -63.5,
+						"width": 311,
+						"height": 361
+					},
+					"head": {
+						"type": "region",
+						"path": "",
+						"x": 92.32,
+						"y": -53.02,
+						"rotation": -63.5,
+						"width": 297,
+						"height": 272
+					},
+					"burst01": {
+						"type": "region",
+						"path": "",
+						"x": 104.65,
+						"y": -32.91,
+						"rotation": -63.5,
+						"width": 286,
+						"height": 309
+					}
+				},
+				"back-thigh": {
+					"back-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 21.8,
+						"y": -0.35,
+						"rotation": 54.08,
+						"width": 47,
+						"height": 47
+					}
+				},
+				"back-shin": {
+					"back-shin": {
+						"type": "region",
+						"path": "",
+						"x": 9.6,
+						"y": 0.84,
+						"rotation": 104.23,
+						"width": 42,
+						"height": 48
+					}
+				},
+				"upper-back-arm": {
+					"upper-back-arm": {
+						"type": "region",
+						"path": "",
+						"x": 38.71,
+						"y": 2.9,
+						"rotation": 68.76,
+						"width": 60,
+						"height": 86
+					}
+				},
+				"front-shin": {
+					"front-shin": {
+						"type": "region",
+						"path": "",
+						"x": 10.32,
+						"y": 1.86,
+						"rotation": 101.12,
+						"width": 49,
+						"height": 56
+					}
+				},
+				"front-lower-arm": {
+					"front-lower-arm": {
+						"type": "region",
+						"path": "",
+						"x": 52.88,
+						"y": 5.47,
+						"rotation": 102.64,
+						"width": 110,
+						"height": 125
+					}
+				},
+				"metaljaw": {
+					"metaljaw": {
+						"type": "region",
+						"path": "",
+						"x": 86.81,
+						"y": 55.48,
+						"rotation": 64.15,
+						"width": 243,
+						"height": 172
+					}
+				},
+				"eye-pupil": {
+					"eye-pupil": {
+						"type": "region",
+						"path": "",
+						"width": 35,
+						"height": 35
+					}
+				},
+				"splat01": {
+					"splat02": {
+						"type": "region",
+						"path": "",
+						"x": 43.42,
+						"y": 106.44,
+						"width": 734,
+						"height": 511
+					},
+					"splat01": {
+						"type": "region",
+						"path": "",
+						"x": 77.57,
+						"y": 167.97,
+						"width": 514,
+						"height": 503
+					},
+					"splat03": {
+						"type": "region",
+						"path": "",
+						"x": 14.57,
+						"y": 119.84,
+						"width": 723,
+						"height": 339
+					}
+				},
+				"back-foot": {
+					"back-foot": {
+						"type": "region",
+						"path": "",
+						"x": 4.53,
+						"y": 2.76,
+						"rotation": 12.42,
+						"width": 16,
+						"height": 11
+					}
+				},
+				"blown-up-neck": {
+					"blown-up-neck": {
+						"type": "region",
+						"path": "",
+						"x": 11.7,
+						"y": -5.74,
+						"rotation": -63.5,
+						"width": 153,
+						"height": 104
+					}
+				},
+				"body": {
+					"body": {
+						"type": "region",
+						"path": "",
+						"x": 96.07,
+						"y": -9.51,
+						"rotation": -99.84,
+						"width": 196,
+						"height": 235
+					}
+				},
+				"front-upper-arm": {
+					"front-upper-arm": {
+						"type": "region",
+						"path": "",
+						"x": 35.92,
+						"y": 6.58,
+						"rotation": 174.62,
+						"width": 113,
+						"height": 55
+					}
+				},
+				"eye-highlight": {
+					"eye-highlight": {
+						"type": "region",
+						"path": "",
+						"width": 43,
+						"height": 43
+					}
+				},
+				"front-foot": {
+					"front-foot": {
+						"type": "region",
+						"path": "",
+						"x": 5.11,
+						"y": 2.54,
+						"rotation": 14.27,
+						"width": 19,
+						"height": 12
+					}
+				},
+				"eye": {
+					"eye": {
+						"type": "region",
+						"path": "",
+						"scaleX": 0.6551,
+						"scaleY": 0.6551,
+						"width": 150,
+						"height": 150
+					}
+				},
+				"lower-back-arm": {
+					"lower-back-arm": {
+						"type": "region",
+						"path": "",
+						"x": 42.34,
+						"y": 10.93,
+						"rotation": -5.4,
+						"width": 101,
+						"height": 91
+					}
+				},
+				"backarmor": {
+					"backarmor": {
+						"type": "region",
+						"path": "",
+						"x": 121.41,
+						"y": -18.48,
+						"rotation": -99.84,
+						"width": 162,
+						"height": 182
+					}
+				}
+			}
+		}
 	]
 }

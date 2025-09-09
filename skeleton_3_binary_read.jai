@@ -79,17 +79,17 @@ Skeleton_3_Binary_Read :: struct {
             ik.order         = read_var_s32(s, true);
             ik.skin_required = read_bool(s);
             bones_count     := read_var_s32(s, true);
-            array_reserve(*ik.bones, bones_count);
+            array_reserve(*ik.bone_indices, bones_count);
             for 0..bones_count-1 {
-                array_add(*ik.bones, read_var_s32(s, true));
+                array_add(*ik.bone_indices, read_var_s32(s, true));
             }
-            ik.target         = read_var_s32(s, true);
-            ik.mix            = read_f32(s);
-            ik.softness       = read_f32(s) * scale;
-            ik.bend_direction = read_s8(s);
-            ik.compress       = read_bool(s);
-            ik.stretch        = read_bool(s);
-            ik.uniform        = read_bool(s);
+            ik.target_bone_index = read_var_s32(s, true);
+            ik.mix               = read_f32(s);
+            ik.softness          = read_f32(s) * scale;
+            ik.bend_direction    = read_s8(s);
+            ik.compress          = read_bool(s);
+            ik.stretch           = read_bool(s);
+            ik.uniform           = read_bool(s);
         }
 
         // Transform constraints
@@ -105,23 +105,23 @@ Skeleton_3_Binary_Read :: struct {
             constraint.order         = read_var_s32(s, true);
             constraint.skin_required = read_bool(s);
             bones_count             := read_var_s32(s, true);
-            array_reserve(*constraint.bones, bones_count);
+            array_reserve(*constraint.bone_indices, bones_count);
             for 0..bones_count-1 {
-                array_add(*constraint.bones, read_var_s32(s, true));
+                array_add(*constraint.bone_indices, read_var_s32(s, true));
             }
-            constraint.target          = read_var_s32(s, true);
-            constraint.local           = read_bool(s);
-            constraint.relative        = read_bool(s);
-            constraint.offset_rotation = read_f32(s);
-            constraint.offset_x        = read_f32(s) * scale;
-            constraint.offset_y        = read_f32(s) * scale;
-            constraint.offset_scale_x  = read_f32(s);
-            constraint.offset_scale_y  = read_f32(s);
-            constraint.offset_shear_y  = read_f32(s);
-            constraint.rotate_mix      = read_f32(s);
-            constraint.translate_mix   = read_f32(s);
-            constraint.scale_mix       = read_f32(s);
-            constraint.shear_mix       = read_f32(s);
+            constraint.target_bone_index = read_var_s32(s, true);
+            constraint.local             = read_bool(s);
+            constraint.relative          = read_bool(s);
+            constraint.offset_rotation   = read_f32(s);
+            constraint.offset_x          = read_f32(s) * scale;
+            constraint.offset_y          = read_f32(s) * scale;
+            constraint.offset_scale_x    = read_f32(s);
+            constraint.offset_scale_y    = read_f32(s);
+            constraint.offset_shear_y    = read_f32(s);
+            constraint.rotate_mix        = read_f32(s);
+            constraint.translate_mix     = read_f32(s);
+            constraint.scale_mix         = read_f32(s);
+            constraint.shear_mix         = read_f32(s);
         }
 
         // Path constraints
@@ -137,19 +137,19 @@ Skeleton_3_Binary_Read :: struct {
             constraint.order         = read_var_s32(s, true);
             constraint.skin_required = read_bool(s);
             bones_count             := read_var_s32(s, true);
-            array_reserve(*constraint.bones, bones_count);
+            array_reserve(*constraint.bone_indices, bones_count);
             for 0..bones_count-1 {
-                array_add(*constraint.bones, read_var_s32(s, true));
+                array_add(*constraint.bone_indices, read_var_s32(s, true));
             }
-            constraint.target          = read_var_s32(s, true);
-            constraint.position_mode   = xx read_var_s32(s, true);
-            constraint.spacing\_mode   = xx read_var_s32(s, true);
-            constraint.rotate\ _mode   = xx read_var_s32(s, true);
-            constraint.offset_rotation = read_f32(s);
-            constraint.position        = read_f32(s);
-            constraint.spacing         = read_f32(s);
-            constraint.rotate_mix      = read_f32(s);
-            constraint.translate_mix   = read_f32(s);
+            constraint.target_bone_index = read_var_s32(s, true);
+            constraint.position_mode     = xx read_var_s32(s, true);
+            constraint.spacing\_mode     = xx read_var_s32(s, true);
+            constraint.rotate\ _mode     = xx read_var_s32(s, true);
+            constraint.offset_rotation   = read_f32(s);
+            constraint.position          = read_f32(s);
+            constraint.spacing           = read_f32(s);
+            constraint.rotate_mix        = read_f32(s);
+            constraint.translate_mix     = read_f32(s);
         }
 
         // Default skin
@@ -231,10 +231,10 @@ Skeleton_3_Binary_Read :: struct {
                 return false;
             }
 
-            read_var_s32_array(s, *skin.bones);
-            read_var_s32_array(s, *skin.ik\      _constraints);
-            read_var_s32_array(s, *skin.transform_constraints);
-            read_var_s32_array(s, *skin.path\    _constraints);
+            read_var_s32_array(s, *skin.bone_indices);
+            read_var_s32_array(s, *skin.ik_constraint_indices);
+            read_var_s32_array(s, *skin.transform_constraint_indices);
+            read_var_s32_array(s, *skin.path_constraint_indices);
 
             slots_count = read_var_s32(s, true);
         }

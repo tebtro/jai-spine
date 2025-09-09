@@ -86,14 +86,25 @@ Json_Write :: struct {
 	}
 	
 	write_object :: (using writer: *Json_Write, code: Code) #expand {
-		write_scope(writer, "", code, "{", "}");
+		write_object(writer, "", code);
+	}
+	write_object :: (using writer: *Json_Write, key: String_Reference, code: Code) #expand {
+		write_object(writer, key.data, code);
+	}
+	write_object :: (using writer: *Json_Write, key: Optional(string), code: Code) #expand {
+		assert(key.has_value);
+		if key.has_value {
+			write_object(writer, key.value, code);
+		} else {
+			write_object(writer, "", code);
+		}
 	}
 	write_object :: (using writer: *Json_Write, key: string, code: Code) #expand {
 		write_scope(writer, key, code, "{", "}");
 	}
 	
 	write_array :: (using writer: *Json_Write, code: Code) #expand {
-		write_scope(writer, "", code, "[", "]");
+		write_array(writer, "", code);
 	}
 	write_array :: (using writer: *Json_Write, key: string, code: Code) #expand {
 		write_scope(writer, key, code, "[", "]");
@@ -118,12 +129,17 @@ Json_Write :: struct {
 		if value == default  return;
 		write(writer, key, value);
 	}
+	write :: (using writer: *Json_Write, value: int) {
+		write(writer, "", value);
+	}
 	write :: (using writer: *Json_Write, key: string, value: int) {
 		indent(writer);
-        append(builder, "\"");
-        append(builder, key);
-        append(builder, "\":");
-        space(writer);
+		if key {
+            append(builder, "\"");
+            append(builder, key);
+            append(builder, "\":");
+            space(writer);
+		}
 		append(builder, tprint("%", value));
         comma(writer);
 		newline(writer);
@@ -133,23 +149,33 @@ Json_Write :: struct {
 		if value == default  return;
 		write(writer, key, value);
 	}
+	write :: (using writer: *Json_Write, value: float64) {
+		write(writer, "", value);
+	}
 	write :: (using writer: *Json_Write, key: string, value: float64) {
 		indent(writer);
-        append(builder, "\"");
-        append(builder, key);
-        append(builder, "\":");
-        space(writer);
+		if key {
+            append(builder, "\"");
+            append(builder, key);
+            append(builder, "\":");
+            space(writer);
+		}
 		append(builder, tprint("%", value));
         comma(writer);
 		newline(writer);
 	}
 	
+	write :: (using writer: *Json_Write, value: string) {
+		write(writer, "", value);
+	}
 	write :: (using writer: *Json_Write, key: string, value: string) {
 		indent(writer);
-        append(builder, "\"");
-        append(builder, key);
-        append(builder, "\":");
-        space(writer);
+		if key {
+            append(builder, "\"");
+            append(builder, key);
+            append(builder, "\":");
+            space(writer);
+		}
         append(builder, "\"");
 		append(builder, value);
         append(builder, "\"");
@@ -157,6 +183,9 @@ Json_Write :: struct {
 		newline(writer);
 	}
 	
+	write :: (using writer: *Json_Write, optional_string: Optional(string)) {
+		write(writer, "", optional_string);
+	}
 	write :: (using writer: *Json_Write, key: string, optional_string: Optional(string)) {
 		if optional_string.has_value {
 			write(writer, key, optional_string.value);

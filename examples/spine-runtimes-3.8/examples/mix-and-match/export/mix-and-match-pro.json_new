@@ -1552,5 +1552,3375 @@
 			"bone": "body-up",
 			"attachment": "cape-ribbon"
 		}
+	],
+	"ik": [
+		{
+			"name": "foot-back",
+			"order": 1,
+			"bones": [
+				"leg-up-back",
+				"leg-down-back"
+			],
+			"target": "foot-back-IK",
+			"bendPositive": false
+		},
+		{
+			"name": "foot-front",
+			"bones": [
+				"leg-up",
+				"leg-down"
+			],
+			"target": "foot-front-IK",
+			"bendPositive": false
+		}
+	],
+	"transform": [
+		{
+			"name": "eye-back-pupil",
+			"order": 12,
+			"bones": [
+				"eye-back-iris"
+			],
+			"target": "eye-back-pupil",
+			"rotateMix": 0,
+			"translateMix": 0.4,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "eye-front-pupil",
+			"order": 11,
+			"bones": [
+				"eye-front-iris"
+			],
+			"target": "eye-front-pupil",
+			"rotateMix": 0,
+			"translateMix": 0.4,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "eye-transform",
+			"order": 7,
+			"bones": [
+				"features-control"
+			],
+			"target": "head-control",
+			"rotateMix": 0,
+			"translateMix": 0.2,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "hair-side-back",
+			"order": 9,
+			"bones": [
+				"hair-side-back"
+			],
+			"target": "head-back-control",
+			"rotation": -62.21,
+			"x": 132.47,
+			"y": 46.72,
+			"rotateMix": 0,
+			"translateMix": 0.05,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "hair-side-front-control",
+			"order": 8,
+			"bones": [
+				"hair-side-front"
+			],
+			"target": "head-control",
+			"rotation": -80.89,
+			"x": -102.78,
+			"y": 27.17,
+			"rotateMix": 0,
+			"translateMix": 0.15,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "hat-control",
+			"order": 10,
+			"skin": true,
+			"bones": [
+				"hat-control"
+			],
+			"target": "head-control",
+			"rotation": 95.63,
+			"x": -78.91,
+			"y": 123.01,
+			"shearY": -36,
+			"rotateMix": 0,
+			"translateMix": 0.6,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "head-control",
+			"order": 6,
+			"bones": [
+				"head-back-control"
+			],
+			"target": "head-control",
+			"x": -88.92,
+			"rotateMix": 0,
+			"translateMix": -1,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "leg-down-back",
+			"order": 18,
+			"skin": true,
+			"bones": [
+				"dress-control-foot-back"
+			],
+			"target": "leg-down-back",
+			"x": 132.85,
+			"y": 58.02,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "leg-down-back-up",
+			"order": 19,
+			"skin": true,
+			"bones": [
+				"dress-control-leg-down-back"
+			],
+			"target": "leg-down-back",
+			"x": 17.25,
+			"y": 41.79,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "leg-down-down",
+			"order": 17,
+			"skin": true,
+			"bones": [
+				"dress-control-foot-front"
+			],
+			"target": "leg-down",
+			"x": 147.87,
+			"y": -60.85,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "leg-down-front",
+			"order": 16,
+			"skin": true,
+			"bones": [
+				"dress-control-leg-down-front"
+			],
+			"target": "leg-down",
+			"x": 23.51,
+			"y": -48.52,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "leg-up",
+			"order": 15,
+			"skin": true,
+			"bones": [
+				"dress-control-leg-up-front"
+			],
+			"target": "leg-up",
+			"x": 130.03,
+			"y": -50.13,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "leg-up-back",
+			"order": 14,
+			"skin": true,
+			"bones": [
+				"dress-control-leg-up-back"
+			],
+			"target": "leg-up-back",
+			"x": 129.36,
+			"y": 40.42,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "shoulder-back",
+			"order": 22,
+			"bones": [
+				"shoulder-back-transform"
+			],
+			"target": "arm-back-up",
+			"rotation": 180,
+			"x": -14.41,
+			"y": -46.12,
+			"rotateMix": 0.18,
+			"translateMix": 0,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "shoulder-front",
+			"order": 21,
+			"bones": [
+				"shouder-front-transform"
+			],
+			"target": "arm-front-up",
+			"rotation": 90,
+			"x": -24.78,
+			"y": 29.54,
+			"rotateMix": 0.186,
+			"translateMix": 0,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "skirt-rotation-back",
+			"order": 20,
+			"skin": true,
+			"bones": [
+				"skirt-control-back"
+			],
+			"target": "skirt-rotation-back",
+			"rotation": 114.82,
+			"x": 148.43,
+			"y": -0.72,
+			"shearY": -36,
+			"translateMix": 0.7,
+			"scaleMix": 0,
+			"shearMix": 0
+		},
+		{
+			"name": "skirt-rotation-front",
+			"order": 13,
+			"skin": true,
+			"bones": [
+				"skirt-control-front"
+			],
+			"target": "skirt-rotation-front",
+			"rotation": 242.6,
+			"x": 141.99,
+			"y": 2.23,
+			"shearY": -36,
+			"translateMix": 0.7,
+			"scaleMix": 0,
+			"shearMix": 0
+		}
+	],
+	"path": [
+		{
+			"name": "arm-back",
+			"order": 4,
+			"bones": [
+				"arm-back-up-2",
+				"arm-back-up-3",
+				"arm-back-up-4",
+				"arm-back-up-5",
+				"arm-back-up-6",
+				"arm-back-up-7"
+			],
+			"target": "arm-back-path",
+			"spacingMode": "percent",
+			"rotateMode": "chainscale",
+			"spacing": 0.1667
+		},
+		{
+			"name": "arm-front",
+			"order": 2,
+			"bones": [
+				"arm-front-up-2",
+				"arm-front-up-6",
+				"arm-front-up-5",
+				"arm-front-up-4",
+				"arm-front-up-3",
+				"arm-front-up-7"
+			],
+			"target": "arm-front-path",
+			"spacingMode": "percent",
+			"rotateMode": "chainscale",
+			"spacing": 0.1667
+		},
+		{
+			"name": "leg-back",
+			"order": 5,
+			"bones": [
+				"leg-back-8",
+				"leg-back-7",
+				"leg-back-6",
+				"leg-back-5",
+				"leg-back-4",
+				"leg-back-3",
+				"leg-back-2",
+				"leg-back-1"
+			],
+			"target": "leg-back-path",
+			"spacingMode": "percent",
+			"rotateMode": "chainscale",
+			"spacing": 0.125
+		},
+		{
+			"name": "leg-front",
+			"order": 3,
+			"bones": [
+				"leg-front-1",
+				"leg-front-2",
+				"leg-front-3",
+				"leg-front-4",
+				"leg-front-5",
+				"leg-front-6",
+				"leg-front-7",
+				"leg-front-8"
+			],
+			"target": "leg-front-path",
+			"spacingMode": "percent",
+			"rotateMode": "chainscale",
+			"spacing": 0.125
+		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"leg-back-path": {
+					"leg-back-path": {
+						"type": "path"
+					}
+				},
+				"arm-back-path": {
+					"arm-back-path": {
+						"type": "path"
+					}
+				},
+				"leg-front-path": {
+					"leg-front-path": {
+						"type": "path"
+					}
+				},
+				"arm-front-path": {
+					"arm-front-path": {
+						"type": "path"
+					}
+				}
+			}
+		},
+		{
+			"name": "accessories/backpack",
+			"bones": [
+				"backpack",
+				"backpack-control"
+			],
+			"attachments": {
+				"backpack-strap-back": {
+					"backpack-strap-back": {
+						"type": "mesh"
+					}
+				},
+				"backpack-strap-front": {
+					"backpack-strap-front": {
+						"type": "mesh"
+					}
+				},
+				"backpack": {
+					"backpack": {
+						"type": "mesh"
+					}
+				},
+				"backpack-up": {
+					"backpack-up": {
+						"type": "mesh"
+					}
+				},
+				"backpack-pocket": {
+					"backpack-pocket": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "accessories/bag",
+			"bones": [
+				"bag",
+				"bag-back-down",
+				"bag-back-front",
+				"bag-control",
+				"bag-flap",
+				"bag-strap-back",
+				"bag-strap-front"
+			],
+			"attachments": {
+				"bag-strap-front": {
+					"bag-strap-front": {
+						"type": "mesh"
+					}
+				},
+				"bag-base": {
+					"bag-base": {
+						"type": "mesh"
+					}
+				},
+				"bag-strap-back": {
+					"bag-strap-back": {
+						"type": "mesh"
+					}
+				},
+				"bag-top": {
+					"bag-top": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "hair/blue",
+			"attachments": {
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 15.6,
+						"y": -9.48,
+						"rotation": -177.9,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 10.82,
+						"y": 8.92,
+						"rotation": -3.58,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"hair-side-back": {
+					"hair-side-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-side-front": {
+					"hair-side-front": {
+						"type": "mesh"
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "legs/boots-pink",
+			"attachments": {
+				"leg-back": {
+					"leg-back": {
+						"type": "mesh"
+					}
+				},
+				"leg-front": {
+					"leg-front": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-blue-cape/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "legs/boots-red",
+			"attachments": {
+				"leg-back": {
+					"leg-back": {
+						"type": "mesh"
+					}
+				},
+				"leg-front": {
+					"leg-front": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "full-skins/boy",
+			"bones": [
+				"backpack",
+				"backpack-control",
+				"hat",
+				"hat-base",
+				"hat-control",
+				"pompom-control",
+				"zip-boy"
+			],
+			"transform": [
+				"hat-control"
+			],
+			"attachments": {
+				"hand-back": {
+					"hand-back-fingers": {
+						"type": "region",
+						"path": "",
+						"x": 11.59,
+						"y": -2.84,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-low-eyelid": {
+					"eye-back-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 13.08,
+						"y": -0.6,
+						"rotation": -177.9,
+						"width": 40,
+						"height": 22
+					}
+				},
+				"backpack-strap-back": {
+					"backpack-strap-back": {
+						"type": "mesh"
+					}
+				},
+				"sleeve-front": {
+					"sleeve-front": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-white": {
+					"eye-front-white": {
+						"type": "mesh"
+					}
+				},
+				"nose": {
+					"nose": {
+						"type": "mesh"
+					}
+				},
+				"backpack-strap-front": {
+					"backpack-strap-front": {
+						"type": "mesh"
+					}
+				},
+				"backpack": {
+					"backpack": {
+						"type": "mesh"
+					}
+				},
+				"leg-back": {
+					"leg-back": {
+						"type": "mesh"
+					}
+				},
+				"boot-ribbon-front": {
+					"boot-ribbon-front": {
+						"type": "mesh"
+					}
+				},
+				"backpack-up": {
+					"backpack-up": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-up-eyelid": {
+					"eye-front-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"arm-back": {
+					"arm-back": {
+						"type": "mesh"
+					}
+				},
+				"base-head": {
+					"base-head": {
+						"type": "region",
+						"path": "",
+						"x": 74.74,
+						"y": -10.09,
+						"rotation": -87.57,
+						"width": 189,
+						"height": 145
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-pupil": {
+					"eye-back-pupil": {
+						"type": "region",
+						"path": "",
+						"x": 0.43,
+						"y": -0.67,
+						"width": 15,
+						"height": 17
+					}
+				},
+				"leg-front": {
+					"leg-front": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-up-eyelid-back": {
+					"eye-back-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-low-eyelid": {
+					"eye-front-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-pupil": {
+					"eye-front-pupil": {
+						"type": "region",
+						"path": "",
+						"x": -0.04,
+						"y": -0.47,
+						"width": 17,
+						"height": 17
+					}
+				},
+				"zip-boy": {
+					"zip-boy": {
+						"type": "region",
+						"path": "",
+						"x": 14.35,
+						"y": -0.15,
+						"rotation": 82.23,
+						"width": 27,
+						"height": 46
+					}
+				},
+				"collar": {
+					"collar": {
+						"type": "mesh"
+					}
+				},
+				"hat": {
+					"hat": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"pompom": {
+					"pompom": {
+						"type": "region",
+						"path": "",
+						"x": -48.24,
+						"y": 11.74,
+						"rotation": -95.63,
+						"width": 96,
+						"height": 85
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 21.26,
+						"y": 0.14,
+						"rotation": -3.58,
+						"width": 49,
+						"height": 22
+					}
+				},
+				"eye-back-iris": {
+					"eye-back-iris": {
+						"type": "region",
+						"path": "",
+						"x": 0.85,
+						"y": -0.75,
+						"width": 33,
+						"height": 34
+					}
+				},
+				"backpack-pocket": {
+					"backpack-pocket": {
+						"type": "mesh"
+					}
+				},
+				"boot-ribbon-back": {
+					"boot-ribbon-back": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "mesh"
+					}
+				},
+				"body": {
+					"body": {
+						"type": "linkedmesh"
+					}
+				},
+				"eye-front-up-eyelid-back": {
+					"eye-front-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-iris": {
+					"eye-front-iris": {
+						"type": "region",
+						"path": "",
+						"x": 0.22,
+						"y": -0.71,
+						"width": 36,
+						"height": 35
+					}
+				},
+				"eye-back-up-eyelid": {
+					"eye-back-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-smile": {
+						"type": "region",
+						"path": "",
+						"x": -4.12,
+						"y": 2.56,
+						"width": 57,
+						"height": 13
+					},
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"hand-front": {
+					"hand-front-fingers": {
+						"type": "region",
+						"path": "",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"eye-back-white": {
+					"eye-back-white": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "hair/brown",
+			"attachments": {
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "girl-spring-dress/back-eyebrow",
+						"x": 15.6,
+						"y": -9.48,
+						"rotation": -177.9,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "girl-spring-dress/front-eyebrow",
+						"x": 10.82,
+						"y": 8.92,
+						"rotation": -3.58,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"hair-side-back": {
+					"hair-side-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "girl-spring-dress/ear",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-side-front": {
+					"hair-side-front": {
+						"type": "mesh"
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "accessories/cape-blue",
+			"bones": [
+				"cape-blue-control",
+				"cape-blue-down",
+				"cape-blue-down-back",
+				"cape-blue-down-front",
+				"cape-blue-down-middle",
+				"cape-blue-middle-back",
+				"cape-blue-middle-front",
+				"cape-blue-up",
+				"cape-blue-up-back",
+				"cape-blue-up-front",
+				"cape-back-rotator",
+				"cape-front-rotator"
+			],
+			"attachments": {
+				"cape-blue-shoulder-front": {
+					"cape-blue-shoulder-front": {
+						"type": "mesh"
+					}
+				},
+				"cape-blue-shoulder-back": {
+					"cape-blue-shoulder-back": {
+						"type": "mesh"
+					}
+				},
+				"cape-up-back": {
+					"cape-up-back": {
+						"type": "mesh"
+					}
+				},
+				"cape-back": {
+					"cape-back": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "girl-blue-cape/ear",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"cape-blue-up-front": {
+					"cape-blue-up-front": {
+						"type": "mesh"
+					}
+				},
+				"cape-ribbon": {
+					"cape-ribbon": {
+						"type": "region",
+						"path": "",
+						"x": 105.78,
+						"y": -28.65,
+						"rotation": -94.33,
+						"width": 100,
+						"height": 36
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-blue-cape/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "accessories/cape-red",
+			"bones": [
+				"cape-red-back-inside",
+				"cape-red-back-outside",
+				"cape-back-rotator",
+				"cape-red-front-inside",
+				"cape-red-front-outside",
+				"cape-front-rotator"
+			],
+			"attachments": {
+				"cape-red-up": {
+					"cape-red-up": {
+						"type": "mesh"
+					}
+				},
+				"ribbon-shoulder": {
+					"ribbon-shoulder": {
+						"type": "region",
+						"path": "",
+						"x": 100.69,
+						"y": -35.56,
+						"rotation": -94.33,
+						"width": 71,
+						"height": 48
+					}
+				},
+				"cape-red-down": {
+					"cape-red-down": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "clothes/dress-blue",
+			"bones": [
+				"dress-control-foot-front",
+				"dress-control-foot-back",
+				"dress-control-leg-down-back",
+				"dress-control-leg-down-front",
+				"dress-control-leg-up-back",
+				"dress-control-leg-up-front",
+				"dress-control-middle",
+				"sleeve-control-back",
+				"sleeve-control-front"
+			],
+			"transform": [
+				"leg-down-front",
+				"leg-down-back",
+				"leg-down-back-up",
+				"leg-down-down",
+				"leg-up",
+				"leg-up-back"
+			],
+			"attachments": {
+				"sleeve-inner-back": {
+					"sleeve-inner-back": {
+						"type": "mesh"
+					}
+				},
+				"hand-back": {
+					"hand-back-fingers": {
+						"type": "region",
+						"path": "girl-blue-cape/hand-front-fingers",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"body-dress": {
+					"body-dress": {
+						"type": "mesh"
+					}
+				},
+				"sleeve-front": {
+					"sleeve-front": {
+						"type": "mesh"
+					}
+				},
+				"ribbon-body": {
+					"ribbon-body": {
+						"type": "region",
+						"path": "",
+						"x": 18.42,
+						"y": -33.29,
+						"rotation": -94.33,
+						"width": 100,
+						"height": 75
+					}
+				},
+				"arm-back": {
+					"arm-back": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-blue-cape/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"sleeve-inner-front": {
+					"sleeve-inner-front": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "clothes/dress-green",
+			"bones": [
+				"skirt-control",
+				"skirt-control-back",
+				"skirt-control-back-down",
+				"skirt-control-front",
+				"skirt-control-front-down",
+				"skirt-control-middle",
+				"skirt-control-up"
+			],
+			"attachments": {
+				"underskirt": {
+					"underskirt": {
+						"type": "mesh"
+					}
+				},
+				"body-up": {
+					"body-up": {
+						"type": "region",
+						"path": "",
+						"x": 59.16,
+						"y": -14.67,
+						"rotation": -94.33,
+						"width": 128,
+						"height": 131
+					}
+				},
+				"skirt": {
+					"skirt": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "eyes/eyes-blue",
+			"attachments": {
+				"eye-back-iris": {
+					"eye-back-iris": {
+						"type": "region",
+						"path": "",
+						"x": 0.85,
+						"y": -0.75,
+						"width": 33,
+						"height": 34
+					}
+				},
+				"eye-back-pupil": {
+					"eye-back-pupil": {
+						"type": "region",
+						"path": "",
+						"x": 0.43,
+						"y": -0.67,
+						"scaleX": 1.2,
+						"scaleY": 1.2062,
+						"width": 15,
+						"height": 17
+					}
+				},
+				"eye-front-iris": {
+					"eye-front-iris": {
+						"type": "region",
+						"path": "",
+						"x": 0.22,
+						"y": -0.71,
+						"width": 36,
+						"height": 35
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"eye-front-pupil": {
+					"eye-front-pupil": {
+						"type": "region",
+						"path": "",
+						"x": -0.04,
+						"y": -0.47,
+						"scaleX": 1.2,
+						"scaleY": 1.2,
+						"width": 17,
+						"height": 17
+					}
+				}
+			}
+		},
+		{
+			"name": "full-skins/girl",
+			"bones": [
+				"bag",
+				"bag-back-down",
+				"bag-back-front",
+				"bag-control",
+				"bag-flap",
+				"bag-strap-back",
+				"bag-strap-front",
+				"hair-holder-back",
+				"hair-holder-front",
+				"hair-strand-back-1",
+				"hair-strand-back-2",
+				"hair-strand-back-3",
+				"hair-strand-front-1",
+				"hair-strand-front-2",
+				"hair-strand-front-3",
+				"hair-strand-front-4",
+				"hat",
+				"hat-base",
+				"hat-control",
+				"pompom-control",
+				"scarf-back",
+				"zip-girl"
+			],
+			"transform": [
+				"hat-control",
+				"leg-down-back-up",
+				"leg-up-back"
+			],
+			"attachments": {
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-low-eyelid": {
+					"eye-back-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"sleeve-front": {
+					"sleeve-front": {
+						"type": "linkedmesh"
+					}
+				},
+				"eye-front-white": {
+					"eye-front-white": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-front-3": {
+					"hair-strand-front-3": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-front-4": {
+					"hair-strand-front-4": {
+						"type": "mesh"
+					}
+				},
+				"nose": {
+					"nose": {
+						"type": "mesh"
+					}
+				},
+				"boot-ribbon-front": {
+					"boot-ribbon-front": {
+						"type": "region",
+						"path": "",
+						"x": 31.67,
+						"y": 16.34,
+						"rotation": 89.95,
+						"width": 26,
+						"height": 25
+					}
+				},
+				"eye-front-up-eyelid": {
+					"eye-front-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"arm-back": {
+					"arm-back": {
+						"type": "linkedmesh"
+					}
+				},
+				"hair-strand-back-1": {
+					"hair-strand-back-1": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-pupil": {
+					"eye-back-pupil": {
+						"type": "region",
+						"path": "",
+						"x": 0.43,
+						"y": -0.67,
+						"scaleX": 1.2,
+						"scaleY": 1.2062,
+						"width": 15,
+						"height": 17
+					}
+				},
+				"eye-front-low-eyelid": {
+					"eye-front-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-pupil": {
+					"eye-front-pupil": {
+						"type": "region",
+						"path": "",
+						"x": -0.04,
+						"y": -0.47,
+						"scaleX": 1.2,
+						"scaleY": 1.2,
+						"width": 17,
+						"height": 17
+					}
+				},
+				"bag-strap-front": {
+					"bag-strap-front": {
+						"type": "mesh"
+					}
+				},
+				"bag-base": {
+					"bag-base": {
+						"type": "mesh"
+					}
+				},
+				"hat": {
+					"hat": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-front-1": {
+					"hair-strand-front-1": {
+						"type": "mesh"
+					}
+				},
+				"hair-side-back": {
+					"hair-side-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-iris": {
+					"eye-back-iris": {
+						"type": "region",
+						"path": "",
+						"x": 0.85,
+						"y": -0.75,
+						"width": 33,
+						"height": 34
+					}
+				},
+				"hair-strand-back-3": {
+					"hair-strand-back-3": {
+						"type": "region",
+						"path": "",
+						"x": 56.8,
+						"y": -25.4,
+						"rotation": 55.29,
+						"width": 184,
+						"height": 157
+					}
+				},
+				"boot-ribbon-back": {
+					"boot-ribbon-back": {
+						"type": "region",
+						"path": "",
+						"x": 67.51,
+						"y": 16.46,
+						"rotation": 90.17,
+						"width": 26,
+						"height": 25
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"eye-front-iris": {
+					"eye-front-iris": {
+						"type": "region",
+						"path": "",
+						"x": 0.22,
+						"y": -0.71,
+						"width": 36,
+						"height": 35
+					}
+				},
+				"hair-side-front": {
+					"hair-side-front": {
+						"type": "mesh"
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-front-2": {
+					"hair-strand-front-2": {
+						"type": "mesh"
+					}
+				},
+				"hand-front": {
+					"hand-front-fingers": {
+						"type": "region",
+						"path": "",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"hand-back": {
+					"hand-back-fingers": {
+						"type": "region",
+						"path": "",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 15.6,
+						"y": -9.48,
+						"rotation": -177.9,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"scarf-back": {
+					"scarf-back": {
+						"type": "region",
+						"path": "",
+						"x": 46.88,
+						"y": 3.26,
+						"rotation": 177.98,
+						"width": 143,
+						"height": 102
+					}
+				},
+				"leg-back": {
+					"leg-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"base-head": {
+					"base-head": {
+						"type": "region",
+						"path": "",
+						"x": 74.74,
+						"y": -10.09,
+						"rotation": -87.57,
+						"width": 189,
+						"height": 145
+					}
+				},
+				"bag-top": {
+					"bag-top": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-up-eyelid-back": {
+					"eye-back-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"leg-front": {
+					"leg-front": {
+						"type": "mesh"
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"scarf": {
+					"scarf": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-back-2": {
+					"hair-strand-back-2": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"pompom": {
+					"pompom": {
+						"type": "region",
+						"path": "",
+						"x": 0.31,
+						"y": -0.35,
+						"rotation": -95.63,
+						"width": 96,
+						"height": 85
+					}
+				},
+				"bag-strap-back": {
+					"bag-strap-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 10.82,
+						"y": 8.92,
+						"rotation": -3.58,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"body": {
+					"body": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-up-eyelid-back": {
+					"eye-front-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "mesh"
+					}
+				},
+				"zip-girl": {
+					"zip-girl": {
+						"type": "region",
+						"path": "",
+						"x": 19.66,
+						"y": 3.69,
+						"rotation": 80.66,
+						"width": 37,
+						"height": 49
+					}
+				},
+				"eye-back-up-eyelid": {
+					"eye-back-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-smile": {
+						"type": "region",
+						"path": "",
+						"x": -4.12,
+						"y": 2.56,
+						"width": 57,
+						"height": 13
+					},
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"eye-back-white": {
+					"eye-back-white": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "full-skins/girl-blue-cape",
+			"bones": [
+				"cape-blue-control",
+				"cape-blue-down",
+				"cape-blue-down-back",
+				"cape-blue-down-front",
+				"cape-blue-down-middle",
+				"cape-blue-middle-back",
+				"cape-blue-middle-front",
+				"cape-blue-up",
+				"cape-blue-up-back",
+				"cape-blue-up-front",
+				"dress-control-foot-front",
+				"dress-control-foot-back",
+				"dress-control-leg-down-back",
+				"dress-control-leg-down-front",
+				"dress-control-leg-up-back",
+				"dress-control-leg-up-front",
+				"dress-control-middle",
+				"cape-back-rotator",
+				"cape-front-rotator",
+				"sleeve-control-back",
+				"sleeve-control-front"
+			],
+			"transform": [
+				"leg-down-front",
+				"leg-down-back",
+				"leg-down-back-up",
+				"leg-down-down",
+				"leg-up",
+				"leg-up-back"
+			],
+			"attachments": {
+				"hand-back": {
+					"hand-back-fingers": {
+						"type": "region",
+						"path": "girl-blue-cape/hand-front-fingers",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-low-eyelid": {
+					"eye-back-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"body-dress": {
+					"body-dress": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "girl-blue-cape/back-eyebrow",
+						"x": 15.6,
+						"y": -9.48,
+						"rotation": -177.9,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"cape-blue-shoulder-front": {
+					"cape-blue-shoulder-front": {
+						"type": "mesh"
+					}
+				},
+				"sleeve-front": {
+					"sleeve-front": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-white": {
+					"eye-front-white": {
+						"type": "mesh"
+					}
+				},
+				"cape-blue-shoulder-back": {
+					"cape-blue-shoulder-back": {
+						"type": "mesh"
+					}
+				},
+				"nose": {
+					"nose": {
+						"type": "mesh"
+					}
+				},
+				"leg-back": {
+					"leg-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-side-front": {
+					"hair-side-front": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-up-eyelid": {
+					"eye-front-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"cape-up-back": {
+					"cape-up-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"neck": {
+					"neck": {
+						"type": "region",
+						"path": "",
+						"x": 27.19,
+						"y": -3.15,
+						"rotation": -91.34,
+						"width": 39,
+						"height": 63
+					}
+				},
+				"arm-back": {
+					"arm-back": {
+						"type": "mesh"
+					}
+				},
+				"base-head": {
+					"base-head": {
+						"type": "region",
+						"path": "",
+						"x": 74.74,
+						"y": -10.09,
+						"rotation": -87.57,
+						"width": 189,
+						"height": 145
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-pupil": {
+					"eye-back-pupil": {
+						"type": "region",
+						"path": "girl-blue-cape/eye-back-pupil",
+						"x": 0.43,
+						"y": -0.67,
+						"scaleX": 1.2,
+						"scaleY": 1.2062,
+						"width": 15,
+						"height": 17
+					}
+				},
+				"leg-front": {
+					"leg-front": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-up-eyelid-back": {
+					"eye-back-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-low-eyelid": {
+					"eye-front-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-pupil": {
+					"eye-front-pupil": {
+						"type": "region",
+						"path": "girl-blue-cape/eye-front-pupil",
+						"x": -0.04,
+						"y": -0.47,
+						"scaleX": 1.2,
+						"scaleY": 1.2,
+						"width": 17,
+						"height": 17
+					}
+				},
+				"sleeve-inner-front": {
+					"sleeve-inner-front": {
+						"type": "mesh"
+					}
+				},
+				"sleeve-inner-back": {
+					"sleeve-inner-back": {
+						"type": "mesh"
+					}
+				},
+				"cape-blue-up-front": {
+					"cape-blue-up-front": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"ribbon-body": {
+					"ribbon-body": {
+						"type": "region",
+						"path": "",
+						"x": 18.42,
+						"y": -33.29,
+						"rotation": -94.33,
+						"width": 100,
+						"height": 75
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "girl-blue-cape/front-eyebrow",
+						"x": 10.82,
+						"y": 8.92,
+						"rotation": -3.58,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"hair-side-back": {
+					"hair-side-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-iris": {
+					"eye-back-iris": {
+						"type": "region",
+						"path": "girl-blue-cape/eye-iris-back",
+						"x": 0.85,
+						"y": -0.75,
+						"width": 33,
+						"height": 34
+					}
+				},
+				"cape-back": {
+					"cape-back": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "girl-blue-cape/ear",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"eye-front-up-eyelid-back": {
+					"eye-front-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "region",
+						"path": "",
+						"x": 77.53,
+						"y": 2.96,
+						"rotation": -87.57,
+						"width": 234,
+						"height": 196
+					}
+				},
+				"eye-front-iris": {
+					"eye-front-iris": {
+						"type": "region",
+						"path": "girl-blue-cape/eye-iris-front",
+						"x": 0.22,
+						"y": -0.71,
+						"width": 36,
+						"height": 35
+					}
+				},
+				"eye-back-up-eyelid": {
+					"eye-back-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"cape-ribbon": {
+					"cape-ribbon": {
+						"type": "region",
+						"path": "",
+						"x": 105.78,
+						"y": -28.65,
+						"rotation": -94.33,
+						"width": 100,
+						"height": 36
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-smile": {
+						"type": "region",
+						"path": "girl-blue-cape/mouth-smile",
+						"x": -4.12,
+						"y": 2.56,
+						"width": 57,
+						"height": 13
+					},
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-blue-cape/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"eye-back-white": {
+					"eye-back-white": {
+						"type": "mesh"
+					}
+				},
+				"hand-front": {
+					"hand-front-fingers": {
+						"type": "region",
+						"path": "girl-blue-cape/hand-front-fingers",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				}
+			}
+		},
+		{
+			"name": "full-skins/girl-spring-dress",
+			"bones": [
+				"cape-red-back-inside",
+				"cape-red-back-outside",
+				"cape-back-rotator",
+				"cape-red-front-inside",
+				"cape-red-front-outside",
+				"cape-front-rotator",
+				"skirt-control",
+				"skirt-control-back",
+				"skirt-control-back-down",
+				"skirt-control-front",
+				"skirt-control-front-down",
+				"skirt-control-middle",
+				"skirt-control-up",
+				"skirt-rotation-back",
+				"skirt-rotation-front"
+			],
+			"transform": [
+				"skirt-rotation-back",
+				"skirt-rotation-front"
+			],
+			"attachments": {
+				"hand-back": {
+					"hand-back-fingers": {
+						"type": "region",
+						"path": "girl-spring-dress/hand-front-fingers",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-low-eyelid": {
+					"eye-back-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"hair-side-front": {
+					"hair-side-front": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "girl-spring-dress/back-eyebrow",
+						"x": 15.6,
+						"y": -9.48,
+						"rotation": -177.9,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"arm-front": {
+					"arm-front": {
+						"type": "mesh"
+					}
+				},
+				"cape-red-up": {
+					"cape-red-up": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-white": {
+					"eye-front-white": {
+						"type": "mesh"
+					}
+				},
+				"nose": {
+					"nose": {
+						"type": "mesh"
+					}
+				},
+				"leg-back": {
+					"leg-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-up-eyelid": {
+					"eye-front-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"underskirt": {
+					"underskirt": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"neck": {
+					"neck": {
+						"type": "region",
+						"path": "",
+						"x": 27.19,
+						"y": -3.15,
+						"rotation": -91.34,
+						"width": 39,
+						"height": 63
+					}
+				},
+				"arm-back": {
+					"arm-back": {
+						"type": "mesh"
+					}
+				},
+				"base-head": {
+					"base-head": {
+						"type": "region",
+						"path": "",
+						"x": 74.74,
+						"y": -10.09,
+						"rotation": -87.57,
+						"width": 189,
+						"height": 145
+					}
+				},
+				"body-up": {
+					"body-up": {
+						"type": "region",
+						"path": "",
+						"x": 59.16,
+						"y": -14.67,
+						"rotation": -94.33,
+						"width": 128,
+						"height": 131
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"skirt": {
+					"skirt": {
+						"type": "mesh"
+					}
+				},
+				"leg-front": {
+					"leg-front": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-pupil": {
+					"eye-back-pupil": {
+						"type": "region",
+						"path": "girl-spring-dress/eye-back-pupil",
+						"x": 0.43,
+						"y": -0.67,
+						"scaleX": 1.2,
+						"scaleY": 1.2062,
+						"width": 15,
+						"height": 17
+					}
+				},
+				"eye-front-low-eyelid": {
+					"eye-front-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-pupil": {
+					"eye-front-pupil": {
+						"type": "region",
+						"path": "girl-spring-dress/eye-front-pupil",
+						"x": -0.04,
+						"y": -0.47,
+						"scaleX": 1.2,
+						"scaleY": 1.2,
+						"width": 17,
+						"height": 17
+					}
+				},
+				"eye-back-up-eyelid-back": {
+					"eye-back-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "girl-spring-dress/front-eyebrow",
+						"x": 10.82,
+						"y": 8.92,
+						"rotation": -3.58,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"ribbon-shoulder": {
+					"ribbon-shoulder": {
+						"type": "region",
+						"path": "",
+						"x": 100.69,
+						"y": -35.56,
+						"rotation": -94.33,
+						"width": 71,
+						"height": 48
+					}
+				},
+				"hair-side-back": {
+					"hair-side-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-iris": {
+					"eye-back-iris": {
+						"type": "region",
+						"path": "girl-spring-dress/eye-iris-back",
+						"x": 0.85,
+						"y": -0.75,
+						"width": 33,
+						"height": 34
+					}
+				},
+				"cape-red-down": {
+					"cape-red-down": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "girl-spring-dress/ear",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"eye-front-up-eyelid-back": {
+					"eye-front-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-iris": {
+					"eye-front-iris": {
+						"type": "region",
+						"path": "girl-spring-dress/eye-iris-front",
+						"x": 0.22,
+						"y": -0.71,
+						"width": 36,
+						"height": 35
+					}
+				},
+				"eye-back-up-eyelid": {
+					"eye-back-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-smile": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-smile",
+						"x": -4.12,
+						"y": 2.56,
+						"width": 57,
+						"height": 13
+					},
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"hand-front": {
+					"hand-front-fingers": {
+						"type": "region",
+						"path": "girl-spring-dress/hand-front-fingers",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"eye-back-white": {
+					"eye-back-white": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "eyelids/girly",
+			"attachments": {
+				"eye-back-low-eyelid": {
+					"eye-back-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-white": {
+					"eye-front-white": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-up-eyelid": {
+					"eye-front-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-up-eyelid-back": {
+					"eye-front-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-up-eyelid-back": {
+					"eye-back-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-up-eyelid": {
+					"eye-back-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"eye-front-low-eyelid": {
+					"eye-front-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-white": {
+					"eye-back-white": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "eyes/green",
+			"attachments": {
+				"eye-back-iris": {
+					"eye-back-iris": {
+						"type": "region",
+						"path": "",
+						"x": 0.85,
+						"y": -0.75,
+						"width": 33,
+						"height": 34
+					}
+				},
+				"eye-back-pupil": {
+					"eye-back-pupil": {
+						"type": "region",
+						"path": "",
+						"x": 0.43,
+						"y": -0.67,
+						"width": 15,
+						"height": 17
+					}
+				},
+				"eye-front-iris": {
+					"eye-front-iris": {
+						"type": "region",
+						"path": "",
+						"x": 0.22,
+						"y": -0.71,
+						"width": 36,
+						"height": 35
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"eye-front-pupil": {
+					"eye-front-pupil": {
+						"type": "region",
+						"path": "",
+						"x": -0.04,
+						"y": -0.47,
+						"width": 17,
+						"height": 17
+					}
+				}
+			}
+		},
+		{
+			"name": "accessories/hat-pointy-blue-yellow",
+			"bones": [
+				"hat",
+				"hat-base",
+				"hat-control",
+				"pompom-control"
+			],
+			"transform": [
+				"hat-control"
+			],
+			"attachments": {
+				"hat": {
+					"hat": {
+						"type": "mesh"
+					}
+				},
+				"pompom": {
+					"pompom": {
+						"type": "region",
+						"path": "",
+						"x": 0.31,
+						"y": -0.35,
+						"rotation": -95.63,
+						"width": 96,
+						"height": 85
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "accessories/hat-red-yellow",
+			"bones": [
+				"hat",
+				"hat-base",
+				"hat-control",
+				"pompom-control"
+			],
+			"transform": [
+				"hat-control"
+			],
+			"attachments": {
+				"hat": {
+					"hat": {
+						"type": "mesh"
+					}
+				},
+				"pompom": {
+					"pompom": {
+						"type": "region",
+						"path": "",
+						"x": -48.24,
+						"y": 11.74,
+						"rotation": -95.63,
+						"width": 96,
+						"height": 85
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "clothes/hoodie-blue-and-scarf",
+			"bones": [
+				"scarf-back",
+				"zip-girl"
+			],
+			"attachments": {
+				"scarf-back": {
+					"scarf-back": {
+						"type": "region",
+						"path": "",
+						"x": 46.88,
+						"y": 3.26,
+						"rotation": 177.98,
+						"width": 143,
+						"height": 102
+					}
+				},
+				"sleeve-front": {
+					"sleeve-front": {
+						"type": "linkedmesh"
+					}
+				},
+				"arm-back": {
+					"arm-back": {
+						"type": "linkedmesh"
+					}
+				},
+				"body": {
+					"body": {
+						"type": "mesh"
+					}
+				},
+				"zip-girl": {
+					"zip-girl": {
+						"type": "region",
+						"path": "",
+						"x": 19.66,
+						"y": 3.69,
+						"rotation": 80.66,
+						"width": 37,
+						"height": 49
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"scarf": {
+					"scarf": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "clothes/hoodie-orange",
+			"bones": [
+				"zip-boy"
+			],
+			"attachments": {
+				"collar": {
+					"collar": {
+						"type": "mesh"
+					}
+				},
+				"sleeve-front": {
+					"sleeve-front": {
+						"type": "mesh"
+					}
+				},
+				"arm-back": {
+					"arm-back": {
+						"type": "mesh"
+					}
+				},
+				"body": {
+					"body": {
+						"type": "linkedmesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"zip-boy": {
+					"zip-boy": {
+						"type": "region",
+						"path": "",
+						"x": 14.35,
+						"y": -0.15,
+						"rotation": 82.23,
+						"width": 27,
+						"height": 46
+					}
+				}
+			}
+		},
+		{
+			"name": "nose/long",
+			"attachments": {
+				"nose": {
+					"nose": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "hair/long-blue-with-scarf",
+			"bones": [
+				"hair-holder-back",
+				"hair-holder-front",
+				"hair-strand-front-1",
+				"hair-strand-front-3",
+				"hair-strand-back-1",
+				"hair-strand-back-2",
+				"hair-strand-back-3",
+				"hair-strand-front-2",
+				"hair-strand-front-4",
+				"scarf-back"
+			],
+			"attachments": {
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-back-2": {
+					"hair-strand-back-2": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-front-1": {
+					"hair-strand-front-1": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 15.6,
+						"y": -9.48,
+						"rotation": -177.9,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"scarf-back": {
+					"scarf-back": {
+						"type": "region",
+						"path": "",
+						"x": 46.88,
+						"y": 3.26,
+						"rotation": 177.98,
+						"width": 143,
+						"height": 102
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-front-3": {
+					"hair-strand-front-3": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-front-4": {
+					"hair-strand-front-4": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 10.82,
+						"y": 8.92,
+						"rotation": -3.58,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"hair-side-back": {
+					"hair-side-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-strand-back-3": {
+					"hair-strand-back-3": {
+						"type": "region",
+						"path": "",
+						"x": 56.8,
+						"y": -25.4,
+						"rotation": 55.29,
+						"width": 184,
+						"height": 157
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"hair-strand-back-1": {
+					"hair-strand-back-1": {
+						"type": "mesh"
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-side-front": {
+					"hair-side-front": {
+						"type": "mesh"
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"hair-strand-front-2": {
+					"hair-strand-front-2": {
+						"type": "mesh"
+					}
+				},
+				"scarf": {
+					"scarf": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "legs/pants-green",
+			"attachments": {
+				"leg-back": {
+					"leg-back": {
+						"type": "mesh"
+					}
+				},
+				"boot-ribbon-front": {
+					"boot-ribbon-front": {
+						"type": "mesh"
+					}
+				},
+				"boot-ribbon-back": {
+					"boot-ribbon-back": {
+						"type": "mesh"
+					}
+				},
+				"leg-front": {
+					"leg-front": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "legs/pants-jeans",
+			"attachments": {
+				"leg-back": {
+					"leg-back": {
+						"type": "mesh"
+					}
+				},
+				"boot-ribbon-front": {
+					"boot-ribbon-front": {
+						"type": "region",
+						"path": "",
+						"x": 31.67,
+						"y": 16.34,
+						"rotation": 89.95,
+						"width": 26,
+						"height": 25
+					}
+				},
+				"boot-ribbon-back": {
+					"boot-ribbon-back": {
+						"type": "region",
+						"path": "",
+						"x": 67.51,
+						"y": 16.46,
+						"rotation": 90.17,
+						"width": 26,
+						"height": 25
+					}
+				},
+				"leg-front": {
+					"leg-front": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "hair/pink",
+			"attachments": {
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "girl-blue-cape/back-eyebrow",
+						"x": 15.6,
+						"y": -9.48,
+						"rotation": -177.9,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "girl-blue-cape/front-eyebrow",
+						"x": 10.82,
+						"y": 8.92,
+						"rotation": -3.58,
+						"width": 36,
+						"height": 23
+					}
+				},
+				"hair-side-back": {
+					"hair-side-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "girl-blue-cape/ear",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "region",
+						"path": "",
+						"x": 77.53,
+						"y": 2.96,
+						"rotation": -87.57,
+						"width": 234,
+						"height": 196
+					}
+				},
+				"hair-side-front": {
+					"hair-side-front": {
+						"type": "mesh"
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-blue-cape/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "accessories/scarf",
+			"bones": [
+				"scarf-back"
+			],
+			"attachments": {
+				"scarf-back": {
+					"scarf-back": {
+						"type": "region",
+						"path": "",
+						"x": 46.88,
+						"y": 3.26,
+						"rotation": 177.98,
+						"width": 143,
+						"height": 102
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"scarf": {
+					"scarf": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "eyelids/semiclosed",
+			"attachments": {
+				"eye-back-low-eyelid": {
+					"eye-back-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-white": {
+					"eye-front-white": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-up-eyelid": {
+					"eye-front-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-up-eyelid-back": {
+					"eye-front-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-up-eyelid-back": {
+					"eye-back-up-eyelid-back": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-up-eyelid": {
+					"eye-back-up-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"eye-front-low-eyelid": {
+					"eye-front-low-eyelid": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-white": {
+					"eye-back-white": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "nose/short",
+			"attachments": {
+				"nose": {
+					"nose": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "hair/short-red",
+			"attachments": {
+				"hair-side-transparent": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"eye-back-eyebrow": {
+					"eye-back-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 13.08,
+						"y": -0.6,
+						"rotation": -177.9,
+						"width": 40,
+						"height": 22
+					}
+				},
+				"hair-bangs": {
+					"hair-bangs": {
+						"type": "mesh"
+					}
+				},
+				"eye-front-eyebrow": {
+					"eye-front-eyebrow": {
+						"type": "region",
+						"path": "",
+						"x": 21.26,
+						"y": 0.14,
+						"rotation": -3.58,
+						"width": 49,
+						"height": 22
+					}
+				},
+				"hair-bangs-transparent": {
+					"hair-bangs-transparent": {
+						"type": "mesh"
+					}
+				},
+				"hair-side": {
+					"hair-side": {
+						"type": "mesh"
+					}
+				},
+				"hair-back": {
+					"hair-back": {
+						"type": "mesh"
+					}
+				},
+				"hair-patch": {
+					"hair-patch": {
+						"type": "mesh"
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				}
+			}
+		},
+		{
+			"name": "skin-base",
+			"attachments": {
+				"hand-back": {
+					"hand-back-fingers": {
+						"type": "region",
+						"path": "girl-spring-dress/hand-front-fingers",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"neck": {
+					"neck": {
+						"type": "region",
+						"path": "",
+						"x": 27.19,
+						"y": -3.15,
+						"rotation": -91.34,
+						"width": 39,
+						"height": 63
+					}
+				},
+				"arm-back": {
+					"arm-back": {
+						"type": "mesh"
+					}
+				},
+				"ear": {
+					"ear": {
+						"type": "region",
+						"path": "girl-spring-dress/ear",
+						"x": 56.58,
+						"y": 85.63,
+						"rotation": -87.57,
+						"width": 38,
+						"height": 45
+					}
+				},
+				"base-head": {
+					"base-head": {
+						"type": "region",
+						"path": "",
+						"x": 74.74,
+						"y": -10.09,
+						"rotation": -87.57,
+						"width": 189,
+						"height": 145
+					}
+				},
+				"mouth": {
+					"mouth-smile": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-smile",
+						"x": -4.12,
+						"y": 2.56,
+						"width": 57,
+						"height": 13
+					},
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"hand-front": {
+					"hand-front-fingers": {
+						"type": "region",
+						"path": "girl-spring-dress/hand-front-fingers",
+						"x": 11.59,
+						"y": 1.97,
+						"rotation": 90,
+						"width": 38,
+						"height": 42
+					}
+				},
+				"arm-front": {
+					"arm-front": {
+						"type": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"name": "eyes/violet",
+			"attachments": {
+				"eye-back-iris": {
+					"eye-back-iris": {
+						"type": "region",
+						"path": "girl-blue-cape/eye-iris-back",
+						"x": 0.85,
+						"y": -0.75,
+						"width": 33,
+						"height": 34
+					}
+				},
+				"eye-back-pupil": {
+					"eye-back-pupil": {
+						"type": "region",
+						"path": "girl-blue-cape/eye-back-pupil",
+						"x": 0.43,
+						"y": -0.67,
+						"scaleX": 1.2,
+						"scaleY": 1.2062,
+						"width": 15,
+						"height": 17
+					}
+				},
+				"eye-front-iris": {
+					"eye-front-iris": {
+						"type": "region",
+						"path": "girl-blue-cape/eye-iris-front",
+						"x": 0.22,
+						"y": -0.71,
+						"width": 36,
+						"height": 35
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-blue-cape/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"eye-front-pupil": {
+					"eye-front-pupil": {
+						"type": "region",
+						"path": "girl-blue-cape/eye-front-pupil",
+						"x": -0.04,
+						"y": -0.47,
+						"scaleX": 1.2,
+						"scaleY": 1.2,
+						"width": 17,
+						"height": 17
+					}
+				}
+			}
+		},
+		{
+			"name": "eyes/yellow",
+			"attachments": {
+				"eye-back-iris": {
+					"eye-back-iris": {
+						"type": "region",
+						"path": "girl-spring-dress/eye-iris-back",
+						"x": 0.85,
+						"y": -0.75,
+						"width": 33,
+						"height": 34
+					}
+				},
+				"eye-back-pupil": {
+					"eye-back-pupil": {
+						"type": "region",
+						"path": "girl-spring-dress/eye-back-pupil",
+						"x": 0.43,
+						"y": -0.67,
+						"scaleX": 1.2,
+						"scaleY": 1.2062,
+						"width": 15,
+						"height": 17
+					}
+				},
+				"eye-front-iris": {
+					"eye-front-iris": {
+						"type": "region",
+						"path": "girl-spring-dress/eye-iris-front",
+						"x": 0.22,
+						"y": -0.71,
+						"width": 36,
+						"height": 35
+					}
+				},
+				"mouth": {
+					"mouth-close": {
+						"type": "region",
+						"path": "girl-spring-dress/mouth-close",
+						"x": 6.2,
+						"y": 5.18,
+						"width": 42,
+						"height": 9
+					}
+				},
+				"eye-front-pupil": {
+					"eye-front-pupil": {
+						"type": "region",
+						"path": "girl-spring-dress/eye-front-pupil",
+						"x": -0.04,
+						"y": -0.47,
+						"scaleX": 1.2,
+						"scaleY": 1.2,
+						"width": 17,
+						"height": 17
+					}
+				}
+			}
+		}
 	]
 }

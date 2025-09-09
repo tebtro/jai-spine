@@ -263,5 +263,312 @@
 			"bone": "head",
 			"attachment": ""
 		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"front-fist": {
+					"front-fist-open": {
+						"type": "region",
+						"path": "",
+						"x": 39.57,
+						"y": 7.76,
+						"rotation": 67.16,
+						"width": 86,
+						"height": 87
+					},
+					"front-fist-closed": {
+						"type": "region",
+						"path": "",
+						"x": 35.5,
+						"y": 6,
+						"rotation": 67.16,
+						"width": 75,
+						"height": 82
+					}
+				},
+				"rear-thigh": {
+					"rear-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 33.11,
+						"y": -4.11,
+						"rotation": 72.54,
+						"width": 55,
+						"height": 94
+					}
+				},
+				"head": {
+					"head": {
+						"type": "region",
+						"path": "",
+						"x": 128.96,
+						"y": 0.3,
+						"rotation": -70.63,
+						"width": 271,
+						"height": 298
+					}
+				},
+				"front-thigh": {
+					"front-thigh": {
+						"type": "region",
+						"path": "",
+						"x": 42.48,
+						"y": 4.45,
+						"rotation": 84.87,
+						"width": 45,
+						"height": 112
+					}
+				},
+				"gun": {
+					"gun": {
+						"type": "region",
+						"path": "",
+						"x": 77.3,
+						"y": 16.4,
+						"rotation": 60.83,
+						"width": 210,
+						"height": 203
+					}
+				},
+				"torso": {
+					"torso": {
+						"type": "region",
+						"path": "",
+						"x": 63.61,
+						"y": 7.12,
+						"rotation": -94.54,
+						"width": 98,
+						"height": 180
+					}
+				},
+				"rear-shin": {
+					"rear-shin": {
+						"type": "region",
+						"path": "",
+						"x": 58.29,
+						"y": -2.75,
+						"rotation": 92.37,
+						"width": 75,
+						"height": 178
+					}
+				},
+				"front-shin": {
+					"front-shin": {
+						"type": "region",
+						"path": "",
+						"x": 55.12,
+						"y": -3.54,
+						"rotation": 96.59,
+						"width": 82,
+						"height": 184
+					}
+				},
+				"muzzle": {
+					"muzzle04": {
+						"type": "region",
+						"path": "",
+						"x": 218.54,
+						"y": 5.99,
+						"scaleX": 4,
+						"scaleY": 4,
+						"rotation": 0.15,
+						"width": 149,
+						"height": 90
+					},
+					"muzzle03": {
+						"type": "region",
+						"path": "",
+						"x": 230.67,
+						"y": 6.02,
+						"scaleX": 4,
+						"scaleY": 4,
+						"rotation": 0.15,
+						"width": 166,
+						"height": 106
+					},
+					"muzzle02": {
+						"type": "region",
+						"path": "",
+						"x": 191.23,
+						"y": 5.91,
+						"scaleX": 4,
+						"scaleY": 4,
+						"rotation": 0.15,
+						"width": 135,
+						"height": 84
+					},
+					"muzzle01": {
+						"type": "region",
+						"path": "",
+						"x": 159.26,
+						"y": 5.83,
+						"scaleX": 4,
+						"scaleY": 4,
+						"rotation": 0.15,
+						"width": 133,
+						"height": 79
+					}
+				},
+				"rear-foot": {
+					"rear-foot": {
+						"type": "region",
+						"path": "",
+						"x": 31.51,
+						"y": 3.58,
+						"rotation": 23.07,
+						"width": 113,
+						"height": 60
+					}
+				},
+				"head-bb": {
+					"head": {
+						"type": "boundingbox",
+						"vertexCount": 6,
+						"vertices": [
+							-19.14,
+							-70.3,
+							40.8,
+							-118.07,
+							257.77,
+							-115.62,
+							285.16,
+							57.18,
+							120.77,
+							164.95,
+							-5.07,
+							76.95
+						]
+					}
+				},
+				"rear-upper-arm": {
+					"rear-upper-arm": {
+						"type": "region",
+						"path": "",
+						"x": 21.13,
+						"y": 4.09,
+						"rotation": 89.33,
+						"width": 40,
+						"height": 87
+					}
+				},
+				"neck": {
+					"neck": {
+						"type": "region",
+						"path": "",
+						"x": 9.77,
+						"y": -3.01,
+						"rotation": -55.22,
+						"width": 36,
+						"height": 41
+					}
+				},
+				"front-upper-arm": {
+					"front-upper-arm": {
+						"type": "region",
+						"path": "",
+						"x": 25.2,
+						"y": 1.17,
+						"rotation": 97.9,
+						"width": 46,
+						"height": 97
+					}
+				},
+				"front-foot": {
+					"front-foot": {
+						"type": "region",
+						"path": "",
+						"x": 29.52,
+						"y": 7.84,
+						"rotation": 18.69,
+						"width": 126,
+						"height": 69
+					}
+				},
+				"front-bracer": {
+					"front-bracer": {
+						"type": "region",
+						"path": "",
+						"x": 12.03,
+						"y": -1.68,
+						"rotation": 79.6,
+						"width": 58,
+						"height": 80
+					}
+				},
+				"goggles": {
+					"goggles": {
+						"type": "region",
+						"path": "",
+						"x": 97.08,
+						"y": 6.54,
+						"rotation": -70.63,
+						"width": 261,
+						"height": 166
+					}
+				},
+				"eye": {
+					"eye-surprised": {
+						"type": "region",
+						"path": "",
+						"x": 85.72,
+						"y": -28.18,
+						"rotation": -70.63,
+						"width": 93,
+						"height": 89
+					},
+					"eye-indifferent": {
+						"type": "region",
+						"path": "",
+						"x": 85.72,
+						"y": -28.18,
+						"rotation": -70.63,
+						"width": 93,
+						"height": 89
+					}
+				},
+				"mouth": {
+					"mouth-oooo": {
+						"type": "region",
+						"path": "",
+						"x": 23.69,
+						"y": -32.24,
+						"rotation": -70.63,
+						"width": 93,
+						"height": 59
+					},
+					"mouth-grind": {
+						"type": "region",
+						"path": "",
+						"x": 23.69,
+						"y": -32.24,
+						"rotation": -70.63,
+						"width": 93,
+						"height": 59
+					},
+					"mouth-smile": {
+						"type": "region",
+						"path": "",
+						"x": 23.69,
+						"y": -32.24,
+						"rotation": -70.63,
+						"width": 93,
+						"height": 59
+					}
+				},
+				"rear-bracer": {
+					"rear-bracer": {
+						"type": "region",
+						"path": "",
+						"x": 11.15,
+						"y": -2.2,
+						"rotation": 66.17,
+						"width": 56,
+						"height": 72
+					}
+				}
+			}
+		}
 	]
 }
